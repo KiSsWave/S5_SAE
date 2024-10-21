@@ -1,11 +1,13 @@
 <?php
 
+namespace nrv\infrastructure;
 use Dotenv\Dotenv;
 
 class DatabaseConnection
 {
     public static function getPDO(string $dbName): PDO
     {
+
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../../config');
         $dotenv->load();
 

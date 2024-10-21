@@ -2,7 +2,7 @@
 
 namespace nrv\infrastructure\repositories;
 
-use DatabaseConnection;
+use nrv\infrastructure\DatabaseConnection;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use PDO;
 
