@@ -13,7 +13,7 @@ class SoireeRepository implements SoireeRepositoryInterface
 
     public function __construct()
     {
-        $this->pdo = DatabaseConnection::getPDO('Soiree');
+        $this->pdo = DatabaseConnection::getPDO('Soirees');
     }
 
     public function getSoireeByID(int $id){

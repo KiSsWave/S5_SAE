@@ -1,5 +1,7 @@
 <?php
 
+namespace nrv\core\services\Soiree;
+
 use nrv\core\dto\SoireeDTO;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use nrv\core\services\Soiree\SoireeServiceInterface;
