@@ -18,5 +18,5 @@ cache.properties
 composer.phar
 composer.lock
 # ENV
-app/config/dbconnexion.env
-app/config/token.env
+backend/app/config/dbconnexion.env
+backend/app/config/token.env
