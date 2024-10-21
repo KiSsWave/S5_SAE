@@ -9,7 +9,7 @@ create table USERS(
 );
 
 create table SOIREES(
-	ID SERIAL primary key
+	ID varchar primary key
 	nom varchar,
 	thematique varchar,
 	dateSoiree timestamptz,
@@ -20,7 +20,7 @@ create table SOIREES(
 );
 
 create table SPECTACLES(
-	ID SERIAL primary key,
+	ID varchar primary key,
 	titre varchar,
 	description varchar,
 	images varchar,
@@ -53,14 +53,14 @@ create table BILLETS(
 ),
 
 create table ARTISTES(
-	ID_artiste SERIAL primary key not null
+	ID_artiste varchar primary key not null
 	pseudonyme varchar,
 	nom varchar,
 	prenom varchar
 );
 
 create table ARTISTESPECTACLE(
-	ID_artiste int,
+	ID_artiste varchar,
 	ID_spectacle varchar,
 	foreign key(ID_artiste) references ARTISTES(ID_artiste),
 	foreign key(ID_spectacle) references SPECTACLES(ID),
