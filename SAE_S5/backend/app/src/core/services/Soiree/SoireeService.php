@@ -2,6 +2,7 @@
 
 use nrv\core\dto\SoireeDTO;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
+use nrv\core\services\Soiree\SoireeServiceInterface;
 
 class SoireeService implements SoireeServiceInterface
 {
