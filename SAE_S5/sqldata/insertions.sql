@@ -32,7 +32,7 @@ INSERT INTO LIEUX (nom, adresse, nbPlacesAssises, nbPlacesDebout, images) VALUES
 INSERT INTO BILLETS (ID_acheteur, nomSoiree, typeTarif, prix) VALUES
 ('550e8400-e29b-41d4-a716-446655440000', 'Soirée Jazz', 'tarif plein', 50),
 ('550e8400-e29b-41d4-a716-446655440001', 'Soirée Rock', 'tarif réduit', 40),
-('550e8400-e29b-41d4-a716-446655440002', 'Soirée Comédie', 'tarif plein', 45);
+('550e8400-e29b-41d4-a716-446655440002', 'Soirée Métal', 'tarif plein', 45);
 
 -- Insertion des artistes
 INSERT INTO ARTISTES (ID_artiste, pseudonyme, nom, prenom) VALUES
