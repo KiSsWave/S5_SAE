@@ -10,14 +10,14 @@ create table USERS(
 );
 
 create table SOIREES(
-	ID varchar primary key
+	ID varchar primary key,
 	nom varchar,
 	thematique varchar,
 	dateSoiree timestamptz,
 	lieuSoiree varchar,
 	nbPlaces int,
-	tarif double,
-	tarifReduit double
+	tarif float,
+	tarifReduit float
 );
 
 create table SPECTACLES(

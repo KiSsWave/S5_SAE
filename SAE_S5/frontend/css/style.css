@@ -4,6 +4,10 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+.hide {
+  display: none;
+}
+
 header {
   color: white;
   background-color: #111;
