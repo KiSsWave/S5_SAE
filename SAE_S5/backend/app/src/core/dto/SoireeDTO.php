@@ -3,7 +3,7 @@
 namespace nrv\core\dto;
 
 use Faker\Core\DateTime;
-use nrv\core\domain\entities\Soiree\Soiree;
+use Soiree\Soiree;
 use nrv\core\dto\DTO;
 
 class SoireeDTO extends DTO{

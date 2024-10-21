@@ -1,44 +1,42 @@
-
 networks:
-  toubeelib.net:
+  nrv.net:
     driver: bridge
+
 services:
 
   api:
     image: canals/php:latest
     restart: unless-stopped
     build:
-      context: build
-      dockerfile: 8.3-cli.Dockerfile
-    env_file: app/config/toubeelib.env
+      context: ./backend
+      dockerfile: ./build/Dockerfile
+    env_file: ./backend/app/config/token.env
     ports:
-      - '42010:80'
+      - '42050:80'
     volumes:
       - ./app:/var/php
     working_dir: /var/php
     networks:
       - nrv.net
     depends_on:
-      - nrv.db
+      - postgres
     command: php -S 0.0.0.0:80 -t /var/php/public
-
 
   postgres:
     image: 'postgres:latest'
     restart: unless-stopped
-    env_file: app/config/toubeelibdb.env
+    env_file: ./backend/app/config/token.env
     ports:
-      - '42011:5432'
+      - '42051:5432'
     networks:
       - nrv.net
     volumes:
-      - ./app/sql:/var/sql'
+      - ./app/sql:/var/sql
 
   adminer:
     image: adminer
     restart: unless-stopped
     ports:
-      - '42012:8080'
+      - '42052:8080'
     networks:
       - nrv.net
-

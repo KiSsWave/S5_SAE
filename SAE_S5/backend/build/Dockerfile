@@ -25,4 +25,5 @@ RUN install-php-extensions @composer
 EXPOSE 80
 
 # Copy custom php.ini configuration
-COPY php.ini /usr/local/etc/php/
+COPY ./build/php.ini /usr/local/etc/php/
+
