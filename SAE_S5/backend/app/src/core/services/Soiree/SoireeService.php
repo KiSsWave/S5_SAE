@@ -21,7 +21,7 @@ class SoireeService implements SoireeServiceInterface
             $soireeDto = $this->soireeRepository->getSoireeByID($ID);
             return new SoireeDTO($soireeDto);
         }catch(Exception $e) {
-            throw new Exception("zob");
+            throw new Exception("erreur");
         }
     }
 }
