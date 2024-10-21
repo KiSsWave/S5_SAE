@@ -1,6 +1,6 @@
 <?php
 
-namespace Soiree;
+namespace nrv\core\domain\Soiree;
 
 use Faker\Core\DateTime;
 

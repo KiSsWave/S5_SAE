@@ -1,13 +1,19 @@
 <?php
 
-class SoireeRepository implements \repositoryInterfaces\SoireeRepositoryInterface
+namespace nrv\infrastructure\repositories;
+
+use DatabaseConnection;
+use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
+use PDO;
+
+class SoireeRepository implements SoireeRepositoryInterface
 {
     private PDO $pdo;
 
 
-    public function __construct(PDO $pdo)
+    public function __construct()
     {
-        $this->pdo = $pdo;
+        $this->pdo = DatabaseConnection::getPDO('Soiree');
     }
 
     public function getSoireeByID(int $id){

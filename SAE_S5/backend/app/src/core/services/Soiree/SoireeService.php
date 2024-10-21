@@ -1,7 +1,7 @@
 <?php
 
 use nrv\core\dto\SoireeDTO;
-use repositoryInterfaces\SoireeRepositoryInterface;
+use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 
 class SoireeService implements SoireeServiceInterface
 {
@@ -14,6 +14,11 @@ class SoireeService implements SoireeServiceInterface
 
     public function afficherSoiree(string $ID): SoireeDTO
     {
-        // TODO: Implement afficherSoiree() method.
+        try{
+            $soireeDto = $this->soireeRepository->getSoireeByID($ID);
+            return new SoireeDTO($soireeDto);
+        }catch(Exception $e) {
+            throw new Exception("zob");
+        }
     }
 }

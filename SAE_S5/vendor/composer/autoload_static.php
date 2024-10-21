@@ -22,9 +22,9 @@ class ComposerStaticInitb86d5021526eef930d2b760262ddea01
     );
 
     public static $prefixLengthsPsr4 = array (
-        't' => 
+        'n' => 
         array (
-            'toubeelib\\' => 10,
+            'nrv\\' => 4,
         ),
         'S' => 
         array (
@@ -87,9 +87,9 @@ class ComposerStaticInitb86d5021526eef930d2b760262ddea01
     );
 
     public static $prefixDirsPsr4 = array (
-        'toubeelib\\' => 
+        'nrv\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/../..' . '/backend/app/src',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (

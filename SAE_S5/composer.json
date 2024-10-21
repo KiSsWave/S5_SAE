@@ -1,7 +1,7 @@
 {
 
   "require" : {
-    "php": ">=8.3",
+    "php": ">=8.2",
     "slim/slim": "^4.14",
     "slim/psr7": "^1.7",
     "ramsey/uuid": "^4.7",
@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4" : {
-      "toubeelib\\" : "./src"
+      "nrv\\" : "backend/app/src/"
     }
   }
 }
