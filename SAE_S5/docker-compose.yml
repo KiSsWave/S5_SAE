@@ -14,7 +14,7 @@ services:
     ports:
       - '42050:80'
     volumes:
-      - ./app:/var/php
+      - ./backend/app:/var/php
     working_dir: /var/php
     networks:
       - nrv.net
@@ -25,7 +25,7 @@ services:
   postgres:
     image: 'postgres:latest'
     restart: unless-stopped
-    env_file: ./backend/app/config/token.env
+    env_file: ./backend/app/config/postgres.env
     ports:
       - '42051:5432'
     networks:
