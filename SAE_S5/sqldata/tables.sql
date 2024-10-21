@@ -4,6 +4,7 @@ create table USERS(
 	passwd varchar,
 	nom varchar,
 	prenom varchar,
+    numeroTel varchar,
 	birthdate date,
 	eligible boolean
 );
