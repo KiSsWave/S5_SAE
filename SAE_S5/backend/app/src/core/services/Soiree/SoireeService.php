@@ -1,5 +1,7 @@
 <?php
 
+namespace nrv\core\services\Soiree;
+
 use nrv\core\dto\SoireeDTO;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use nrv\core\services\Soiree\SoireeServiceInterface;
@@ -19,7 +21,7 @@ class SoireeService implements SoireeServiceInterface
             $soireeDto = $this->soireeRepository->getSoireeByID($ID);
             return new SoireeDTO($soireeDto);
         }catch(Exception $e) {
-            throw new Exception("zob");
+            throw new Exception("erreur");
         }
     }
 }

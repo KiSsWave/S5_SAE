@@ -6,6 +6,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 return function( \Slim\App $app):\Slim\App {
 
-    $app->get('/', \toubeelib\application\actions\HomeAction::class);
+    $app->get('/soiree/{ID-SOIREE}', \application\action\GetSoireeByIDAction::class);
     return $app;
 };
