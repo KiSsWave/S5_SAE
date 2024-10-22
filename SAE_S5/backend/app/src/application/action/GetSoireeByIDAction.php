@@ -20,12 +20,12 @@ class GetSoireeByIDAction extends AbstractAction
         try{
                 $soiree = $this->soireeService->afficherSoiree($soiree_id);
             $resultat = ["Soiree" => [
-                "Nom de la soiree" => $soiree->nom,
+                "NomSoiree" => $soiree->nom,
                 "Thematique" => $soiree->thematique,
-                "Date et horaire" => $soiree->dateSoiree,
+                "DateHoraire" => $soiree->dateSoiree,
                 "Lieu" => $soiree->lieuSoiree,
                 "Tarifs" => $soiree->tarif,
-                "Tarifs Reduits" => $soiree->tarifReduit
+                "TarifsReduits" => $soiree->tarifReduit
             ],
                 "links" => [
                     "self" => [
