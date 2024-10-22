@@ -5,7 +5,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 return function( \Slim\App $app):\Slim\App {
-
-    $app->get('/soiree/{ID-SOIREE}', \application\action\GetSoireeByIDAction::class);
+    $app->get('/soiree/{ID-SOIREE}', nrv\application\action\GetSoireeByIDAction::class);
     return $app;
 };

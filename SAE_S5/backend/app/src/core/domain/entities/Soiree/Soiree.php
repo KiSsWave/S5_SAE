@@ -1,10 +1,11 @@
 <?php
 
-namespace nrv\core\domain\Soiree;
+namespace nrv\core\domain\entities\Soiree;
 
-use Faker\Core\DateTime;
+use DateTime;
+use nrv\core\domain\entities\Entity;
 
-class Soiree extends \Entity
+class Soiree extends Entity
 {
     protected string $nom;
     protected string $thematique;
@@ -14,7 +15,7 @@ class Soiree extends \Entity
     protected float $tarif;
     protected float $tarifR;
 
-    public function __construct(string $n, string $theme,DateTime $d, string $l, int $places, float $t, float $tr){
+    public function __construct(string $n, string $theme, DateTime $d, string $l, int $places, float $t, float $tr){
         $this->nom = $n;
         $this->thematique = $theme;
         $this->dateS = $d;

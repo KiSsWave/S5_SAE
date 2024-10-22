@@ -1,7 +1,7 @@
 <?php
 
 
-namespace application\action;
+namespace nrv\application\action;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
