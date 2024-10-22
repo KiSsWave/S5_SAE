@@ -33,6 +33,10 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $this->soirees[$id];
     }
 
+    public function getSoirees(): array{
+        return $this->soirees;
+    }
+
 
 
 
