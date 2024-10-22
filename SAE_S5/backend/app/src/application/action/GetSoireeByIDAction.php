@@ -33,8 +33,6 @@ class GetSoireeByIDAction extends AbstractAction
                     ]
                 ],
             ];
-
-
             $rs->getBody()->write(json_encode($resultat));
             return $rs
                 ->withHeader('Content-Type', 'application/json')

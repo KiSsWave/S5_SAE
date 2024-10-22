@@ -2,6 +2,8 @@
 
 namespace nrv\core\services\Spectacle;
 
+
+use nrv\core\domain\entities\Spectacle\Spectacle;
 use nrv\core\dto\SpectacleDTO;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
 
@@ -18,12 +20,20 @@ class SpectacleService implements SpectacleServiceInterface
 
     public function afficherSpectacle(String $ID): SpectacleDTO
     {
-        try{
-            $soireeDto = $this->soireeRepository->getSoireeByID($ID);
-            return new SoireeDTO($soireeDto);
-        }catch(Exception $e) {
-            throw new Exception("erreur");
+        $spectacle = $this->spectacleRepository->getSpectacleByID($ID);
+        $spectacleDto = new SpectacleDTO($spectacle);
+        return $spectacleDto;
+    }
+
+    public function afficherSpectacles(): array
+    {
+        $spectacles = $this->spectacleRepository->getSpectacles();
+        $spectaclesDto = [];
+        foreach ($spectacles as $spectacle) {
+            $spectacleDto = new SpectacleDTO($spectacle);
+            array_push($spectaclesDto, $spectacleDto);
         }
+        return $spectaclesDto;
     }
 
 }
