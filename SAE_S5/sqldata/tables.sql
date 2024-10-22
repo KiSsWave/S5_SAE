@@ -53,10 +53,11 @@ create table BILLETS
 (
     ID        varchar primary key,
     ID_acheteur uuid,
-    nomSoiree varchar,
+    Id_soiree varchar,
     typeTarif varchar,
     prix      int,
-    foreign key (ID_acheteur) references USERS (ID)
+    foreign key (ID_acheteur) references USERS (ID),
+    foreign key (Id_soiree) references SOIREES (ID)
 );
 
 -- 6. Table ARTISTES peut être créée, car elle ne dépend d'aucune autre table.
