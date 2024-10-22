@@ -1,7 +1,7 @@
 <?php
 try {
 
-    $pdo = new PDO('pgsql:host=postgres;port=5432;dbname=Soirees', 'gclm', 'gclm');
+    $pdo = new PDO('pgsql:host=postgres;port=5432;dbname=nrv', 'gclm', 'gclm');
 
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connexion réussie !\n";

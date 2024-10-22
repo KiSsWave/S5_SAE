@@ -41,3 +41,4 @@ services:
       - '42052:8080'
     networks:
       - nrv.net
+    command : php -S 0.0.0.0:8080 -t /var/www/html

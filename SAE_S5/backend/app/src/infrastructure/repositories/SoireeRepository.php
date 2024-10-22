@@ -15,7 +15,7 @@ class SoireeRepository implements SoireeRepositoryInterface
     private array $soirees = [];
     public function __construct()
     {
-        $this->pdo = DatabaseConnection::getPDO('nrv');
+        $this->pdo = DatabaseConnection::getPDO('Soirees');
         $soirees = $this->pdo->query("SELECT * FROM soirees")->fetchAll(PDO::FETCH_ASSOC);
         foreach ($soirees as $soiree) {
             $date = new DateTime($soiree['date']);
