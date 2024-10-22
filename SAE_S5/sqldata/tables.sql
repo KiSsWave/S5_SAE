@@ -35,11 +35,12 @@ create table SPECTACLESOIREE(
 	ID_spectacle varchar,
 	foreign key(ID_soiree) references SOIREES(ID),
 	foreign key(ID_spectacle) references SPECTACLES(ID),
-	primay key(nomSoiree, titreSpectacle)
+	primary key(ID_soiree, ID_spectacle)
 );
 
 create table LIEUX(
-	nom varchar primary key,
+    ID varchar primary key,
+	nom varchar,
 	adresse varchar,
 	nbPlacesAssises int,
 	nbPlacesDebout int,
@@ -49,12 +50,12 @@ create table LIEUX(
 create table BILLETS(
 	ID_acheteur uuid,
 	nomSoiree varchar,
-	typeTarif varchar
+	typeTarif varchar,
 	prix int
-),
+);
 
 create table ARTISTES(
-	ID_artiste varchar primary key not null
+	ID_artiste varchar primary key not null,
 	pseudonyme varchar,
 	nom varchar,
 	prenom varchar

@@ -17,7 +17,6 @@ $app->addErrorMiddleware($c->get('displayErrorDetails'), false, false)
 //    ->getDefaultErrorHandler()
 //    ->forceContentType('application/json')
 ;
-
 $app = (require_once __DIR__ . '/routes.php')($app);
 $routeParser = $app->getRouteCollector()->getRouteParser();
 

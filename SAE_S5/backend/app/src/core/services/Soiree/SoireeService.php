@@ -2,6 +2,7 @@
 
 namespace nrv\core\services\Soiree;
 
+use Exception;
 use nrv\core\dto\SoireeDTO;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 

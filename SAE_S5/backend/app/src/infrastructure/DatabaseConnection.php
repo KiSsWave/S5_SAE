@@ -2,6 +2,7 @@
 
 namespace nrv\infrastructure;
 use Dotenv\Dotenv;
+use Exception;
 use PDO;
 
 class DatabaseConnection
@@ -22,7 +23,7 @@ class DatabaseConnection
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $pdo;
         } catch (Exception $e) {
-            throw new \http\Exception\RuntimeException("Erreur lors de la connexion à la bd : " . $e->getMessage());
+            throw new \RuntimeException("Erreur lors de la connexion à la bd : " . $e->getMessage());
         }
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+namespace nrv\core\domain\entities;
 
 abstract class Entity
 {

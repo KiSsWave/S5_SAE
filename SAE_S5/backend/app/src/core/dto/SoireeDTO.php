@@ -2,8 +2,9 @@
 
 namespace nrv\core\dto;
 
-use Faker\Core\DateTime;
-use nrv\core\domain\Soiree\Soiree;
+
+use DateTime;
+use nrv\core\domain\entities\Soiree\Soiree;
 
 class SoireeDTO extends DTO{
     protected string $ID;

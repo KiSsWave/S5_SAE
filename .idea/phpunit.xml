@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PHPUnit">
+    <option name="directories">
+      <list>
+        <option value="$PROJECT_DIR$/SAE_S5/tests" />
+        <option value="$PROJECT_DIR$/SAE_S5/backend/vendor/nikic/fast-route/test" />
+        <option value="$PROJECT_DIR$/SAE_S5/backend/app/vendor/nikic/fast-route/test" />
+        <option value="$PROJECT_DIR$/SAE_S5/backend/app/src/vendor/nikic/fast-route/test" />
+      </list>
+    </option>
+  </component>
+</project>

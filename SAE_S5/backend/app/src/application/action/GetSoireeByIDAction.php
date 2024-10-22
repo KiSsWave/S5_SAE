@@ -1,8 +1,6 @@
 <?php
 
-namespace application\action;
-
-use application\action\AbstractAction;
+namespace nrv\application\action;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use nrv\core\services\Soiree\SoireeServiceInterface;

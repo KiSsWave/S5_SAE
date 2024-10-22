@@ -1,9 +1,9 @@
 <?php
 
+use nrv\application\action\GetSoireeByIDAction;
 use Psr\Container\ContainerInterface;
 use nrv\core\services\Soiree\SoireeServiceInterface;
 use nrv\infrastructure\repositories\SoireeRepository;
-use application\action\GetSoireeByIDAction;
 use nrv\core\services\Soiree\SoireeService;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 
