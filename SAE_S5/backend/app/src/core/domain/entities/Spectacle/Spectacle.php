@@ -1,10 +1,11 @@
 <?php
 
-namespace Spectacle;
+namespace nrv\core\domain\entities\Spectacle;
 
-use Faker\Core\DateTime;
+use DateTime;
+use nrv\core\domain\entities\Entity;
 
-class Spectacle extends \Entity
+class Spectacle extends Entity
 {
     protected string $titre;
     protected string $description;
