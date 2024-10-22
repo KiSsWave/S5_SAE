@@ -2,8 +2,8 @@
 
 namespace nrv\core\dto;
 
-use Faker\Core\DateTime;
-use Spectacle\Spectacle;
+use DateTime;
+use nrv\core\domain\entities\Spectacle\Spectacle;
 use nrv\core\dto\DTO;
 
 class SpectacleDTO extends DTO{

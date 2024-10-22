@@ -30,8 +30,7 @@ class SpectacleService implements SpectacleServiceInterface
         $spectacles = $this->spectacleRepository->getSpectacles();
         $spectaclesDto = [];
         foreach ($spectacles as $spectacle) {
-            $spectacleDto = new SpectacleDTO($spectacle);
-            array_push($spectaclesDto, $spectacleDto);
+            $spectaclesDto[] = new SpectacleDTO($spectacle);
         }
         return $spectaclesDto;
     }
