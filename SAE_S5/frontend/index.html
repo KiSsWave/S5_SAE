@@ -16,6 +16,7 @@
         </div>
         <nav id="headerNav">
             <ul>
+                <li><a href="index.html">Accueil</a></li>
                 <li><a href="">Connexion</a></li>
                 <li><a href="">S'inscrire</a></li>
             </ul>
@@ -29,7 +30,7 @@
         <h2 class="spectacle-h2">Liste des spectacles</h2>
         <div class="spectacles-container">
             {{#each this.Spectacles}}
-                <div class="spectacle" onclick="getSoiree('localhost:42050')">
+                <div class="spectacle" data-url="http://localhost:42050{{this.SoireeAssociee.href}}">
                     <img src="localhost:42050/assets/image/{{this.Image}}" alt="{{this.Titre}}">
                     <h3>{{this.Titre}}</h3>
                     <p><i class="fa-regular fa-calendar"></i> {{this.Date.date}}</p>

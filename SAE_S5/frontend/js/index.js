@@ -5741,6 +5741,16 @@
 
   // js/soiree_ui.js
   var import_handlebars = __toESM(require_handlebars());
+  function displaySoiree(Soiree) {
+    return __async(this, null, function* () {
+      const container = document.getElementById("main");
+      const templateSource = document.getElementById("soiree-template").innerHTML;
+      const template = import_handlebars.default.compile(templateSource);
+      let html = template({ Soiree });
+      container.innerHTML = html;
+    });
+  }
+  var soiree_ui_default = { displaySoiree };
 
   // js/allSpectacle_ui.js
   var import_handlebars2 = __toESM(require_handlebars());
@@ -5756,11 +5766,24 @@
   var allSpectacle_ui_default = { displayAllSpectacles };
 
   // index.js
+  function getSoiree(url) {
+    loader_default.loadSoiree(url).then((data) => {
+      data.json().then((data2) => __async(this, null, function* () {
+        console.log(data2.Soiree);
+        yield soiree_ui_default.displaySoiree(data2.Soiree);
+      }));
+    });
+  }
   function getAllSpectacles(url) {
     loader_default.loadAllSpectacles(url).then((data) => {
       data.json().then((data2) => __async(this, null, function* () {
         console.log(data2.Spectacles);
         yield allSpectacle_ui_default.displayAllSpectacles(data2.Spectacles);
+        document.querySelectorAll(".spectacle").forEach((spectacle) => {
+          spectacle.addEventListener("click", () => {
+            getSoiree(spectacle.getAttribute("data-url"));
+          });
+        });
       }));
     });
   }

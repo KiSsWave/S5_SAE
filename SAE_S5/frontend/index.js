@@ -16,6 +16,13 @@ function getAllSpectacles(url){
         data.json().then(async data => {
             console.log(data.Spectacles);
             await allSpectacle_ui.displayAllSpectacles(data.Spectacles);
+
+            document.querySelectorAll('.spectacle').forEach(spectacle => {
+                spectacle.addEventListener('click', () => {
+                    getSoiree(spectacle.getAttribute('data-url'));
+                });
+            });
+
         }); 
     });
 }
