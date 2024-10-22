@@ -26,4 +26,3 @@ EXPOSE 80
 
 # Copy custom php.ini configuration
 COPY ./build/php.ini /usr/local/etc/php/
-

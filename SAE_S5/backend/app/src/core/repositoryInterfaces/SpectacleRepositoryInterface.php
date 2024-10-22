@@ -1,7 +1,6 @@
 <?php
 
-namespace repositoryInterfaces;
-
+namespace nrv\core\repositoryInterfaces;
 interface SpectacleRepositoryInterface
 {
 

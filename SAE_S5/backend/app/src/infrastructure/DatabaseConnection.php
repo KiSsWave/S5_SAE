@@ -2,14 +2,16 @@
 
 namespace nrv\infrastructure;
 use Dotenv\Dotenv;
+use PDO;
 
 class DatabaseConnection
 {
     public static function getPDO(string $dbName): PDO
     {
 
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../config');
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../config', 'dbconnexion.env');
         $dotenv->load();
+
 
         $dsn = "pgsql:host=" . $_ENV['DB_HOST'] . ';port=' . $_ENV['DB_PORT'] . ';dbname=' . $dbName;
         $user = $_ENV['DB_USER'];

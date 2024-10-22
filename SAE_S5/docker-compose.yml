@@ -22,6 +22,7 @@ services:
       - postgres
     command: php -S 0.0.0.0:80 -t /var/php/public
 
+
   postgres:
     image: 'postgres:latest'
     restart: unless-stopped

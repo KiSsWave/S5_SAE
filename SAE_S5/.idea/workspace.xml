@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab2d9d75-62bc-46b3-aea9-d290fec8ed05" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/app/config/postgres.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/testPDO.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/config/dbconnexion.env" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/config/dbconnexion.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/src/core/services/Spectacle/SpectacleService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/src/core/services/Spectacle/SpectacleService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/src/core/services/Spectacle/SpectacleServiceInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/src/core/services/Spectacle/SpectacleServiceInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/src/infrastructure/DatabaseConnection.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/src/infrastructure/DatabaseConnection.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/build/php.ini" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build/php.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -15,7 +21,9 @@
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -93,6 +101,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Docker.docker-compose.yml.api: Compose Deployment.executor": "Run",
+    "PHP Script.DatabaseConnection.php.executor": "Run",
+    "PHP Script.testPDO.php.executor": "Run",
+    "PHP Script.testSoirees.php.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "/var/www/html/S5_SAE/SAE_S5",
@@ -110,13 +121,16 @@
       <recent name="$PROJECT_DIR$/backend/app/config" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/backend/app/config" />
       <recent name="$PROJECT_DIR$/backend/app/src/application" />
     </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration name="docker-compose.yml.api: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
@@ -156,6 +170,7 @@
       <updated>1729496857763</updated>
       <workItem from="1729496858787" duration="1745000" />
       <workItem from="1729499547174" duration="9422000" />
+      <workItem from="1729513252580" duration="18531000" />
     </task>
     <servers />
   </component>
