@@ -18,7 +18,7 @@ class GetSoireeByIDAction extends AbstractAction
         $soiree_id = $args['ID-SOIREE'];
 
         try{
-            $soiree = $this->soireeService->afficherSoiree($soiree_id);
+                $soiree = $this->soireeService->afficherSoiree($soiree_id);
             $resultat = ["Soiree" => [
                 "Nom de la soiree" => $soiree->nom,
                 "Thematique" => $soiree->thematique,

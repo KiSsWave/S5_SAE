@@ -18,11 +18,9 @@ class SoireeService implements SoireeServiceInterface
 
     public function afficherSoiree(string $ID): SoireeDTO
     {
-        try{
-            $soireeDto = $this->soireeRepository->getSoireeByID($ID);
-            return new SoireeDTO($soireeDto);
-        }catch(Exception $e) {
-            throw new Exception("erreur");
-        }
+            $soiree = $this->soireeRepository->getSoireeByID($ID);
+            $soireedto = new SoireeDTO($soiree);
+            return $soireedto;
+
     }
 }
