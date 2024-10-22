@@ -19,6 +19,7 @@ class GetSpectaclesAction extends AbstractAction
     {
         try {
 
+
             $spectacles = $this->spectacleService->afficherSpectacles();
 
             $resultat = [
@@ -28,8 +29,7 @@ class GetSpectaclesAction extends AbstractAction
             foreach ($spectacles as $spectacleDto) {
                 $resultat["Spectacles"][] = [
                     "Titre" => $spectacleDto->titre,
-                    "Date" => $spectacleDto->horaire->format('Y-m-d'),
-                    "Horaire" => $spectacleDto->horaire->format('H:i'),
+                    "Date" => $spectacleDto->horaire,
                     "Image" => $spectacleDto->images[0],
                     "links" => [
                         "self" => [

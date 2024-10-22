@@ -10,7 +10,7 @@ class Spectacle extends Entity
     protected string $titre;
     protected string $description;
     protected array $images;
-    protected string $url;
+    protected string $urlVideo;
     protected string $style;
     protected DateTime $horaire;
 
@@ -18,7 +18,7 @@ class Spectacle extends Entity
         $this->titre = $t;
         $this->description = $d;
         $this->images[] = $image;
-        $this->url= $u;
+        $this->urlVideo= $u;
         $this->style = $s;
         $this->horaire = $h;
     }
