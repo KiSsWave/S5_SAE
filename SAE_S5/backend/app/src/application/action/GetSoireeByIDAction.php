@@ -25,7 +25,7 @@ class GetSoireeByIDAction extends AbstractAction
                 "DateHoraire" => $soiree->dateSoiree,
                 "Lieu" => $soiree->lieuSoiree,
                 "Tarif" => $soiree->tarif,
-                "TarifReduits" => $soiree->tarifReduit
+                "TarifReduit" => $soiree->tarifReduit
             ],
                 "links" => [
                     "self" => [
