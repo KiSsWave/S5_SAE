@@ -2,6 +2,7 @@
 
 namespace nrv\application\action;
 
+use DateTime;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use nrv\core\services\Spectacle\SpectacleServiceInterface;
@@ -18,14 +19,10 @@ class GetSpectaclesAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         try {
-
-
             $spectacles = $this->spectacleService->afficherSpectacles();
-
             $resultat = [
                 "Spectacles" => []
             ];
-
             foreach ($spectacles as $spectacleDto) {
                     $soiree_tab = $this->spectacleService->afficherSoireesParSpectacleID($spectacleDto->ID);
                 foreach ($soiree_tab as $s){
