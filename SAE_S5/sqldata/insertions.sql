@@ -26,7 +26,7 @@ INSERT INTO SPECTACLES (ID, titre, description, images, urlVideo, style, horaire
 ('SP7', 'Jazz dans les Rues', 'Un concert en plein air avec des artistes locaux.', 'jazz_rues.jpg', 'https://www.youtube.com/embed/jft3BVoxqjo?si=ggeMaAGAhDye_EqE', 'Jazz', '2024-12-05 18:00:00+00'),
 ('SP8', 'Opéra : La Traviata', 'Interprétation de l’opéra classique.', 'traviata.jpg', 'https://www.youtube.com/embed/afhAqMeeQJk?si=4s7xs2qaNyTziXWz', 'Opéra', '2024-12-30 20:00:00+00'),
 ('SP9', 'Concert de Variété', 'Un mélange de pop et de rock.', 'variete.jpg', 'https://www.youtube.com/embed/Z8lUW9SKquY?si=rLjn36Bm0iY3Q_rQ', 'Variété', '2024-12-31 22:30:00+00'),
-('SP10', 'Nuit d’Improvisation', 'Un spectacle d’improvisation théâtrale.', 'impro.jpg', 'https://www.youtube.com/embed/CUqyqqwKIfg?si=qs7JgpeCyBDlt2kz', 'Théâtre', '2024-12-31 23:00:00+00');
+('SP10', 'Nuit Improvisation', 'Un spectacle improvisation théâtrale.', 'impro.jpg', 'https://www.youtube.com/embed/CUqyqqwKIfg?si=qs7JgpeCyBDlt2kz', 'Théâtre', '2024-12-31 23:00:00+00');
 
 INSERT INTO USERS (ID, email, passwd, nom, prenom, numeroTel, birthdate, eligible, role) VALUES
 ('550e8400-e29b-41d4-a716-446655440000', 'user1@example.com', '$2y$10$eytz.9OZqI3m/YkxUYVJm.nOwVtT5RTOOZWG/NLamFHw6yoUuBo72', 'Dupont', 'Jean', '0612345678', '1990-05-15', TRUE, 1),
