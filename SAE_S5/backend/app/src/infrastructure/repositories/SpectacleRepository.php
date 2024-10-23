@@ -59,24 +59,53 @@ class SpectacleRepository implements SpectacleRepositoryInterface
 
     }
 
-    public function getSpectaclesByDate(DateTime $date): array
+    public function getSpectaclesFiltres(?DateTime $date = null, ?string $style = null, ?string $lieu = null): array
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM spectacles WHERE DATE(horaire) = :date");
-        $stmt->bindValue(':date', $date->format('Y-m-d'));
-        $stmt->execute();
-        $spectacles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        $query = "SELECT s.*, so.lieusoiree FROM spectacles s
+              JOIN SPECTACLESOIREE ss ON s.id = ss.id_spectacle
+              JOIN soirees so ON ss.id_soiree = so.id
+              WHERE 1=1";
+
+        $params = [];
+
+        if ($date) {
+            $query .= " AND DATE(s.horaire) = :date";
+            $params[':date'] = $date->format('Y-m-d');
+        }
+
+        if ($style) {
+            $query .= " AND s.style = :style";
+            $params[':style'] = $style;
+        }
+
+        if ($lieu) {
+            $query .= " AND so.lieusoiree = :lieu";
+            $params[':lieu'] = $lieu;
+        }
+
+        $stmt = $this->pdo->prepare($query);
+        foreach ($params as $key => &$value) {
+            $stmt->bindParam($key, $value);
+        }
+        $stmt->execute();
+
+        $spectacles = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $filteredSpectacles = [];
+
         foreach ($spectacles as $spectacle) {
-            $horaire = new DateTime($spectacle['horaire']);
-            $filteredSpectacles[] = new Spectacle(
-                $spectacle['titre'],
-                $spectacle['description'],
-                $spectacle['images'],
-                $spectacle['urlVideo'],
-                $spectacle['style'],
-                $horaire
-            );
+            if (isset($spectacle['id'])) { // Assurez-vous que l'ID existe
+                $horaire = new DateTime($spectacle['horaire']);
+                $filteredSpectacles[] = new Spectacle(
+                    $spectacle['titre'],
+                    $spectacle['description'],
+                    $spectacle['images'],
+                    $spectacle['urlvideo'],
+                    $spectacle['style'],
+                    $horaire
+                );
+                $filteredSpectacles[count($filteredSpectacles) - 1]->setID($spectacle['id']); // Ajoutez l'ID
+            }
         }
 
         return $filteredSpectacles;
