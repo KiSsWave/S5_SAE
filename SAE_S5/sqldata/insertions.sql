@@ -3,12 +3,6 @@ INSERT INTO LIEUX (ID, nom, adresse, nbPlacesAssises, nbPlacesDebout, images) VA
 ('L2', 'La Salle Poirel', '3 Rue de la Salle, Nancy', 800, 200, 'salle_poirel.jpg'),
 ('L3', 'Le Nouveau Relax', '9 Rue Saint-Georges, Nancy', 600, 100, 'nouveau_relax.jpg'),
 ('L4', 'La Maison de la Culture', '1 Rue des États-Unis, Nancy', 1200, 300, 'maison_culture.jpg'),
-('L5', 'Le Grand Salon', '2 Rue de la République, Nancy', 400, 150, 'grand_salon.jpg'),
-('L6', 'L’Auditorium', '4 Boulevard de l’Emulation, Nancy', 900, 100, 'auditorium.jpg'),
-('L7', 'Le Café de la Danse', '10 Rue de la Liberté, Nancy', 300, 50, 'cafe_danse.jpg'),
-('L8', 'La Salle des Fêtes', '5 Place des Vosges, Nancy', 500, 200, 'salle_fetes.jpg'),
-('L9', 'Le Petit Théâtre', '7 Rue du Faubourg, Nancy', 200, 50, 'petit_theatre.jpg'),
-('L10', 'L’Ancienne Boucherie', '6 Rue du Vieux Saint-Jean, Nancy', 150, 30, 'ancienne_boucherie.jpg');
 
 INSERT INTO SOIREES (ID, nom, thematique, dateSoiree, lieuSoiree, nbPlaces, tarif, tarifReduit) VALUES
 ('S001', 'Soirée Rock Extravaganza', 'Concert', '2024-11-15 20:00:00+00', 'L1', 3500, 25.00, 15.00),
@@ -16,7 +10,7 @@ INSERT INTO SOIREES (ID, nom, thematique, dateSoiree, lieuSoiree, nbPlaces, tari
 ('S003', 'Classiques au Zénith', 'Concert', '2024-12-10 18:00:00+00', 'L1', 3000, 30.00, 18.00),
 ('S004', 'Soirée Musique du Monde', 'Concert', '2024-11-20 21:00:00+00', 'L3', 600, 15.00, 10.00),
 ('S005', 'Nuit de la Danse', 'Spectacle de Danse', '2024-11-25 20:00:00+00', 'L4', 1200, 22.00, 12.00),
-('S006', 'Soirée Classique', 'Concert', '2024-12-15 19:00:00+00', 'L5', 400, 30.00, 18.00),
+('S006', 'Soirée Classique', 'Concert', '2024-12-15 19:00:00+00', 'L1', 400, 30.00, 18.00),
 ('S007', 'Éclats de Jazz', 'Concert', '2024-12-05 20:30:00+00', 'L2', 1000, 25.00, 15.00),
 ('S008', 'Fête de la Musique', 'Festival', '2024-12-20 17:00:00+00', 'L3', 600, 18.00, 10.00),
 ('S009', 'Nuit d’Opéra', 'Concert', '2024-12-30 19:00:00+00', 'L4', 800, 35.00, 20.00),
