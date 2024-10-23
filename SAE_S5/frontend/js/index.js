@@ -5750,10 +5750,10 @@
     return __async(this, null, function* () {
       let spectacles = [];
       for (const spectacle of Soiree.Spectacles) {
-        const loadedSpectacle = yield loader_default.loadSpectacle(config_default.url + spectacle);
+        const loadedSpectacle = yield loader_default.loadSpectacle(config_default.url + spectacle).then((data) => data.json());
         spectacles.push(loadedSpectacle);
       }
-      console.log(spectacles);
+      spectacles.sort((a, b) => a.Spectacle.Horaire.localeCompare(b.Spectacle.Horaire));
       const container = document.getElementById("main");
       const templateSource = document.getElementById("soiree-template").innerHTML;
       const template = import_handlebars.default.compile(templateSource);
