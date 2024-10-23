@@ -18,4 +18,10 @@ async function loadAllSpectacles(url) {
     });
 }
 
+async function loadSpectacleBySoiree(url){
+    return fetch(url).catch(error=>{
+        console.error('Erreur de la récupération de la liste des spectacles')
+    })
+}
+
 export default {loadSoiree, loadSpectacle, loadAllSpectacles};

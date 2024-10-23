@@ -56,6 +56,7 @@ create table BILLETS
     ID_acheteur uuid,
     nom_acheteur varchar,
     reference varchar,
+    dateHoraireSoiree timestamptz,
     typeTarif varchar,
     prix      int,
     foreign key (ID_acheteur) references USERS (ID),

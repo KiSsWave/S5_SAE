@@ -36,13 +36,10 @@ class GetSpectaclesAction extends AbstractAction
             foreach ($spectacles as $spectacleDto) {
                 $soiree_tab = $this->spectacleService->afficherSoireesParSpectacleID($spectacleDto->ID);
 
-                $soireesAssociees = [];
-                foreach ($soiree_tab as $s) {
-                    $soireesAssociees[] = [
-                        "idSoiree" => $s->idSoiree,
-                        "href" => "/soiree/" . $s->idSoiree
-                    ];
-                }
+                $soireeAssociee = [
+                        "idSoiree" => $soiree_tab[0]->idSoiree,
+                        "href" => "/soiree/" . $soiree_tab[0]->idSoiree
+                ];
 
                 $resultat["Spectacles"][] = [
                     "Titre" => $spectacleDto->titre,
@@ -53,7 +50,7 @@ class GetSpectaclesAction extends AbstractAction
                             "href" => "/spectacle/" . $spectacleDto->ID
                         ]
                     ],
-                    "SoireesAssociees" => $soireesAssociees
+                    "SoireeAssociee" => $soireeAssociee
                 ];
             }
 

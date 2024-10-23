@@ -1,4 +1,4 @@
-const url = 'localhost:42050';
-const imgurl = 'localhost:42050/assets/image/';
+const url = 'http://localhost:42050';
+const imgurl = 'http://localhost:42050/assets/image/';
 
 export default { url, imgurl };

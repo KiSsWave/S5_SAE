@@ -40,17 +40,17 @@ INSERT INTO USERS (ID, email, passwd, nom, prenom, numeroTel, birthdate, eligibl
 ('550e8400-e29b-41d4-a716-446655440008', 'user9@example.com', 'password123', 'Gauthier', 'Alice', '0690123456', '1987-02-14', TRUE, 1),
 ('550e8400-e29b-41d4-a716-446655440009', 'user10@example.com', 'password123', 'Moreau', 'Antoine', '0701234567', '1994-10-20', TRUE, 2);
 
-INSERT INTO BILLETS (ID, ID_acheteur, nom_acheteur, reference, typeTarif, prix) VALUES
-('B1', '550e8400-e29b-41d4-a716-446655440000', 'Jean Dupont', 'S001', 'Standard', 25),
-('B2', '550e8400-e29b-41d4-a716-446655440001', 'Claire Martin', 'S002', 'Réduit', 12),
-('B3', '550e8400-e29b-41d4-a716-446655440002', 'Pierre Bernard', 'S003', 'Standard', 30),
-('B4', '550e8400-e29b-41d4-a716-446655440003', 'Marie Durand', 'S001', 'Standard', 25),
-('B5', '550e8400-e29b-41d4-a716-446655440004', 'Paul Leroy', 'S002', 'Réduit', 12),
-('B6', '550e8400-e29b-41d4-a716-446655440005', 'Sophie Roussel', 'S004', 'Standard', 15),
-('B7', '550e8400-e29b-41d4-a716-446655440006', 'Lucas Pichon', 'S005', 'Standard', 22),
-('B8', '550e8400-e29b-41d4-a716-446655440007', 'Emma Bouvier', 'S003', 'Réduit', 18),
-('B9', '550e8400-e29b-41d4-a716-446655440008', 'Alice Gauthier', 'S008', 'Standard', 35),
-('B10', '550e8400-e29b-41d4-a716-446655440009', 'Antoine Moreau', 'S0010', 'Standard', 50);
+INSERT INTO BILLETS (ID, ID_acheteur, nom_acheteur, reference, dateHoraireSoiree, typeTarif, prix) VALUES
+('B1', '550e8400-e29b-41d4-a716-446655440000', 'Jean Dupont', 'S001', '2024-11-15 20:00:00+00','Standard', 25),
+('B2', '550e8400-e29b-41d4-a716-446655440001', 'Claire Martin', 'S002', '2024-12-01 19:30:00+00','Réduit', 12),
+('B3', '550e8400-e29b-41d4-a716-446655440002', 'Pierre Bernard', 'S003', '2024-12-10 18:00:00+00','Standard', 30),
+('B4', '550e8400-e29b-41d4-a716-446655440003', 'Marie Durand', 'S001', '2024-11-15 20:00:00+00','Standard', 25),
+('B5', '550e8400-e29b-41d4-a716-446655440004', 'Paul Leroy', 'S002', '2024-12-01 19:30:00+00','Réduit', 12),
+('B6', '550e8400-e29b-41d4-a716-446655440005', 'Sophie Roussel', 'S004', '2024-11-20 21:00:00+00','Standard', 15),
+('B7', '550e8400-e29b-41d4-a716-446655440006', 'Lucas Pichon', 'S005', '2024-11-25 20:00:00+00','Standard', 22),
+('B8', '550e8400-e29b-41d4-a716-446655440007', 'Emma Bouvier', 'S003', '2024-12-10 18:00:00+00','Réduit', 18),
+('B9', '550e8400-e29b-41d4-a716-446655440008', 'Alice Gauthier', 'S008', '2024-12-20 17:00:00+00','Standard', 35),
+('B10', '550e8400-e29b-41d4-a716-446655440009', 'Antoine Moreau', 'S0010', '2024-12-31 22:00:00+00','Standard', 50);
 
 
 INSERT INTO ARTISTES (ID_artiste, pseudonyme, nom, prenom) VALUES
