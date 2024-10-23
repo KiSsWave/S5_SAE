@@ -22,7 +22,7 @@ class GetSoireeByIDAction extends AbstractAction
             $spectacles = $this->soireeService->afficherSpectaclesSoiree($soiree_id);
             $idSpectacles = [];
             foreach ($spectacles as $s){
-                $idSpectacles[] = $s->idSoiree;
+                $idSpectacles[] = "/spectacle/" . $s->idSpectacle;
             }
             $resultat = ["Soiree" => [
                 "NomSoiree" => $soiree->nom,

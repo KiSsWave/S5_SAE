@@ -54,16 +54,16 @@ INSERT INTO BILLETS (ID, ID_acheteur, nom_acheteur, reference, typeTarif, prix) 
 
 
 INSERT INTO ARTISTES (ID_artiste, pseudonyme, nom, prenom) VALUES
-('A1', 'Mick', 'Jagger', 'Mick'),
-('A2', 'Duke', 'Ellington', 'Edward'),
-('A3', 'Ludwig', 'van Beethoven', 'Ludwig'),
-('A4', 'Céline', 'Dion', 'Céline'),
-('A5', 'Freddie', 'Mercury', 'Freddie'),
-('A6', 'Diana', 'Krall', 'Diana'),
-('A7', 'Yo-Yo', 'Ma', 'Yo-Yo'),
-('A8', 'Sting', 'Gordon', 'Sting'),
-('A9', 'Nina', 'Simone', 'Nina'),
-('A10', 'Mozart', 'Wolfgang', 'Mozart');
+('A1', '', 'Jagger', 'Mick'),
+('A2', '', 'Ellington', 'Edward'),
+('A3', '', 'van Beethoven', 'Ludwig'),
+('A4', '', 'Dion', 'Céline'),
+('A5', '', 'Mercury', 'Freddie'),
+('A6', '', 'Krall', 'Diana'),
+('A7', '', 'Ma', 'Yo-Yo'),
+('A8', '', 'Gordon', 'Sting'),
+('A9', '', 'Simone', 'Nina'),
+('A10', '', 'Wolfgang', 'Mozart');
 
 INSERT INTO ARTISTESPECTACLE (ID_artiste, ID_spectacle) VALUES
 ('A1', 'SP1'),
