@@ -26,6 +26,7 @@ class SoireeService implements SoireeServiceInterface
 
     }
 
+
     public function afficherSpectaclesSoiree(string $id): array
     {
         $spectaclesData = $this->soireeRepository->SpectaclesBySoireeID($id);
@@ -35,4 +36,5 @@ class SoireeService implements SoireeServiceInterface
         }
         return $spectacles;
     }
+
 }

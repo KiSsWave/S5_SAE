@@ -34,6 +34,7 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $this->soirees[$id];
     }
 
+
     public function SpectaclesBySoireeID(string $id){
         $stmt = $this->pdo->prepare("SELECT * FROM SPECTACLESOIREE WHERE id_soiree = :id_soiree");
         $stmt->bindValue(':id_soiree', $id);
@@ -53,6 +54,7 @@ class SoireeRepository implements SoireeRepositoryInterface
     public function getSoirees(): array{
         return $this->soirees;
     }
+
 
 
 

@@ -16,42 +16,13 @@
         </div>
         <nav id="headerNav">
             <ul>
-                <li><a href="index.html">Accueil</a></li>
                 <li><a href="">Connexion</a></li>
                 <li><a href="">S'inscrire</a></li>
             </ul>
         </nav>
     </header>
     <section id="main">
-
-    </section>
-
-    <script id="liste-spectacle-template" type="text/x-handlebars-template">
-        <h2 class="spectacle-h2">Liste des spectacles</h2>
-        <div class="spectacles-container">
-            {{#each this.Spectacles}}
-                <div class="spectacle" data-url="http://localhost:42050{{this.SoireeAssociee.href}}">
-                    <img src="localhost:42050/assets/image/{{this.Image}}" alt="{{this.Titre}}">
-                    <h3>{{this.Titre}}</h3>
-                    <p><i class="fa-regular fa-calendar"></i> {{this.Date.date}}</p>
-                </div>
-            {{/each}}
-        </div>
-    </script>
-    
-    <script id="soiree-template" type="text/x-handlebars-template">
-        <div class="soiree">
-            <h3>{{this.Soiree.NomSoiree}} - Thématique : {{this.Soiree.Thematique}}</h3>
-            <p><i class="fa-regular fa-calendar"></i> {{this.Soiree.DateHoraire.date}}</p>
-            <p><i class="fa-solid fa-location-dot"></i> {{this.Soiree.Lieu}}</p>
-            <div class="tarifs">
-                <button>Tarif normal : {{this.Soiree.Tarif}} €</button>
-                <button>Tarif réduit : {{this.Soiree.TarifReduit}} €</button>
-            </div>
-        </div>
-    </script>
-    
-    <script id="research-template" type="text/x-handlebars-template">
+        <script id="research-template" type="text/x-handlebars-template">
         <div id="research-container">
             <span><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Rechercher une soirée, un spectacle ..."></span>
             <div id="filter">
@@ -114,7 +85,34 @@
 
             </div>
         </div>
-        </section>
-        <script  src='./js/index.js' defer ></script>
+    </section>
+    <script id="spectacleTemplate" type="text/x-handlebars-template">
+        <div class="spectacle">
+            <h2>{{this.spectacle.titre}},{{this.spectacle.style}}</h2>
+            <p>{{this.spectacle.horaire}} | {{this.spectacle.lieu}}</p>
+            <p>{{this.spectacle.description}}</p>
+            <div class="img-container">
+                {{#each this.spectacle.images}}
+                    <img src="{{this}}" alt="">
+                {{/each}}
+            </div>
+            <iframe width="560" height="315" src="{{this.spectacle.urlVideo}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </script>
+    <script id="soireeTemplate" type="text/x-handlebars-template">
+        <div class="soiree">
+            <h3>{{this.soiree.titre}} - {{this.soiree.style}}</h3>
+            <p>{{this.soiree.horaire}} | {{this.soiree.lieu}}</p>
+            <p>{{this.soiree.description}}</p>
+            <div class="tarifs">
+                <p>Tarif normal : {{this.soiree.tarif}}</p>
+                <p>Tarif réduit : {{this.soiree.tarifReduit}}</p>
+            </div>
+            <ul>
+                {{#each this.soiree.spectacles}}
+                    <li>{{this.titre}}</li>
+                {{/each}}
+            </ul>
+        </div>
 </body>
 </html>
