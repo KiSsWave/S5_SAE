@@ -42,3 +42,15 @@ services:
     networks:
       - nrv.net
     command : php -S 0.0.0.0:8080 -t /var/www/html
+
+  apache2:
+    image: ubuntu/apache2:latest
+    restart: unless-stopped
+    ports:
+      - "42053:80"
+    volumes:
+      - ./frontend/:/var/www/html
+    networks:
+      - nrv.net
+    depends_on:
+      - api
