@@ -18,54 +18,51 @@ class GetSpectaclesAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         try {
+            $queryParams = $rq->getQueryParams();
+            $dateParam = $queryParams['date'] ?? null;
+            $styleParam = $queryParams['style'] ?? null;
+            $lieuParam = $queryParams['lieu'] ?? null;
 
 
-            $spectacles = $this->spectacleService->afficherSpectacles();
+            $date = $dateParam ? new \DateTime($dateParam) : null;
+
+
+            $spectacles = $this->spectacleService->afficherSpectaclesFiltres($date, $styleParam, $lieuParam);
 
             $resultat = [
                 "Spectacles" => []
             ];
 
             foreach ($spectacles as $spectacleDto) {
-                    $soiree_tab = $this->spectacleService->afficherSoireesParSpectacleID($spectacleDto->ID);
-                foreach ($soiree_tab as $s){
-                    $soiree = $s;
-                }
-                $artistes_tab = $this->spectacleService->afficherArtistesParSpectacleID($spectacleDto->ID);
-                $artistes = [];
-                foreach ($artistes_tab as $a){
-                    $artistes[] = [
-                        "Pseudonyme" => $a->pseudonyme,
-                        "Nom" => $a->nom,
-                        "Prenom" => $a->prenom
+                $soiree_tab = $this->spectacleService->afficherSoireesParSpectacleID($spectacleDto->ID);
+
+                $soireesAssociees = [];
+                foreach ($soiree_tab as $s) {
+                    $soireesAssociees[] = [
+                        "idSoiree" => $s->idSoiree,
+                        "href" => "/soiree/" . $s->idSoiree
                     ];
                 }
+
                 $resultat["Spectacles"][] = [
                     "Titre" => $spectacleDto->titre,
-                    "Date" => $spectacleDto->horaire,
+                    "Date" => $spectacleDto->horaire->format('Y-m-d H:i:s'),
                     "Image" => $spectacleDto->images[0],
-                    "Artistes" => $artistes,
                     "links" => [
                         "self" => [
                             "href" => "/spectacle/" . $spectacleDto->ID
                         ]
                     ],
-                    "Soiree" => [
-                        "href" => "/soiree/" . $soiree->idSoiree,
-                        "method" => "GET",
-                        "titre" => "Detail du spectacle"
-                    ]
+                    "SoireesAssociees" => $soireesAssociees
                 ];
             }
 
-            // Return the response with JSON data
             $rs->getBody()->write(json_encode($resultat));
             return $rs
                 ->withHeader('Content-Type', 'application/json')
                 ->withStatus(200);
 
         } catch (\Exception $e) {
-            // Handle internal errors
             $rs->getBody()->write(json_encode(['error' => 'Erreur interne du serveur']));
             return $rs
                 ->withHeader('Content-Type', 'application/json')
