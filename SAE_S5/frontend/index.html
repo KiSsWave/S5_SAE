@@ -58,13 +58,14 @@
                         <h3>{{Spectacle.Titre}}, {{Spectacle.Style}}</h3>
                         <p><i class="fa-solid fa-clock"></i> {{Spectacle.Horaire}} H</p>
                         <p>{{Spectacle.Description}}</p>
-                        <p>Artistes :</p>
-                        <ul>
-                            {{#each Spectacle.Artistes}}
-                                <li>{{Prenom}} {{Nom}}</li>
-                            {{/each}}
-                        </ul>
-                        
+                        {{#if Spectacle.Artistes}}
+                            <p>Artistes :</p>
+                            <ul>
+                                {{#each Spectacle.Artistes}}
+                                    <li>{{Prenom}} {{Nom}}</li>
+                                {{/each}}
+                            </ul>
+                        {{/if}}                        
                     </div>    
                 {{/each}}
             </div>
