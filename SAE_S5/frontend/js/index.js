@@ -5749,11 +5749,11 @@
   function displaySoiree(Soiree) {
     return __async(this, null, function* () {
       let spectacles = [];
-      console.log(Soiree);
       for (const spectacle of Soiree.Spectacles) {
         const loadedSpectacle = yield loader_default.loadSpectacle(config_default.url + spectacle);
         spectacles.push(loadedSpectacle);
       }
+      console.log(spectacles);
       const container = document.getElementById("main");
       const templateSource = document.getElementById("soiree-template").innerHTML;
       const template = import_handlebars.default.compile(templateSource);

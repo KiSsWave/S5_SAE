@@ -49,14 +49,21 @@
                 <button>Tarif réduit : {{this.Soiree.TarifReduit}} €</button>
             </div>
             <h3>Spectacles proposés :</h3>
-            {{#each Spectacles}}
+            {{#each spectacles}}
                 <div class="spectacle">
-                    {{#each this.Spectacle.images}}
-                    <img src="http://localhost:42050/assets/image/{{this}}" alt="{{this}}">
+                    {{#each Spectacle.Images}}
+                        <img src="http://localhost:42050/assets/image/{{this}}" alt="{{this}}">
                     {{/each}}
-                    <h4>{{this.Spectacle.Titre}}</h4>
-                    <p>{{this.Spectacle.Description}}</p>
+                    <h4>{{Spectacle.Titre}}</h4>
+                    <p>{{Spectacle.Description}}</p>
+                    <h5>Artistes :</h5>
+                    <ul>
+                        {{#each Spectacle.Artistes}}
+                            <li>{{Pseudonyme}} ({{Prenom}} {{Nom}})</li>
+                        {{/each}}
+                    </ul>
                 </div>
+                
             {{/each}}
         </div>
     </script>
