@@ -3,8 +3,10 @@
 namespace nrv\infrastructure\repositories;
 
 use DateTime;
+use nrv\core\domain\entities\Soiree\Billet;
 use nrv\core\domain\entities\Soiree\Soiree;
 use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
+use nrv\core\dto\BilletDTO;
 use nrv\infrastructure\DatabaseConnection;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use PDO;
@@ -55,16 +57,21 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $this->soirees;
     }
 
-    public function creerBillet(string $nomAcheteur, string $reference, DateTime $dateHoraireSoiree, string $categorieTarif): void
+    public function creerBillet(Billet $billet, string $id_acheteur): BilletDTO
     {
-        $stmt = $this->pdo->prepare("INSERT INTO billets (nomacheteur, reference, datehorairesoiree, categorietarif) VALUES (:nom_acheteur, :reference, :dateHoraireSoiree, :typetarif)");
-        $stmt->execute([
-            'nomacheteur' => $nomAcheteur,
-            'reference' => $reference,
-            'datehorairesoiree' => $dateHoraireSoiree->format('Y-m-d H:i:s'),
-            'categorietarif' => $categorieTarif
-        ]);
+
+        $stmt = $this->pdo->prepare("
+            INSERT INTO billets (id_acheteur, nomAcheteur, reference, dateHoraireSoiree, typeTarif, prix)
+            VALUES (:id_acheteur, :nomAcheteur, :reference, :dateHoraireSoiree, :typeTarif, :prix)
+        ");
+
+        $stmt->execute();
+        $id = $this->pdo->lastInsertId();
+        return new BilletDTO($billet, $id_acheteur);
     }
+
+
+
 
 
 

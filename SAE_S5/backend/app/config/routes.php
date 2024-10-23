@@ -12,6 +12,9 @@ return function( \Slim\App $app):\Slim\App {
 
     $app->post('/signin', \nrv\application\action\SignInAction::class);
 
+    $app->post('/billets', nrv\application\action\CreateBilletAction::class);
+
+
 
     $app->options('/{routes:.+}', function (Request $request, Response $response, array $args): Response {
         return $response

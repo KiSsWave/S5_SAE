@@ -150,25 +150,5 @@ class SpectacleRepository implements SpectacleRepositoryInterface
     }
 
 
-    public function creerBillets(BilletDTO $billet): void
-    {
-        $sql = "
-            INSERT INTO billets (id, id_acheteur, nom_acheteur, reference, typetarif, prix, date_horaire_soiree)
-            VALUES (:id, :id_acheteur, :nom_acheteur, :reference, :typetarif, :prix, :date_horaire_soiree)
-        ";
 
-        $stmt = $this->pdo->prepare($sql);
-
-        $stmt->bindValue(':id', $billet->getID());
-        $stmt->bindValue(':id_acheteur', $billet->ID_acheteur);
-        $stmt->bindValue(':nom_acheteur', $billet->nomAcheteur);
-        $stmt->bindValue(':reference', $billet->reference);
-        $stmt->bindValue(':typetarif', $billet->typeTarif);
-        $stmt->bindValue(':prix', $billet->prix);
-        $stmt->bindValue(':date_horaire_soiree', $billet->dateHoraireSoiree);
-
-        if (!$stmt->execute()) {
-            throw new \Exception('Erreur lors de la création du billet.');
-        }
-    }
 }
