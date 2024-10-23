@@ -4,6 +4,7 @@ namespace nrv\infrastructure\repositories;
 
 use DateTime;
 use nrv\core\domain\entities\Spectacle\Spectacle;
+use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
 use nrv\infrastructure\DatabaseConnection;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use PDO;
@@ -27,6 +28,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface
 
     }
 
+
     public function getSpectacleByID(int $id){
         $stmt = $this->pdo->prepare("SELECT * FROM spectacles WHERE id = :id");
         $stmt->bindValue(':id', $id);
@@ -38,6 +40,22 @@ class SpectacleRepository implements SpectacleRepositoryInterface
     public function getSpectacles(): array
     {
         return $this->spectacles;
+    }
+
+    public function SoireBySpectaclesID(string $id){
+        $stmt = $this->pdo->prepare("SELECT * FROM SPECTACLESOIREE WHERE id_spectacle = :id_spectacle");
+        $stmt->bindValue(':id_spectacle', $id);
+        $stmt->execute();
+
+        $soireeData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $soiree = [];
+
+        foreach ($soireeData as $ss) {
+            $soiree[] = new SpectacleSoiree($ss['id_soiree'], $ss['id_spectacle']);
+        }
+
+        return $soiree;
+
     }
 
     public function getSpectaclesByDate(DateTime $date): array

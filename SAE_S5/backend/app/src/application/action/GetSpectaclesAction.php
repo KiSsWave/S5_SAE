@@ -27,6 +27,9 @@ class GetSpectaclesAction extends AbstractAction
             ];
 
             foreach ($spectacles as $spectacleDto) {
+                foreach ($spectacleDto as $s){
+                    $soiree = $this->spectacleService->afficherSpectaclesSoiree($s->ID);
+                }
                 $resultat["Spectacles"][] = [
                     "Titre" => $spectacleDto->titre,
                     "Date" => $spectacleDto->horaire,
@@ -36,10 +39,9 @@ class GetSpectaclesAction extends AbstractAction
                             "href" => "/spectacle/" . $spectacleDto->ID
                         ]
                     ],
-                    "Detail Soiree" => [
-                        "href" => "/soiree/" . $spectacleDto->ID,
+                    "DetailSoiree" => [
+                        "href" => "/soiree/" . $soiree[0]->idSoiree,
                         "method" => "GET",
-                        "titre" => "Detail du spectacle"
                     ]
                 ];
             }
