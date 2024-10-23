@@ -34,6 +34,7 @@
                     <img src="http://localhost:42050/assets/image/{{this.Image}}" alt="{{this.Titre}}">
                     <h3>{{this.Titre}}</h3>
                     <p><i class="fa-regular fa-calendar"></i> {{this.Date}}</p>
+                    <p><i class="fa-solid fa-clock"></i> {{this.Horaire}}</p>
                 </div>
             {{/each}}
         </div>
@@ -42,7 +43,8 @@
     <script id="soiree-template" type="text/x-handlebars-template">
         <div class="soiree">
             <h3>{{this.Soiree.NomSoiree}} - Thématique : {{this.Soiree.Thematique}}</h3>
-            <p><i class="fa-regular fa-calendar"></i> {{this.Soiree.DateHoraire.date}}</p>
+            <p><i class="fa-regular fa-calendar"></i> {{this.Soiree.Date}}</p>
+            <p><i class="fa-solid fa-clock"></i> {{this.Soiree.Horaire}} H</p>
             <p><i class="fa-solid fa-location-dot"></i> {{this.Soiree.Lieu}}</p>
             <div class="tarifs">
                 <button>Tarif normal : {{this.Soiree.Tarif}} €</button>
@@ -52,17 +54,17 @@
             <div class="spectacle-container">
                 {{#each spectacles}}
                     <div class="spectacle">
-                        {{#each Spectacle.Images}}
-                            <img src="http://localhost:42050/assets/image/{{this}}" alt="{{this}}">
-                        {{/each}}
-                        <h3>{{Spectacle.Titre}}</h3>
+                        <iframe src="{{Spectacle.Video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <h3>{{Spectacle.Titre}}, {{Spectacle.Style}}</h3>
                         <p><i class="fa-solid fa-clock"></i> {{Spectacle.Horaire}} H</p>
+                        <p>{{Spectacle.Description}}</p>
                         <p>Artistes :</p>
                         <ul>
                             {{#each Spectacle.Artistes}}
                                 <li>{{Pseudonyme}} ({{Prenom}} {{Nom}})</li>
                             {{/each}}
                         </ul>
+                        
                     </div>    
                 {{/each}}
             </div>

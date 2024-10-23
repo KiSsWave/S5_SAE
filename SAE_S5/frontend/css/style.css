@@ -167,7 +167,7 @@ section #research-container input {
 .soiree .spectacle-container .spectacle p, .soiree .spectacle-container .spectacle h3 {
   margin: 10px;
 }
-.soiree .spectacle-container .spectacle img {
+.soiree .spectacle-container .spectacle img, .soiree .spectacle-container .spectacle iframe {
   width: 100%;
   aspect-ratio: 16/9;
 }
