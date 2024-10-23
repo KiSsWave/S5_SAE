@@ -7,6 +7,7 @@ use nrv\core\domain\entities\Spectacle\Spectacle;
 use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
 use nrv\infrastructure\DatabaseConnection;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
+use nrv\core\domain\entities\Spectacle\SpectacleArtiste;
 use PDO;
 
 class SpectacleRepository implements SpectacleRepositoryInterface
@@ -96,6 +97,21 @@ class SpectacleRepository implements SpectacleRepositoryInterface
         return $soirees;
 
 
+    }
+
+    public function getArtisteBySpectacleID(string $id){
+        $stmt = $this->pdo->prepare("SELECT * FROM ARTISTESPECTACLE natural join ARTISTES WHERE id_spectacle = :id_spectacle");
+        $stmt->bindValue(':id_spectacle', $id);
+        $stmt->execute();
+
+        $artistesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $artistes = [];
+
+        foreach ($artistesData as $as) {
+            $artistes[] = new SpectacleArtiste($as['id_artiste'], $as['id_spectacle'], $as['pseudonyme'], $as['nom'], $as['prenom']);
+        }
+
+        return $artistes;
     }
 
 

@@ -27,21 +27,33 @@ class GetSpectaclesAction extends AbstractAction
             ];
 
             foreach ($spectacles as $spectacleDto) {
-                foreach ($spectacleDto as $s){
-                    $soiree = $this->spectacleService->afficherSpectaclesSoiree($s->ID);
+                    $soiree_tab = $this->spectacleService->afficherSoireesParSpectacleID($spectacleDto->ID);
+                foreach ($soiree_tab as $s){
+                    $soiree = $s;
+                }
+                $artistes_tab = $this->spectacleService->afficherArtistesParSpectacleID($spectacleDto->ID);
+                $artistes = [];
+                foreach ($artistes_tab as $a){
+                    $artistes[] = [
+                        "Pseudonyme" => $a->pseudonyme,
+                        "Nom" => $a->nom,
+                        "Prenom" => $a->prenom
+                    ];
                 }
                 $resultat["Spectacles"][] = [
                     "Titre" => $spectacleDto->titre,
                     "Date" => $spectacleDto->horaire,
                     "Image" => $spectacleDto->images[0],
+                    "Artistes" => $artistes,
                     "links" => [
                         "self" => [
                             "href" => "/spectacle/" . $spectacleDto->ID
                         ]
                     ],
-                    "DetailSoiree" => [
-                        "href" => "/soiree/" . $soiree[0]->idSoiree,
+                    "Detail Soiree" => [
+                        "href" => "/soiree/" . $spectacleDto->ID,
                         "method" => "GET",
+                        "titre" => "Detail du spectacle"
                     ]
                 ];
             }
