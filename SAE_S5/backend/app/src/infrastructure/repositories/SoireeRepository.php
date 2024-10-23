@@ -8,7 +8,7 @@ use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
 use nrv\infrastructure\DatabaseConnection;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use PDO;
-use repositoryInterfaces\RepositoryEntityNotFoundException;
+use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 
 class SoireeRepository implements SoireeRepositoryInterface
 {

@@ -50,8 +50,8 @@ class GetSpectaclesAction extends AbstractAction
                             "href" => "/spectacle/" . $spectacleDto->ID
                         ]
                     ],
-                    "Detail Soiree" => [
-                        "href" => "/soiree/" . $spectacleDto->ID,
+                    "Soiree" => [
+                        "href" => "/soiree/" . $soiree->idSoiree,
                         "method" => "GET",
                         "titre" => "Detail du spectacle"
                     ]
