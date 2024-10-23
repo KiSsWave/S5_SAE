@@ -2,16 +2,56 @@
 
 namespace nrv\core\dto;
 
+use nrv\core\domain\entities\User\User;
 use nrv\core\dto\DTO;
 
 class AuthDTO extends DTO
 {
-    public string $userId;
-    public array $tokens;
+    protected string $id;
+    protected string $email;
+    protected int $role;
+    protected string $token;
+    protected string $refreshToken;
 
-    public function __construct(string $userId, array $tokens)
+    public function __construct(User $user)
     {
-        $this->userId = $userId;
-        $this->tokens = $tokens;
+        $this->id = $user->getId();
+        $this->email = $user->getEmail();
+        $this->role = $user->getRole();
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getRole(): int
+    {
+        return $this->role;
+    }
+
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    public function getRefreshToken(): string
+    {
+        return $this->refreshToken;
+    }
+
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
+    }
+
+    public function setRefreshToken(string $refreshToken): void
+    {
+        $this->refreshToken = $refreshToken;
     }
 }

@@ -12,7 +12,7 @@ class JWTManager
 
     public function __construct()
     {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../config', 'token.env');
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../config', 'token.env');
         $dotenv->load();
 
         $this->jwtSecret = $_ENV['JWT_SECRET'];
@@ -20,11 +20,17 @@ class JWTManager
 
     public function createAccessToken(array $payload): string
     {
+        $payload['iat'] = time();
+        $payload['exp'] = time() + 3600;
         return JWT::encode($payload, $this->jwtSecret, 'HS256');
     }
 
     public function decodeToken(string $token): array
     {
-        return (array)JWT::decode($token, new Key($this->jwtSecret, 'HS256'));
-    }
+        try {
+            $decodeToken = JWT::decode($token, new Key($this->jwtSecret, 'HS256'));
+            return (array) $decodeToken;
+        } catch (\Exception $e) {
+            return ['error' => $e->getMessage()];
+        }    }
 }

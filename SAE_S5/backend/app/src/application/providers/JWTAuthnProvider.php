@@ -2,9 +2,11 @@
 
 namespace nrv\application\providers;
 
-use nrv\core\services\auth\AuthDTO;
+use nrv\core\domain\entities\User\User;
+use nrv\core\dto\AuthDTO;
 use nrv\core\services\auth\AuthnServiceInterface;
-use nrv\core\services\auth\CredentialDTO;
+use PhpParser\Token;
+use nrv\core\dto\CredentialDTO;
 
 class JWTAuthnProvider implements AuthnProviderInterface
 {
@@ -27,5 +29,18 @@ class JWTAuthnProvider implements AuthnProviderInterface
     public function signin(CredentialDTO $c): AuthDTO
     {
         return $this->authService->ByCredentials($c);
+    }
+
+    public function refresh(Token $token): AuthDTO
+    {
+        // TODO: Implement refresh() method.
+    }
+
+    public function getSignedInUser(Token $token): AuthDTO
+    {
+        $decodedToken = $this->jwtManager->decodeToken($token);
+        $email = $decodedToken['email'];
+        $role = $decodedToken['role'];
+        return new AuthDTO(new User($email, $role));
     }
 }

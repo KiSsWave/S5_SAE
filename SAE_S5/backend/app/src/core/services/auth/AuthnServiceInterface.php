@@ -3,6 +3,7 @@
 namespace nrv\core\services\auth;
 
 use nrv\core\dto\AuthDTO;
+use nrv\core\dto\CredentialDTO;
 
 interface AuthnServiceInterface
 {
