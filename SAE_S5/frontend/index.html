@@ -30,7 +30,7 @@
         <h2 class="spectacle-h2">Liste des spectacles</h2>
         <div class="spectacles-container">
             {{#each this.Spectacles}}
-                <div class="spectacle" data-url="http://localhost:42050{{this.Soiree.href}}">
+                <div class="spectacle" data-url="http://localhost:42050{{this.SoireeAssociee.href}}">
                     <img src="http://localhost:42050/assets/image/{{this.Image}}" alt="{{this.Titre}}">
                     <h3>{{this.Titre}}</h3>
                     <p><i class="fa-regular fa-calendar"></i> {{this.Date.date}}</p>
@@ -48,6 +48,23 @@
                 <button>Tarif normal : {{this.Soiree.Tarif}} €</button>
                 <button>Tarif réduit : {{this.Soiree.TarifReduit}} €</button>
             </div>
+            <h3>Spectacles proposés :</h3>
+            {{#each spectacles}}
+                <div class="spectacle">
+                    {{#each Spectacle.Images}}
+                        <img src="http://localhost:42050/assets/image/{{this}}" alt="{{this}}">
+                    {{/each}}
+                    <h4>{{Spectacle.Titre}}</h4>
+                    <p>{{Spectacle.Description}}</p>
+                    <h5>Artistes :</h5>
+                    <ul>
+                        {{#each Spectacle.Artistes}}
+                            <li>{{Pseudonyme}} ({{Prenom}} {{Nom}})</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                
+            {{/each}}
         </div>
     </script>
     

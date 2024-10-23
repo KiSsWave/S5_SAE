@@ -36,13 +36,13 @@ class SpectacleRepository implements SpectacleRepositoryInterface
         }
     }
 
-    public function getSpectacleByID(int $id)
-    {
-        $stmt = $this->pdo->prepare("SELECT * FROM spectacles WHERE id = :id");
-        $stmt->bindValue(':id', $id);
-        $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    public function getSpectacleByID(string $id){
+        if(!isset($this->spectacles[$id])){
+            return null;
+        }
+        return $this->spectacles[$id];
     }
 
     public function getSpectacles(): array

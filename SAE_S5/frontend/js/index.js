@@ -2994,34 +2994,34 @@
       }
       exports.urlParse = urlParse;
       function urlGenerate(aParsedUrl) {
-        var url = "";
+        var url2 = "";
         if (aParsedUrl.scheme) {
-          url += aParsedUrl.scheme + ":";
+          url2 += aParsedUrl.scheme + ":";
         }
-        url += "//";
+        url2 += "//";
         if (aParsedUrl.auth) {
-          url += aParsedUrl.auth + "@";
+          url2 += aParsedUrl.auth + "@";
         }
         if (aParsedUrl.host) {
-          url += aParsedUrl.host;
+          url2 += aParsedUrl.host;
         }
         if (aParsedUrl.port) {
-          url += ":" + aParsedUrl.port;
+          url2 += ":" + aParsedUrl.port;
         }
         if (aParsedUrl.path) {
-          url += aParsedUrl.path;
+          url2 += aParsedUrl.path;
         }
-        return url;
+        return url2;
       }
       exports.urlGenerate = urlGenerate;
       function normalize(aPath) {
         var path = aPath;
-        var url = urlParse(aPath);
-        if (url) {
-          if (!url.path) {
+        var url2 = urlParse(aPath);
+        if (url2) {
+          if (!url2.path) {
             return aPath;
           }
-          path = url.path;
+          path = url2.path;
         }
         var isAbsolute = exports.isAbsolute(path);
         var parts = path.split(/\/+/);
@@ -3045,9 +3045,9 @@
         if (path === "") {
           path = isAbsolute ? "/" : ".";
         }
-        if (url) {
-          url.path = path;
-          return urlGenerate(url);
+        if (url2) {
+          url2.path = path;
+          return urlGenerate(url2);
         }
         return path;
       }
@@ -4125,13 +4125,13 @@
         if (this.sourceRoot != null) {
           relativeSource = util.relative(this.sourceRoot, relativeSource);
         }
-        var url;
-        if (this.sourceRoot != null && (url = util.urlParse(this.sourceRoot))) {
+        var url2;
+        if (this.sourceRoot != null && (url2 = util.urlParse(this.sourceRoot))) {
           var fileUriAbsPath = relativeSource.replace(/^file:\/\//, "");
-          if (url.scheme == "file" && this._sources.has(fileUriAbsPath)) {
+          if (url2.scheme == "file" && this._sources.has(fileUriAbsPath)) {
             return this.sourcesContent[this._sources.indexOf(fileUriAbsPath)];
           }
-          if ((!url.path || url.path == "/") && this._sources.has("/" + relativeSource)) {
+          if ((!url2.path || url2.path == "/") && this._sources.has("/" + relativeSource)) {
             return this.sourcesContent[this._sources.indexOf("/" + relativeSource)];
           }
         }
@@ -5715,24 +5715,29 @@
     }
   });
 
+  // js/config.js
+  var url = "http://localhost:42050";
+  var imgurl = "http://localhost:42050/assets/image/";
+  var config_default = { url, imgurl };
+
   // js/loader.js
-  function loadSpectacle(url) {
+  function loadSpectacle(url2) {
     return __async(this, null, function* () {
-      return fetch(url).catch((error) => {
+      return fetch(url2).catch((error) => {
         console.error("Erreur lors de la r\xE9cup\xE9ration du spectacle");
       });
     });
   }
-  function loadSoiree(url) {
+  function loadSoiree(url2) {
     return __async(this, null, function* () {
-      return fetch(url).catch((error) => {
+      return fetch(url2).catch((error) => {
         console.error("Erreur lors de la r\xE9cup\xE9ration de la soir\xE9e");
       });
     });
   }
-  function loadAllSpectacles(url) {
+  function loadAllSpectacles(url2) {
     return __async(this, null, function* () {
-      return fetch(url).catch((error) => {
+      return fetch(url2).catch((error) => {
         console.error("Erreur lors de la r\xE9cup\xE9ration de la liste des spectacles");
       });
     });
@@ -5743,10 +5748,16 @@
   var import_handlebars = __toESM(require_handlebars());
   function displaySoiree(Soiree) {
     return __async(this, null, function* () {
+      let spectacles = [];
+      for (const spectacle of Soiree.Spectacles) {
+        const loadedSpectacle = yield loader_default.loadSpectacle(config_default.url + spectacle);
+        spectacles.push(loadedSpectacle);
+      }
+      console.log(spectacles);
       const container = document.getElementById("main");
       const templateSource = document.getElementById("soiree-template").innerHTML;
       const template = import_handlebars.default.compile(templateSource);
-      let html = template({ Soiree });
+      let html = template({ Soiree, spectacles });
       container.innerHTML = html;
     });
   }
@@ -5766,16 +5777,16 @@
   var allSpectacle_ui_default = { displayAllSpectacles };
 
   // index.js
-  function getSoiree(url) {
-    loader_default.loadSoiree(url).then((data) => {
+  function getSoiree(url2) {
+    loader_default.loadSoiree(url2).then((data) => {
       data.json().then((data2) => __async(this, null, function* () {
         console.log(data2.Soiree);
         yield soiree_ui_default.displaySoiree(data2.Soiree);
       }));
     });
   }
-  function getAllSpectacles(url) {
-    loader_default.loadAllSpectacles(url).then((data) => {
+  function getAllSpectacles(url2) {
+    loader_default.loadAllSpectacles(url2).then((data) => {
       data.json().then((data2) => __async(this, null, function* () {
         console.log(data2.Spectacles);
         yield allSpectacle_ui_default.displayAllSpectacles(data2.Spectacles);

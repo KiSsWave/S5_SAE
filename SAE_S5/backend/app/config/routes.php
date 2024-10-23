@@ -8,6 +8,11 @@ return function( \Slim\App $app):\Slim\App {
     $app->get('/soiree/{ID-SOIREE}', nrv\application\action\GetSoireeByIDAction::class);
     $app->get('/spectacles', \nrv\application\action\GetSpectaclesAction::class);
 
+    $app->get('/spectacle/{ID-SPECTACLE}', \nrv\application\action\GetSpectaclebyIdAction::class);
+
+    $app->post('/signin', \nrv\application\action\SignInAction::class);
+
+
     $app->options('/{routes:.+}', function (Request $request, Response $response, array $args): Response {
         return $response
             ->withHeader('Access-Control-Allow-Origin', '*')

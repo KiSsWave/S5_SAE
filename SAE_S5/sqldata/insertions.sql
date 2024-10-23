@@ -29,41 +29,42 @@ INSERT INTO SPECTACLES (ID, titre, description, images, urlVideo, style, horaire
 ('SP10', 'Nuit d’Improvisation', 'Un spectacle d’improvisation théâtrale.', 'impro.jpg', 'https://youtu.be/example10', 'Théâtre', '2024-12-31 23:00:00+00');
 
 INSERT INTO USERS (ID, email, passwd, nom, prenom, numeroTel, birthdate, eligible, role) VALUES
-('550e8400-e29b-41d4-a716-446655440000', 'user1@example.com', 'password123', 'Dupont', 'Jean', '0612345678', '1990-05-15', TRUE, 1),
-('550e8400-e29b-41d4-a716-446655440001', 'user2@example.com', 'password123', 'Martin', 'Claire', '0623456789', '1985-03-25', TRUE, 2),
-('550e8400-e29b-41d4-a716-446655440002', 'user3@example.com', 'password123', 'Bernard', 'Pierre', '0634567890', '1992-08-30', TRUE, 3),
-('550e8400-e29b-41d4-a716-446655440003', 'user4@example.com', 'password123', 'Durand', 'Marie', '0645678901', '1988-11-12', TRUE, 1),
-('550e8400-e29b-41d4-a716-446655440004', 'user5@example.com', 'password123', 'Leroy', 'Paul', '0656789012', '1995-06-21', TRUE, 2),
-('550e8400-e29b-41d4-a716-446655440005', 'user6@example.com', 'password123', 'Roussel', 'Sophie', '0667890123', '1991-04-08', TRUE, 1),
-('550e8400-e29b-41d4-a716-446655440006', 'user7@example.com', 'password123', 'Pichon', 'Lucas', '0678901234', '1980-09-30', TRUE, 2),
-('550e8400-e29b-41d4-a716-446655440007', 'user8@example.com', 'password123', 'Bouvier', 'Emma', '0689012345', '1993-12-15', TRUE, 3),
-('550e8400-e29b-41d4-a716-446655440008', 'user9@example.com', 'password123', 'Gauthier', 'Alice', '0690123456', '1987-02-14', TRUE, 1),
-('550e8400-e29b-41d4-a716-446655440009', 'user10@example.com', 'password123', 'Moreau', 'Antoine', '0701234567', '1994-10-20', TRUE, 2);
+('550e8400-e29b-41d4-a716-446655440000', 'user1@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Dupont', 'Jean', '0612345678', '1990-05-15', TRUE, 1),
+('550e8400-e29b-41d4-a716-446655440001', 'user2@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Martin', 'Claire', '0623456789', '1985-03-25', TRUE, 2),
+('550e8400-e29b-41d4-a716-446655440002', 'user3@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Bernard', 'Pierre', '0634567890', '1992-08-30', TRUE, 3),
+('550e8400-e29b-41d4-a716-446655440003', 'user4@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Durand', 'Marie', '0645678901', '1988-11-12', TRUE, 1),
+('550e8400-e29b-41d4-a716-446655440004', 'user5@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Leroy', 'Paul', '0656789012', '1995-06-21', TRUE, 2),
+('550e8400-e29b-41d4-a716-446655440005', 'user6@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Roussel', 'Sophie', '0667890123', '1991-04-08', TRUE, 1),
+('550e8400-e29b-41d4-a716-446655440006', 'user7@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Pichon', 'Lucas', '0678901234', '1980-09-30', TRUE, 2),
+('550e8400-e29b-41d4-a716-446655440007', 'user8@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Bouvier', 'Emma', '0689012345', '1993-12-15', TRUE, 3),
+('550e8400-e29b-41d4-a716-446655440008', 'user9@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Gauthier', 'Alice', '0690123456', '1987-02-14', TRUE, 1),
+('550e8400-e29b-41d4-a716-446655440009', 'user10@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Moreau', 'Antoine', '0701234567', '1994-10-20', TRUE, 2);
 
-INSERT INTO BILLETS (ID, ID_acheteur, nom_acheteur, reference, typeTarif, prix) VALUES
-('B1', '550e8400-e29b-41d4-a716-446655440000', 'Jean Dupont', 'S001', 'Standard', 25),
-('B2', '550e8400-e29b-41d4-a716-446655440001', 'Claire Martin', 'S002', 'Réduit', 12),
-('B3', '550e8400-e29b-41d4-a716-446655440002', 'Pierre Bernard', 'S003', 'Standard', 30),
-('B4', '550e8400-e29b-41d4-a716-446655440003', 'Marie Durand', 'S001', 'Standard', 25),
-('B5', '550e8400-e29b-41d4-a716-446655440004', 'Paul Leroy', 'S002', 'Réduit', 12),
-('B6', '550e8400-e29b-41d4-a716-446655440005', 'Sophie Roussel', 'S004', 'Standard', 15),
-('B7', '550e8400-e29b-41d4-a716-446655440006', 'Lucas Pichon', 'S005', 'Standard', 22),
-('B8', '550e8400-e29b-41d4-a716-446655440007', 'Emma Bouvier', 'S003', 'Réduit', 18),
-('B9', '550e8400-e29b-41d4-a716-446655440008', 'Alice Gauthier', 'S008', 'Standard', 35),
-('B10', '550e8400-e29b-41d4-a716-446655440009', 'Antoine Moreau', 'S0010', 'Standard', 50);
+
+INSERT INTO BILLETS (ID, ID_acheteur, nom_acheteur, reference, dateHoraireSoiree, typeTarif, prix) VALUES
+('B1', '550e8400-e29b-41d4-a716-446655440000', 'Jean Dupont', 'S001', '2024-11-15 20:00:00+00','Standard', 25),
+('B2', '550e8400-e29b-41d4-a716-446655440001', 'Claire Martin', 'S002', '2024-12-01 19:30:00+00','Réduit', 12),
+('B3', '550e8400-e29b-41d4-a716-446655440002', 'Pierre Bernard', 'S003', '2024-12-10 18:00:00+00','Standard', 30),
+('B4', '550e8400-e29b-41d4-a716-446655440003', 'Marie Durand', 'S001', '2024-11-15 20:00:00+00','Standard', 25),
+('B5', '550e8400-e29b-41d4-a716-446655440004', 'Paul Leroy', 'S002', '2024-12-01 19:30:00+00','Réduit', 12),
+('B6', '550e8400-e29b-41d4-a716-446655440005', 'Sophie Roussel', 'S004', '2024-11-20 21:00:00+00','Standard', 15),
+('B7', '550e8400-e29b-41d4-a716-446655440006', 'Lucas Pichon', 'S005', '2024-11-25 20:00:00+00','Standard', 22),
+('B8', '550e8400-e29b-41d4-a716-446655440007', 'Emma Bouvier', 'S003', '2024-12-10 18:00:00+00','Réduit', 18),
+('B9', '550e8400-e29b-41d4-a716-446655440008', 'Alice Gauthier', 'S008', '2024-12-20 17:00:00+00','Standard', 35),
+('B10', '550e8400-e29b-41d4-a716-446655440009', 'Antoine Moreau', 'S0010', '2024-12-31 22:00:00+00','Standard', 50);
 
 
 INSERT INTO ARTISTES (ID_artiste, pseudonyme, nom, prenom) VALUES
-('A1', 'Mick', 'Jagger', 'Mick'),
-('A2', 'Duke', 'Ellington', 'Edward'),
-('A3', 'Ludwig', 'van Beethoven', 'Ludwig'),
-('A4', 'Céline', 'Dion', 'Céline'),
-('A5', 'Freddie', 'Mercury', 'Freddie'),
-('A6', 'Diana', 'Krall', 'Diana'),
-('A7', 'Yo-Yo', 'Ma', 'Yo-Yo'),
-('A8', 'Sting', 'Gordon', 'Sting'),
-('A9', 'Nina', 'Simone', 'Nina'),
-('A10', 'Mozart', 'Wolfgang', 'Mozart');
+('A1', '', 'Jagger', 'Mick'),
+('A2', '', 'Ellington', 'Edward'),
+('A3', '', 'van Beethoven', 'Ludwig'),
+('A4', '', 'Dion', 'Céline'),
+('A5', '', 'Mercury', 'Freddie'),
+('A6', '', 'Krall', 'Diana'),
+('A7', '', 'Ma', 'Yo-Yo'),
+('A8', '', 'Gordon', 'Sting'),
+('A9', '', 'Simone', 'Nina'),
+('A10', '', 'Wolfgang', 'Mozart');
 
 INSERT INTO ARTISTESPECTACLE (ID_artiste, ID_spectacle) VALUES
 ('A1', 'SP1'),
