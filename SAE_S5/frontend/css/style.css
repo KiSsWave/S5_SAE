@@ -170,6 +170,7 @@ section #research-container input {
 .spectacles-container .spectacle {
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
   width: fit-content;
+  margin: 20px;
 }
 .spectacles-container .spectacle img {
   width: 100%;
