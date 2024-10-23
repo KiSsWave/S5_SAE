@@ -2,6 +2,7 @@
 
 namespace nrv\application\providers;
 
+use DateTime;
 use nrv\core\domain\entities\User\User;
 use nrv\core\dto\AuthDTO;
 use nrv\core\services\auth\AuthnServiceInterface;
@@ -21,9 +22,10 @@ class JWTAuthnProvider implements AuthnProviderInterface
     }
 
 
-    public function register(CredentialDTO $c, int $role)
+    public function register(CredentialDTO $c,string $nom, string $prenom, string $tel, string $birthdateString, string $eligible,int $role)
     {
-        $this->authService->createUser($c, $role);
+        $birthdate = new DateTime($birthdateString);
+        $this->authService->createUser($c,$nom,$prenom,$tel, $birthdate, $eligible,$role);
     }
 
     public function signin(CredentialDTO $c): AuthDTO

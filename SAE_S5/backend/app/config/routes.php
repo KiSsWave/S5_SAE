@@ -11,6 +11,7 @@ return function( \Slim\App $app):\Slim\App {
     $app->get('/spectacle/{ID-SPECTACLE}', \nrv\application\action\GetSpectaclebyIdAction::class);
 
     $app->post('/signin', \nrv\application\action\SignInAction::class);
+    $app->post('/register', \nrv\application\action\RegisterAction::class);
 
 
     $app->options('/{routes:.+}', function (Request $request, Response $response, array $args): Response {

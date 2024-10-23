@@ -19,6 +19,7 @@ use nrv\core\services\auth\AuthnService;
 use nrv\application\providers\AuthnProviderInterface;
 use nrv\application\providers\JWTAuthnProvider;
 use nrv\application\providers\JWTManager;
+use nrv\application\action\RegisterAction;
 
 return[
 
@@ -60,7 +61,10 @@ return[
 
     SignInAction::class => function (ContainerInterface $c){
         return new SignInAction($c->get(AuthnProviderInterface::class));
-    }
+    },
 
+    RegisterAction::class => function (ContainerInterface $c){
+        return new RegisterAction($c->get(AuthnProviderInterface::class));
+    }
 
 ];

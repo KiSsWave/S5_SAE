@@ -21,7 +21,8 @@ class UserRepository implements UserRepositoryInterface
         $this->pdo = DatabaseConnection::getPDO('nrv');
         $users = $this->pdo->query("SELECT * FROM users")->fetchAll(PDO::FETCH_ASSOC);
         foreach ($users as $u) {
-            $this->users[$u['id']] = new User($u['email'], $u['role']);
+            $date = new DateTime($u['birthdate']);
+            $this->users[$u['id']] = new User($u['email'],$u['nom'], $u['prenom'], $u['numerotel'],$date,$u['eligible'], $u['role']);
             $this->users[$u['id']]->setID($u['id']);
             $this->users[$u['id']]->setPassword($u['passwd']);
         }
@@ -36,8 +37,23 @@ class UserRepository implements UserRepositoryInterface
 
     public function save(User $user): string
     {
-        // TODO: Implement save() method.
+        $this->users[$user->getID()] = $user;
+        $insert =$this->pdo->prepare('INSERT INTO USERS (ID, email, passwd,nom, prenom, numerotel, birthdate,eligible, role) VALUES (:id, :email, :password,:nom,:prenom,:numerotel,:birthdate,:eligible, :role)');
+        $birthdate = $user->getBirthdate()->format('Y-m-d');
+        $insert->execute( [
+            'id' => $user->getID(),
+            'email' => $user->getEmail(),
+            'password' => $user->getPassword(),
+            'nom' => $user->getNom(),
+            'prenom' => $user->getPrenom(),
+            'numerotel' => $user->getNumerotel(),
+            'birthdate' => $birthdate,
+            'eligible' => $user->getEligible(),
+            'role' => $user->getRole()
+        ]);
+        return $user->getID();
     }
+
 
     public function getUserByEmail(string $email): User
     {

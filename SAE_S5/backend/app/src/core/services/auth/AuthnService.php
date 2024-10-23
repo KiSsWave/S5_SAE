@@ -2,11 +2,13 @@
 
 namespace nrv\core\services\auth;
 
+use DateTime;
 use nrv\core\domain\entities\User\User;
 use nrv\core\repositoryInterfaces\UserRepositoryInterface;
 use nrv\core\services\auth\AuthnServiceInterface;
 use nrv\core\dto\AuthDTO;
 use nrv\core\dto\CredentialDTO;
+use Ramsey\Uuid\Uuid;
 
 class AuthnService implements AuthnServiceInterface
 {
@@ -17,9 +19,10 @@ class AuthnService implements AuthnServiceInterface
         $this->userRepository = $userRepository;
     }
 
-    public function createUser(CredentialDTO $credentials, int $role): string
+    public function createUser(CredentialDTO $credentials,string $nom, string $prenom, string $tel, DateTime $birthdate, string $eligible, int $role): string
     {
-        $user = new User($credentials->getEmail(), $role);
+        $user = new User($credentials->getEmail(),$nom,$prenom,$tel, $birthdate, $eligible, $role);
+        $user->setID(Uuid::uuid4()->toString());
         $user->setPassword(password_hash($credentials->getPassword(), PASSWORD_DEFAULT));
         return $this->userRepository->save($user);
     }
