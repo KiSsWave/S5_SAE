@@ -67,4 +67,16 @@ class SpectacleService implements SpectacleServiceInterface
         return $artistes;
     }
 
+    public function afficherSpectaclesFiltres(?DateTime $date = null, ?string $style = null, ?string $lieu = null): array
+    {
+        $spectacles = $this->spectacleRepository->getSpectaclesFiltres($date, $style, $lieu);
+        $spectaclesDto = [];
+
+        foreach ($spectacles as $spectacle) {
+            $spectaclesDto[] = new SpectacleDTO($spectacle);
+        }
+
+        return $spectaclesDto;
+    }
+
 }
