@@ -5,16 +5,16 @@
 
 .spectacles-container
     display: grid
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr))
     padding: 20px
     
 
     .spectacle
         box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1)
-        width: fit-content
         margin: 20px
         img
             width: 100%
+            aspect-ratio: 16/9
         
         p, h3
             margin: 10px
@@ -23,6 +23,6 @@
             font-size: larger
 
     .spectacle:hover
-        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3)
-        transition: 0.24s
-        cursor: pointer
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3)
+            transition: 0.24s
+            cursor: pointer

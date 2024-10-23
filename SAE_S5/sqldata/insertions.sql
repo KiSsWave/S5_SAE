@@ -17,16 +17,16 @@ INSERT INTO SOIREES (ID, nom, thematique, dateSoiree, lieuSoiree, nbPlaces, tari
 ('S0010', 'Soirée de Réveillon', 'Événement Spécial', '2024-12-31 22:00:00+00', 'L1', 3500, 50.00, 30.00);
 
 INSERT INTO SPECTACLES (ID, titre, description, images, urlVideo, style, horaire) VALUES
-('SP1', 'Concert des Rolling Stones', 'Un concert inoubliable avec les plus grands hits.', 'rolling_stones.jpg', 'https://youtu.be/example1', 'Rock', '2024-11-15 21:00:00+00'),
-('SP2', 'Soirée Jazz avec Duke Ellington', 'Une soirée pleine de mélodies jazzy.', 'duke_ellington.jpg', 'https://youtu.be/example2', 'Jazz', '2024-12-01 20:00:00+00'),
-('SP3', 'Symphonie n°5 de Beethoven', 'Une interprétation classique de l''œuvre de Beethoven.', 'beethoven.jpg', 'https://youtu.be/example3', 'Classique', '2024-12-10 19:00:00+00'),
-('SP4', 'Soirée Salsa', 'Plongée dans l’univers de la Salsa.', 'salsa.jpg', 'https://youtu.be/example4', 'Salsa', '2024-11-20 21:30:00+00'),
-('SP5', 'Danse Contemporaine', 'Spectacle de danse moderne et innovante.', 'danse_contemporaine.jpg', 'https://youtu.be/example5', 'Danse', '2024-11-25 20:30:00+00'),
-('SP6', 'Récital de Piano', 'Concert solo avec un pianiste renommé.', 'recital_piano.jpg', 'https://youtu.be/example6', 'Classique', '2024-12-15 18:30:00+00'),
-('SP7', 'Jazz dans les Rues', 'Un concert en plein air avec des artistes locaux.', 'jazz_rues.jpg', 'https://youtu.be/example7', 'Jazz', '2024-12-05 18:00:00+00'),
-('SP8', 'Opéra : La Traviata', 'Interprétation de l’opéra classique.', 'traviata.jpg', 'https://youtu.be/example8', 'Opéra', '2024-12-30 20:00:00+00'),
-('SP9', 'Concert de Variété', 'Un mélange de pop et de rock.', 'variete.jpg', 'https://youtu.be/example9', 'Variété', '2024-12-31 22:30:00+00'),
-('SP10', 'Nuit d’Improvisation', 'Un spectacle d’improvisation théâtrale.', 'impro.jpg', 'https://youtu.be/example10', 'Théâtre', '2024-12-31 23:00:00+00');
+('SP1', 'Concert des Rolling Stones', 'Un concert inoubliable avec les plus grands hits.', 'rolling_stones.jpg', 'https://www.youtube.com/embed/kfORcR2VSbc?si=oKoDMGbkqVKa7fRA', 'Rock', '2024-11-15 21:00:00+00'),
+('SP2', 'Soirée Jazz avec Duke Ellington', 'Une soirée pleine de mélodies jazzy.', 'duke_ellington.jpg', 'https://www.youtube.com/embed/cb2w2m1JmCY?si=x1Jl2j6Ie5HoPIVq', 'Jazz', '2024-12-01 20:00:00+00'),
+('SP3', 'Symphonie n°5 de Beethoven', 'Une interprétation classique de l''œuvre de Beethoven.', 'beethoven.jpg', 'https://www.youtube.com/embed/-hO9iiy5zGQ?si=XddUCn6rx3-NoMIY', 'Classique', '2024-12-10 19:00:00+00'),
+('SP4', 'Soirée Salsa', 'Plongée dans l’univers de la Salsa.', 'salsa.jpg', 'https://www.youtube.com/embed/hHspPE8Lz3M?si=ebuf4FSCACWs6Qsb', 'Salsa', '2024-11-20 21:30:00+00'),
+('SP5', 'Danse Contemporaine', 'Spectacle de danse moderne et innovante.', 'danse_contemporaine.jpg', 'https://www.youtube.com/embed/GFbjAB9bwSc?si=jpg4hzaHT_NmGVxo', 'Danse', '2024-11-25 20:30:00+00'),
+('SP6', 'Récital de Piano', 'Concert solo avec un pianiste renommé.', 'recital_piano.jpg', 'https://www.youtube.com/embed/atc19LIHxIE?si=uAPEXVqn9eSj61AV', 'Classique', '2024-12-15 18:30:00+00'),
+('SP7', 'Jazz dans les Rues', 'Un concert en plein air avec des artistes locaux.', 'jazz_rues.jpg', 'https://www.youtube.com/embed/jft3BVoxqjo?si=ggeMaAGAhDye_EqE', 'Jazz', '2024-12-05 18:00:00+00'),
+('SP8', 'Opéra : La Traviata', 'Interprétation de l’opéra classique.', 'traviata.jpg', 'https://www.youtube.com/embed/afhAqMeeQJk?si=4s7xs2qaNyTziXWz', 'Opéra', '2024-12-30 20:00:00+00'),
+('SP9', 'Concert de Variété', 'Un mélange de pop et de rock.', 'variete.jpg', 'https://www.youtube.com/embed/Z8lUW9SKquY?si=rLjn36Bm0iY3Q_rQ', 'Variété', '2024-12-31 22:30:00+00'),
+('SP10', 'Nuit Improvisation', 'Un spectacle improvisation théâtrale.', 'impro.jpg', 'https://www.youtube.com/embed/CUqyqqwKIfg?si=qs7JgpeCyBDlt2kz', 'Théâtre', '2024-12-31 23:00:00+00');
 
 INSERT INTO USERS (ID, email, passwd, nom, prenom, numeroTel, birthdate, eligible, role) VALUES
 ('550e8400-e29b-41d4-a716-446655440000', 'user1@example.com', '$2y$10$eytz.9OZqI3m/YkxUYVJm.nOwVtT5RTOOZWG/NLamFHw6yoUuBo72', 'Dupont', 'Jean', '0612345678', '1990-05-15', TRUE, 1),
@@ -90,3 +90,4 @@ INSERT INTO SPECTACLESOIREE (ID_soiree, ID_spectacle) VALUES
 ('S006', 'SP7'),
 ('S007', 'SP8'),
 ('S0010', 'SP9');
+('S009', 'SP10');

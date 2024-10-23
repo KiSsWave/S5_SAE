@@ -33,7 +33,8 @@
                 <div class="spectacle" data-url="http://localhost:42050{{this.SoireeAssociee.href}}">
                     <img src="http://localhost:42050/assets/image/{{this.Image}}" alt="{{this.Titre}}">
                     <h3>{{this.Titre}}</h3>
-                    <p><i class="fa-regular fa-calendar"></i> {{this.Date.date}}</p>
+                    <p><i class="fa-regular fa-calendar"></i> {{this.Date}}</p>
+                    <p><i class="fa-solid fa-clock"></i> {{this.Horaire}}</p>
                 </div>
             {{/each}}
         </div>
@@ -42,29 +43,32 @@
     <script id="soiree-template" type="text/x-handlebars-template">
         <div class="soiree">
             <h3>{{this.Soiree.NomSoiree}} - Thématique : {{this.Soiree.Thematique}}</h3>
-            <p><i class="fa-regular fa-calendar"></i> {{this.Soiree.DateHoraire.date}}</p>
+            <p><i class="fa-regular fa-calendar"></i> {{this.Soiree.Date}}</p>
+            <p><i class="fa-solid fa-clock"></i> {{this.Soiree.Horaire}} H</p>
             <p><i class="fa-solid fa-location-dot"></i> {{this.Soiree.Lieu}}</p>
             <div class="tarifs">
                 <button>Tarif normal : {{this.Soiree.Tarif}} €</button>
                 <button>Tarif réduit : {{this.Soiree.TarifReduit}} €</button>
             </div>
             <h3>Spectacles proposés :</h3>
-            {{#each spectacles}}
-                <div class="spectacle">
-                    {{#each Spectacle.Images}}
-                        <img src="http://localhost:42050/assets/image/{{this}}" alt="{{this}}">
-                    {{/each}}
-                    <h4>{{Spectacle.Titre}}</h4>
-                    <p>{{Spectacle.Description}}</p>
-                    <h5>Artistes :</h5>
-                    <ul>
-                        {{#each Spectacle.Artistes}}
-                            <li>{{Pseudonyme}} ({{Prenom}} {{Nom}})</li>
-                        {{/each}}
-                    </ul>
-                </div>
-                
-            {{/each}}
+            <div class="spectacle-container">
+                {{#each spectacles}}
+                    <div class="spectacle">
+                        <iframe src="{{Spectacle.Video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <h3>{{Spectacle.Titre}}, {{Spectacle.Style}}</h3>
+                        <p><i class="fa-solid fa-clock"></i> {{Spectacle.Horaire}} H</p>
+                        <p>{{Spectacle.Description}}</p>
+                        {{#if Spectacle.Artistes}}
+                            <p>Artistes :</p>
+                            <ul>
+                                {{#each Spectacle.Artistes}}
+                                    <li>{{Prenom}} {{Nom}}</li>
+                                {{/each}}
+                            </ul>
+                        {{/if}}                        
+                    </div>    
+                {{/each}}
+            </div>
         </div>
     </script>
     

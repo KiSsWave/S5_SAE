@@ -5750,10 +5750,10 @@
     return __async(this, null, function* () {
       let spectacles = [];
       for (const spectacle of Soiree.Spectacles) {
-        const loadedSpectacle = yield loader_default.loadSpectacle(config_default.url + spectacle);
+        const loadedSpectacle = yield loader_default.loadSpectacle(config_default.url + spectacle).then((data) => data.json());
         spectacles.push(loadedSpectacle);
       }
-      console.log(spectacles);
+      spectacles.sort((a, b) => a.Spectacle.Horaire.localeCompare(b.Spectacle.Horaire));
       const container = document.getElementById("main");
       const templateSource = document.getElementById("soiree-template").innerHTML;
       const template = import_handlebars.default.compile(templateSource);
@@ -5780,7 +5780,6 @@
   function getSoiree(url2) {
     loader_default.loadSoiree(url2).then((data) => {
       data.json().then((data2) => __async(this, null, function* () {
-        console.log(data2.Soiree);
         yield soiree_ui_default.displaySoiree(data2.Soiree);
       }));
     });
@@ -5788,7 +5787,7 @@
   function getAllSpectacles(url2) {
     loader_default.loadAllSpectacles(url2).then((data) => {
       data.json().then((data2) => __async(this, null, function* () {
-        console.log(data2.Spectacles);
+        data2.Spectacles.sort((a, b) => a.Horaire.localeCompare(b.Horaire));
         yield allSpectacle_ui_default.displayAllSpectacles(data2.Spectacles);
         document.querySelectorAll(".spectacle").forEach((spectacle) => {
           spectacle.addEventListener("click", () => {

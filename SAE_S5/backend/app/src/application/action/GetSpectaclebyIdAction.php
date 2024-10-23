@@ -46,8 +46,11 @@ class GetSpectaclebyIdAction extends AbstractAction
 
             $resultat = ["Spectacle" => [
                 "Titre" => $spectacle->titre,
+                "Description" => $spectacle->description,
+                "Style" => $spectacle->style,
                 "Date" => $spectacle->horaire->format('Y-m-d'),
                 "Horaire" => $spectacle->horaire->format('H:i'),
+                "Video" => $spectacle->urlVideo,
                 "Images" => $spectacle->images,
                 "Artistes" => $artistes,
                 ],
