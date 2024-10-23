@@ -6,6 +6,7 @@ use Exception;
 use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
 use nrv\core\dto\SoireeDTO;
 use nrv\core\dto\SpectacleSoireeDTO;
+use nrv\core\dto\LieuDTO;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 
 
@@ -35,6 +36,13 @@ class SoireeService implements SoireeServiceInterface
             $spectacles[] = new SpectacleSoireeDTO($spectacle);
         }
         return $spectacles;
+    }
+
+    public function afficherLieuSoiree(string $id): LieuDTO
+    {
+        $lieu = $this->soireeRepository->getLieuBySoireeId($id);
+        $lieuDTO = new LieuDTO($lieu);
+        return $lieuDTO;
     }
 
 }

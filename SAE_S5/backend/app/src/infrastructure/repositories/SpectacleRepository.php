@@ -56,14 +56,14 @@ class SpectacleRepository implements SpectacleRepositoryInterface
         $stmt->bindValue(':id_spectacle', $id);
         $stmt->execute();
 
-        $soireeData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $soiree = [];
+        $soireesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $soirees = [];
 
-        foreach ($soireeData as $ss) {
-            $soiree[] = new SpectacleSoiree($ss['id_soiree'], $ss['id_spectacle']);
+        foreach ($soireesData as $ss) {
+            $soirees[] = new SpectacleSoiree($ss['id_soiree'], $ss['id_spectacle']);
         }
 
-        return $soiree;
+        return $soirees;
     }
 
     public function getSpectaclesFiltres(?DateTime $date = null, ?string $style = null, ?string $lieu = null): array
