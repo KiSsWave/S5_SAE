@@ -12,9 +12,9 @@ INSERT INTO SOIREES (ID, nom, thematique, dateSoiree, lieuSoiree, nbPlaces, tari
 
 -- 3. Insertions dans la table SPECTACLES
 INSERT INTO SPECTACLES (ID, titre, description, images, urlVideo, style, horaire) VALUES
-('SP1', 'Spectacle Humour', 'Un show plein de rires avec les meilleurs humoristes.', 'humour.jpg', 'http://humour.com', 'Humour', '2024-11-05 20:30:00'),
-('SP2', 'Concert Jazz', 'Un concert intime de jazz avec un groupe de musiciens talentueux.', 'jazz.jpg', 'http://jazz.com', 'Jazz', '2024-11-12 21:30:00'),
-('SP3', 'Concert Rock', 'Un show énergique de rock avec des artistes de renom.', 'rock.jpg', 'http://rock.com', 'Rock', '2024-12-01 20:00:00');
+('SP1', 'Spectacle Humour', 'Un show plein de rires avec les meilleurs humoristes.', 'metal1.jpg', 'http://humour.com', 'Humour', '2024-11-05 20:30:00'),
+('SP2', 'Concert Jazz', 'Un concert intime de jazz avec un groupe de musiciens talentueux.', 'rock1.jpg', 'http://jazz.com', 'Jazz', '2024-11-12 21:30:00'),
+('SP3', 'Concert Rock', 'Un show énergique de rock avec des artistes de renom.', 'rock2.jpg', 'http://rock.com', 'Rock', '2024-12-01 20:00:00');
 
 -- 4. Insertions dans la table USERS
 INSERT INTO USERS (ID, email, passwd, nom, prenom, numeroTel, birthdate, eligible) VALUES
