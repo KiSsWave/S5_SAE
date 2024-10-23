@@ -94,7 +94,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface
         $filteredSpectacles = [];
 
         foreach ($spectacles as $spectacle) {
-            if (isset($spectacle['id'])) { // Assurez-vous que l'ID existe
+            if (isset($spectacle['id'])) { 
                 $horaire = new DateTime($spectacle['horaire']);
                 $filteredSpectacles[] = new Spectacle(
                     $spectacle['titre'],
