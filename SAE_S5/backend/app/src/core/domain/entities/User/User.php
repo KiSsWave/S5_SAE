@@ -25,11 +25,6 @@ class User extends Entity
     }
 
 
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
     public function getEmail(): string
     {
         return $this->email;

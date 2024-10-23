@@ -15,7 +15,7 @@ class AuthDTO extends DTO
 
     public function __construct(User $user)
     {
-        $this->id = $user->getId();
+        $this->id = $user->getID();
         $this->email = $user->getEmail();
         $this->role = $user->getRole();
     }
