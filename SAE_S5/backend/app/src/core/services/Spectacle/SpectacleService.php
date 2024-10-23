@@ -3,9 +3,9 @@
 namespace nrv\core\services\Spectacle;
 
 
+use DateTime;
 use nrv\core\domain\entities\Spectacle\Spectacle;
 use nrv\core\dto\SpectacleDTO;
-use nrv\core\dto\SpectacleSoireeDTO;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
 
 
@@ -36,14 +36,14 @@ class SpectacleService implements SpectacleServiceInterface
         return $spectaclesDto;
     }
 
-    public function afficherSoireesParSpectacleID(string $idSpectacle): array
+    public function afficherSpectaclesParDate(DateTime $date): array
     {
-        $soireePur = $this->spectacleRepository->getSoireeBySpectacleID($idSpectacle);
-        foreach ( $soireePur as $s){
-            $soiree[] = new SpectacleSoireeDTO($s);
+        $spectacles = $this->spectacleRepository->getSpectaclesByDate($date);
+        $spectaclesDto = [];
+        foreach ($spectacles as $spectacle) {
+            $spectaclesDto[] = new SpectacleDTO($spectacle);
         }
-
-        return $soiree;
+        return $spectaclesDto;
     }
 
 }
