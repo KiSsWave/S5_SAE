@@ -39,6 +39,29 @@ class SpectacleRepository implements SpectacleRepositoryInterface
         return $this->spectacles;
     }
 
+    public function getSpectaclesByDate(DateTime $date): array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM spectacles WHERE DATE(horaire) = :date");
+        $stmt->bindValue(':date', $date->format('Y-m-d'));
+        $stmt->execute();
+        $spectacles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $filteredSpectacles = [];
+        foreach ($spectacles as $spectacle) {
+            $horaire = new DateTime($spectacle['horaire']);
+            $filteredSpectacles[] = new Spectacle(
+                $spectacle['titre'],
+                $spectacle['description'],
+                $spectacle['images'],
+                $spectacle['urlVideo'],
+                $spectacle['style'],
+                $horaire
+            );
+        }
+
+        return $filteredSpectacles;
+    }
+
 
 
 

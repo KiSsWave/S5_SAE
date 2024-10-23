@@ -5,9 +5,6 @@ use nrv\core\dto\SoireeDTO;
 require_once __DIR__ . '/../backend/app/vendor/autoload.php';
 
 $soireeService = new nrv\core\services\Soiree\SoireeService(new \nrv\infrastructure\repositories\SoireeRepository());
-
-
-// Test de la méthode afficherSoiree
 $id = 'SOO1';
 try {
 

@@ -23,4 +23,5 @@ class SoireeService implements SoireeServiceInterface
             return $soireedto;
 
     }
+
 }
