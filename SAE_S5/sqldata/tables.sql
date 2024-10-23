@@ -45,7 +45,8 @@ create table USERS
     prenom    varchar,
     numeroTel varchar,
     birthdate date,
-    eligible  boolean
+    eligible  boolean,
+    role      int
 );
 
 -- 5. Table BILLETS fait référence à USERS, donc elle doit être créée après.
