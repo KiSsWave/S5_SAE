@@ -55,6 +55,17 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $this->soirees;
     }
 
+    public function creerBillet(string $nomAcheteur, string $reference, DateTime $dateHoraireSoiree, string $categorieTarif): void
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO billets (nomacheteur, reference, datehorairesoiree, categorietarif) VALUES (:nom_acheteur, :reference, :dateHoraireSoiree, :typetarif)");
+        $stmt->execute([
+            'nomacheteur' => $nomAcheteur,
+            'reference' => $reference,
+            'datehorairesoiree' => $dateHoraireSoiree->format('Y-m-d H:i:s'),
+            'categorietarif' => $categorieTarif
+        ]);
+    }
+
 
 
 
