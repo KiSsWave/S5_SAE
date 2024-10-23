@@ -20,14 +20,10 @@ class SpectacleRepository implements SpectacleRepositoryInterface
     {
         $this->pdo = DatabaseConnection::getPDO('nrv');
         $spectacles = $this->pdo->query("SELECT * FROM spectacles")->fetchAll(PDO::FETCH_ASSOC);
-        $spectaclesSoirees = $this->pdo->query("SELECT * FROM SPECTACLESOIREE")->fetchAll(PDO::FETCH_ASSOC);
         foreach ($spectacles as $spectacle) {
             $horaire = new DateTime($spectacle['horaire']);
             $this->spectacles[$spectacle['id']] = new Spectacle($spectacle['titre'], $spectacle['description'], $spectacle['images'], $spectacle['urlvideo'], $spectacle['style'], $horaire);
             $this->spectacles[$spectacle['id']]->setID($spectacle['id']);
-        }
-        foreach ($spectaclesSoirees as $ss){
-            $this->spectaclessoirees[] = new SpectacleSoiree($ss['id_soiree'], $ss['id_spectacle']);
         }
     }
 
