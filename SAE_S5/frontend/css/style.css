@@ -169,6 +169,7 @@ section #research-container input {
 }
 .soiree .spectacle-container .spectacle img {
   width: 100%;
+  aspect-ratio: 16/9;
 }
 
 .spectacle-h2 {
@@ -178,7 +179,7 @@ section #research-container input {
 
 .spectacles-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   padding: 20px;
 }
 .spectacles-container .spectacle {
@@ -187,6 +188,7 @@ section #research-container input {
 }
 .spectacles-container .spectacle img {
   width: 100%;
+  aspect-ratio: 16/9;
 }
 .spectacles-container .spectacle p, .spectacles-container .spectacle h3 {
   margin: 10px;
