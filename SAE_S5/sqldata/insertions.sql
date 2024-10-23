@@ -29,16 +29,16 @@ INSERT INTO SPECTACLES (ID, titre, description, images, urlVideo, style, horaire
 ('SP10', 'Nuit d’Improvisation', 'Un spectacle d’improvisation théâtrale.', 'impro.jpg', 'https://youtu.be/example10', 'Théâtre', '2024-12-31 23:00:00+00');
 
 INSERT INTO USERS (ID, email, passwd, nom, prenom, numeroTel, birthdate, eligible, role) VALUES
-('550e8400-e29b-41d4-a716-446655440000', 'user1@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Dupont', 'Jean', '0612345678', '1990-05-15', TRUE, 1),
-('550e8400-e29b-41d4-a716-446655440001', 'user2@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Martin', 'Claire', '0623456789', '1985-03-25', TRUE, 2),
-('550e8400-e29b-41d4-a716-446655440002', 'user3@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Bernard', 'Pierre', '0634567890', '1992-08-30', TRUE, 3),
-('550e8400-e29b-41d4-a716-446655440003', 'user4@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Durand', 'Marie', '0645678901', '1988-11-12', TRUE, 1),
-('550e8400-e29b-41d4-a716-446655440004', 'user5@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Leroy', 'Paul', '0656789012', '1995-06-21', TRUE, 2),
-('550e8400-e29b-41d4-a716-446655440005', 'user6@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Roussel', 'Sophie', '0667890123', '1991-04-08', TRUE, 1),
-('550e8400-e29b-41d4-a716-446655440006', 'user7@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Pichon', 'Lucas', '0678901234', '1980-09-30', TRUE, 2),
-('550e8400-e29b-41d4-a716-446655440007', 'user8@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Bouvier', 'Emma', '0689012345', '1993-12-15', TRUE, 3),
-('550e8400-e29b-41d4-a716-446655440008', 'user9@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Gauthier', 'Alice', '0690123456', '1987-02-14', TRUE, 1),
-('550e8400-e29b-41d4-a716-446655440009', 'user10@example.com', '$2y$10$eImG6vYH7bbzIwePP0hMUuE1y/VmbNR8PFeHJ0sBd8Ohk3jU0ns/a', 'Moreau', 'Antoine', '0701234567', '1994-10-20', TRUE, 2);
+('550e8400-e29b-41d4-a716-446655440000', 'user1@example.com', '$2y$10$eytz.9OZqI3m/YkxUYVJm.nOwVtT5RTOOZWG/NLamFHw6yoUuBo72', 'Dupont', 'Jean', '0612345678', '1990-05-15', TRUE, 1),
+('550e8400-e29b-41d4-a716-446655440001', 'user2@example.com', '$2y$10$3Fi9g9d1lseYo3WwEjsDDuOcVOU7//8CsNclqPXIGiQgF8Veawi0a', 'Martin', 'Claire', '0623456789', '1985-03-25', TRUE, 2),
+('550e8400-e29b-41d4-a716-446655440002', 'user3@example.com', '$2y$10$pDzD/s57igIQWuPdheuKiOXvNCN1F.K3QWZUAxqXqlcTWxEjDRqBG', 'Bernard', 'Pierre', '0634567890', '1992-08-30', TRUE, 3),
+('550e8400-e29b-41d4-a716-446655440003', 'user4@example.com', '$2y$10$.gGXkLYyjVY69knAJAup1usB9BCVKfDNgkzrCEsl9KOpD7kdq387i', 'Durand', 'Marie', '0645678901', '1988-11-12', TRUE, 1),
+('550e8400-e29b-41d4-a716-446655440004', 'user5@example.com', '$2y$10$pQ.sQ2n6UTKl22ZipZoxO.jX1nKO7fx/N8PoZPJD8Rwjx4ttTU.Ze', 'Leroy', 'Paul', '0656789012', '1995-06-21', TRUE, 2),
+('550e8400-e29b-41d4-a716-446655440005', 'user6@example.com', '$2y$10$O4x0WE9R7aVr.UXrGDPFbuSUELrYyBekN9e8ErVwkVLzlVEPb2JFa', 'Roussel', 'Sophie', '0667890123', '1991-04-08', TRUE, 1),
+('550e8400-e29b-41d4-a716-446655440006', 'user7@example.com', '$2y$10$JSPnEEuStdfUXo/CoEKw8O1O0Jauma1rTAqWqIyFIWaviMe1jnMxG', 'Pichon', 'Lucas', '0678901234', '1980-09-30', TRUE, 2),
+('550e8400-e29b-41d4-a716-446655440007', 'user8@example.com', '$2y$10$sU3BnjGttKmXdmfgB85L6Oz0a1IIojM.czF3gc3Q3Wr/G3GgQtJcW', 'Bouvier', 'Emma', '0689012345', '1993-12-15', TRUE, 3),
+('550e8400-e29b-41d4-a716-446655440008', 'user9@example.com', '$2y$10$nBwJHeTJ3GSJ3RkPp9JpEelhAWe2IJMf2EJqsnt./tSaAmtP9j0BK', 'Gauthier', 'Alice', '0690123456', '1987-02-14', TRUE, 1),
+('550e8400-e29b-41d4-a716-446655440009', 'user10@example.com', '$2y$10$3KL5A7fqXmlAMdAWpEV04.ei7zuNrXoN3WqgJ5DfgzBB7AFPmUoxa', 'Moreau', 'Antoine', '0701234567', '1994-10-20', TRUE, 2);
 
 
 INSERT INTO BILLETS (ID, ID_acheteur, nom_acheteur, reference, dateHoraireSoiree, typeTarif, prix) VALUES

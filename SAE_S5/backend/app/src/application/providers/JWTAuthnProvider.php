@@ -28,7 +28,14 @@ class JWTAuthnProvider implements AuthnProviderInterface
 
     public function signin(CredentialDTO $c): AuthDTO
     {
-        return $this->authService->ByCredentials($c);
+        $authDTO = $this->authService->ByCredentials($c);
+        $authDTO->setToken($this->jwtManager->createAccessToken([
+            'id' => $authDTO->getId(),
+            'email' => $authDTO->getEmail(),
+            'role' => $authDTO->getRole()
+        ]));
+
+        return $authDTO;
     }
 
     public function refresh(Token $token): AuthDTO

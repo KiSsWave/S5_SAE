@@ -156,6 +156,20 @@ section #research-container input {
   color: #ff4800;
   cursor: pointer;
 }
+.soiree .spectacle-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+.soiree .spectacle-container .spectacle {
+  margin: 10px;
+  box-shadow: 0 5px 5px black;
+}
+.soiree .spectacle-container .spectacle p, .soiree .spectacle-container .spectacle h3 {
+  margin: 10px;
+}
+.soiree .spectacle-container .spectacle img {
+  width: 100%;
+}
 
 .spectacle-h2 {
   text-align: center;
@@ -169,7 +183,6 @@ section #research-container input {
 }
 .spectacles-container .spectacle {
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-  width: fit-content;
   margin: 20px;
 }
 .spectacles-container .spectacle img {
