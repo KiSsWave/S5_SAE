@@ -18,14 +18,20 @@ class GetSoireeByIDAction extends AbstractAction
         $soiree_id = $args['ID-SOIREE'];
 
         try{
-                $soiree = $this->soireeService->afficherSoiree($soiree_id);
+            $soiree = $this->soireeService->afficherSoiree($soiree_id);
+            $spectacles = $this->soireeService->afficherSpectaclesSoiree($soiree_id);
+            $idSpectacles = [];
+            foreach ($spectacles as $s){
+                $idSpectacles[] = $s->idSoiree;
+            }
             $resultat = ["Soiree" => [
                 "NomSoiree" => $soiree->nom,
                 "Thematique" => $soiree->thematique,
                 "DateHoraire" => $soiree->dateSoiree,
                 "Lieu" => $soiree->lieuSoiree,
                 "Tarif" => $soiree->tarif,
-                "TarifReduit" => $soiree->tarifReduit
+                "TarifReduit" => $soiree->tarifReduit,
+                "Spectacles" => $idSpectacles
             ],
                 "links" => [
                     "self" => [

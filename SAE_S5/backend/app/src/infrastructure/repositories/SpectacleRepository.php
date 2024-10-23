@@ -26,6 +26,9 @@ class SpectacleRepository implements SpectacleRepositoryInterface
         }
 
     }
+
+
+    }
     public function getSpectacleByID(int $id){
         $stmt = $this->pdo->prepare("SELECT * FROM spectacles WHERE id = :id");
         $stmt->bindValue(':id', $id);
