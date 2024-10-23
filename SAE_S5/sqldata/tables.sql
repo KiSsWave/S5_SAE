@@ -91,3 +91,14 @@ create table SPECTACLESOIREE
     foreign key (ID_spectacle) references SPECTACLES (ID),
     primary key (ID_soiree, ID_spectacle)
 );
+
+-- 9. Table PANIERS doit être créée en dernier car elle dépend de USERS et BILLETS.
+create table PANIERS
+(
+    ID_acheteur uuid,
+    ID_soiree varchar,
+    qte int,
+    foreign key (ID_acheteur) references USERS (ID),
+    foreign key (ID_soiree) references SOIREES (ID),
+    primary key (ID_acheteur, ID_soiree)
+);
