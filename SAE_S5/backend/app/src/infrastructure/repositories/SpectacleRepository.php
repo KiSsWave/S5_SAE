@@ -27,8 +27,6 @@ class SpectacleRepository implements SpectacleRepositoryInterface
 
     }
 
-
-    }
     public function getSpectacleByID(int $id){
         $stmt = $this->pdo->prepare("SELECT * FROM spectacles WHERE id = :id");
         $stmt->bindValue(':id', $id);
@@ -65,6 +63,22 @@ class SpectacleRepository implements SpectacleRepositoryInterface
         return $filteredSpectacles;
     }
 
+    public function getSoireeBySpectacleID(string $id){
+        $stmt = $this->pdo->prepare("SELECT * FROM SPECTACLESOIREE WHERE id_spectacle = :id_spectacle");
+        $stmt->bindValue(':id_spectacle', $id);
+        $stmt->execute();
+
+        $soireesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $soirees = [];
+
+        foreach ($soireesData as $ss) {
+            $soirees[] = new SpectacleSoiree($ss['id_soiree'], $ss['id_spectacle']);
+        }
+
+        return $soirees;
+
+
+    }
 
 
 
