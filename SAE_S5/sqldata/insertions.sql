@@ -2,7 +2,7 @@ INSERT INTO LIEUX (ID, nom, adresse, nbPlacesAssises, nbPlacesDebout, images) VA
 ('L1', 'Le Zénith', 'Avenue du 7e Hussards, Nancy', 3000, 500, 'zenith.jpg'),
 ('L2', 'La Salle Poirel', '3 Rue de la Salle, Nancy', 800, 200, 'salle_poirel.jpg'),
 ('L3', 'Le Nouveau Relax', '9 Rue Saint-Georges, Nancy', 600, 100, 'nouveau_relax.jpg'),
-('L4', 'La Maison de la Culture', '1 Rue des États-Unis, Nancy', 1200, 300, 'maison_culture.jpg'),
+('L4', 'La Maison de la Culture', '1 Rue des États-Unis, Nancy', 1200, 300, 'maison_culture.jpg');
 
 INSERT INTO SOIREES (ID, nom, thematique, dateSoiree, lieuSoiree, nbPlaces, tarif, tarifReduit) VALUES
 ('S001', 'Soirée Rock Extravaganza', 'Concert', '2024-11-15 20:00:00+00', 'L1', 3500, 25.00, 15.00),
@@ -13,7 +13,7 @@ INSERT INTO SOIREES (ID, nom, thematique, dateSoiree, lieuSoiree, nbPlaces, tari
 ('S006', 'Soirée Classique', 'Concert', '2024-12-15 19:00:00+00', 'L1', 400, 30.00, 18.00),
 ('S007', 'Éclats de Jazz', 'Concert', '2024-12-05 20:30:00+00', 'L2', 1000, 25.00, 15.00),
 ('S008', 'Fête de la Musique', 'Festival', '2024-12-20 17:00:00+00', 'L3', 600, 18.00, 10.00),
-('S009', 'Nuit d’Opéra', 'Concert', '2024-12-30 19:00:00+00', 'L4', 800, 35.00, 20.00),
+('S009', 'Nuit Opéra', 'Concert', '2024-12-30 19:00:00+00', 'L4', 800, 35.00, 20.00),
 ('S0010', 'Soirée de Réveillon', 'Événement Spécial', '2024-12-31 22:00:00+00', 'L1', 3500, 50.00, 30.00);
 
 INSERT INTO SPECTACLES (ID, titre, description, images, urlVideo, style, horaire) VALUES
@@ -40,17 +40,18 @@ INSERT INTO USERS (ID, email, passwd, nom, prenom, numeroTel, birthdate, eligibl
 ('550e8400-e29b-41d4-a716-446655440008', 'user9@example.com', 'password123', 'Gauthier', 'Alice', '0690123456', '1987-02-14', TRUE, 1),
 ('550e8400-e29b-41d4-a716-446655440009', 'user10@example.com', 'password123', 'Moreau', 'Antoine', '0701234567', '1994-10-20', TRUE, 2);
 
-INSERT INTO BILLETS (ID, nom_acheteur, reference, typeTarif, prix) VALUES
-('B1', 'Dupont', 'S001', 'Standard', 25),
-('B2', 'Martin', 'S002', 'Réduit', 12),
-('B3', 'Bernard', 'S003', 'Standard', 30),
-('B4', 'Durand', 'S001', 'Standard', 25),
-('B5', 'Leroy', 'S002', 'Réduit', 12),
-('B6', 'Roussel', 'S004', 'Standard', 15),
-('B7', 'Pichon', 'S005', 'Standard', 22),
-('B8', 'Bouvier', 'S003', 'Réduit', 18),
-('B9', 'Gauthier', 'S008', 'Standard', 35),
-('B10', 'Moreau', 'S0010', 'Standard', 50);
+INSERT INTO BILLETS (ID, ID_acheteur, nom_acheteur, reference, typeTarif, prix) VALUES
+('B1', '550e8400-e29b-41d4-a716-446655440000', 'Jean Dupont', 'S001', 'Standard', 25),
+('B2', '550e8400-e29b-41d4-a716-446655440001', 'Claire Martin', 'S002', 'Réduit', 12),
+('B3', '550e8400-e29b-41d4-a716-446655440002', 'Pierre Bernard', 'S003', 'Standard', 30),
+('B4', '550e8400-e29b-41d4-a716-446655440003', 'Marie Durand', 'S001', 'Standard', 25),
+('B5', '550e8400-e29b-41d4-a716-446655440004', 'Paul Leroy', 'S002', 'Réduit', 12),
+('B6', '550e8400-e29b-41d4-a716-446655440005', 'Sophie Roussel', 'S004', 'Standard', 15),
+('B7', '550e8400-e29b-41d4-a716-446655440006', 'Lucas Pichon', 'S005', 'Standard', 22),
+('B8', '550e8400-e29b-41d4-a716-446655440007', 'Emma Bouvier', 'S003', 'Réduit', 18),
+('B9', '550e8400-e29b-41d4-a716-446655440008', 'Alice Gauthier', 'S008', 'Standard', 35),
+('B10', '550e8400-e29b-41d4-a716-446655440009', 'Antoine Moreau', 'S0010', 'Standard', 50);
+
 
 INSERT INTO ARTISTES (ID_artiste, pseudonyme, nom, prenom) VALUES
 ('A1', 'Mick', 'Jagger', 'Mick'),

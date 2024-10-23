@@ -53,11 +53,12 @@ create table USERS
 create table BILLETS
 (
     ID        varchar primary key,
+    ID_acheteur uuid,
     nom_acheteur varchar,
     reference varchar,
     typeTarif varchar,
     prix      int,
-    foreign key (nom_acheteur) references USERS (nom),
+    foreign key (ID_acheteur) references USERS (ID),
     foreign key (reference) references SOIREES (ID)
 );
 
