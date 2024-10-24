@@ -46,56 +46,13 @@ header nav ul li p:hover {
   cursor: pointer;
 }
 
-section .date-container {
-  padding: 10px;
-  border-bottom: 1px solid black;
-}
-section .date-container h2 {
-  margin: 10px;
-}
-section .date-container h2 i {
-  padding: 5px;
-}
-section .date-container .soiree-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-}
-section .date-container .soiree-container .soiree {
-  margin: 10px;
-  text-align: center;
-  box-shadow: 0 2px 5px rgb(0, 0, 0);
-}
-section .date-container .soiree-container .soiree img {
-  width: 100%;
-}
-section .date-container .soiree-container .soiree p, section .date-container .soiree-container .soiree h3 {
-  text-align: justify;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 10px;
-}
-section .date-container .soiree-container .soiree button {
-  background: none;
-  color: black;
-  padding: 15px;
-  margin: 10px;
-  border-radius: 15px;
-  transition: 0.24s;
-  font-size: medium;
-  width: 90%;
-}
-section .date-container .soiree-container .soiree button:hover {
-  cursor: pointer;
-  background-color: #222;
-  color: #ff4800;
-}
 section #filter {
   display: flex;
 }
-section #filter .filter-entry {
+section .filter-entry {
   display: flex;
 }
-section #filter .hide {
+section .hide {
   display: none;
 }
 section #research-container {
@@ -275,6 +232,18 @@ section #research-container input {
 .connexion a:hover {
   color: #ff4800;
   text-decoration: underline;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #000000;
+  padding: 10px 0;
+  text-align: center;
+  color: #ffffff;
+  font-size: 14px;
+  margin-top: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */
