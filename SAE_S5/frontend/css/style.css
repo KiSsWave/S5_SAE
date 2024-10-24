@@ -43,6 +43,7 @@ header nav ul li p {
 }
 header nav ul li p:hover {
   color: #ff4800;
+  cursor: pointer;
 }
 
 section .date-container {
