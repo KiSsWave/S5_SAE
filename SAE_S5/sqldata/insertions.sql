@@ -82,7 +82,6 @@ INSERT INTO ARTISTESPECTACLE (ID_artiste, ID_spectacle) VALUES
 INSERT INTO SPECTACLESOIREE (ID_soiree, ID_spectacle) VALUES
 ('S001', 'SP1'),
 ('S001', 'SP2'),
-('S002', 'SP2'),
 ('S003', 'SP3'),
 ('S004', 'SP4'),
 ('S004', 'SP5'),
