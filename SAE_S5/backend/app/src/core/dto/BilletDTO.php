@@ -23,10 +23,10 @@ class BilletDTO extends DTO
     {
         $this->ID = $billet->getID();
         $this->ID_acheteur = $ID_acheteur;
-        $this->nomAcheteur = $billet->nomAcheteur;
-        $this->reference = $billet->reference;
-        $this->dateHoraireSoiree = $billet->dateHoraireSoiree;
-        $this->typeTarif = $billet->typeTarif;
-        $this->prix = $billet->prix;
+        $this->nomAcheteur = $billet->getNomAcheteur();
+        $this->reference = $billet->getReference();
+        $this->dateHoraireSoiree = $billet->getDateHoraireSoiree();
+        $this->typeTarif = $billet->getTypeTarif();
     }
 }
+

@@ -13,11 +13,12 @@ class Billet extends Entity
     protected string $typeTarif;
     protected int $prix;
 
-    public function __construct(?string $nomAcheteur, string $reference, string $typeTarif,DateTime $dateHoraireSoiree, int $prix)
+
+    public function __construct(string $nomAcheteur, string $reference, string $typeTarif , DateTime $dateHoraireSoiree = null, int $prix = 0)
     {
         $this->nomAcheteur = $nomAcheteur;
         $this->reference = $reference;
-        $this->dateHoraireSoiree = $dateHoraireSoiree;
+        $this->dateHoraireSoiree = $dateHoraireSoiree ?? new DateTime();
         $this->typeTarif = $typeTarif;
         $this->prix = $prix;
     }
@@ -42,6 +43,4 @@ class Billet extends Entity
     {
         return $this->prix;
     }
-
-
 }
