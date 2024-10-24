@@ -24,8 +24,13 @@ class AuthnMiddleware
     public function __invoke(Request $rq, RequestHandlerInterface $handler) : Response
     {
         try {
-            $token = $rq->getHeader('Authorization')[0];
-            $tokenstring = sscanf($token, 'Bearer %s')[0];
+            try{
+                $token = $rq->getHeader('Authorization')[0];
+                $tokenstring = sscanf($token, 'Bearer %s')[0];
+            }catch (\Exception $e){
+                return (new Response())->withStatus(401);
+            }
+
             $authDTO = $this->authProvider->getSignedInUser($tokenstring);
         } catch (ExpiredException|\UnexpectedValueException|BeforeValidException|SignatureInvalidException $e) {
             return (new Response())->withStatus(401);
