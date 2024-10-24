@@ -20,6 +20,7 @@ class GetSoireeByIDAction extends AbstractAction
         try{
             $soiree = $this->soireeService->afficherSoiree($soiree_id);
             $spectacles = $this->soireeService->afficherSpectaclesSoiree($soiree_id);
+            $lieu = $this->soireeService->afficherLieuSoiree($soiree_id);
             $idSpectacles = [];
             foreach ($spectacles as $s){
 
@@ -31,7 +32,11 @@ class GetSoireeByIDAction extends AbstractAction
                 "Thematique" => $soiree->thematique,
                 "Date" => $soiree->dateSoiree->format('Y-m-d'),
                 "Horaire" => $soiree->dateSoiree->format('H:i'),
-                "Lieu" => $soiree->lieuSoiree,
+                "Lieu" => [
+                    "Nom" => $lieu->nom,
+                    "Adresse" => $lieu->adresse,
+                    "Images" => $lieu->images
+                ],
                 "Tarif" => $soiree->tarif,
                 "TarifReduit" => $soiree->tarifReduit,
                 "Spectacles" => $idSpectacles
@@ -48,7 +53,7 @@ class GetSoireeByIDAction extends AbstractAction
                 ->withStatus(200);
 
         }catch (\Exception $e){
-            $rs->getBody()->write(json_encode(['error' => 'Rendez-vous non trouvé']));
+            $rs->getBody()->write(json_encode(['error' => 'Soirée non trouvée']));
 
             return $rs
                 ->withHeader('Content-Type', 'application/json')

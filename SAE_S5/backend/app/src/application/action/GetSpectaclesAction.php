@@ -2,6 +2,7 @@
 
 namespace nrv\application\action;
 
+use DateTime;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use nrv\core\services\Spectacle\SpectacleServiceInterface;
@@ -24,7 +25,7 @@ class GetSpectaclesAction extends AbstractAction
             $lieuParam = $queryParams['lieu'] ?? null;
 
 
-            $date = $dateParam ? new \DateTime($dateParam) : null;
+            $date = $dateParam ? new DateTime($dateParam) : null;
 
 
             $spectacles = $this->spectacleService->afficherSpectaclesFiltres($date, $styleParam, $lieuParam);
