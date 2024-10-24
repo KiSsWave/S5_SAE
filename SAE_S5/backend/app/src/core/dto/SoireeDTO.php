@@ -4,7 +4,7 @@ namespace nrv\core\dto;
 
 
 use DateTime;
-use nrv\core\domain\entities\Soiree\Soiree;
+use nrv\application\providers\Soiree;
 
 class SoireeDTO extends DTO{
     protected string $ID;

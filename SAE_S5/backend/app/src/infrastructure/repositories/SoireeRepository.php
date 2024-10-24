@@ -3,15 +3,15 @@
 namespace nrv\infrastructure\repositories;
 
 use DateTime;
+use Exception;
+use nrv\application\providers\Soiree;
 use nrv\core\domain\entities\Soiree\Billet;
-use nrv\core\domain\entities\Soiree\Soiree;
-use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
-use nrv\core\dto\BilletDTO;
-use nrv\infrastructure\DatabaseConnection;
-use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
-use PDO;
-use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use nrv\core\domain\entities\Soiree\Lieu;
+use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
+use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
+use nrv\infrastructure\DatabaseConnection;
+use PDO;
 
 class SoireeRepository implements SoireeRepositoryInterface
 {
@@ -67,30 +67,66 @@ class SoireeRepository implements SoireeRepositoryInterface
 
     public function creerBillet(Billet $billet, string $id_acheteur): string
     {
-
         $uuid = $this->generateUuid();
 
         $stmt = $this->pdo->prepare("
+        SELECT u.nom AS nom_acheteur, s.datesoiree AS datehorairesoiree,
+            CASE 
+                WHEN :typetarif = 'Standard' THEN s.tarif 
+                ELSE s.tarifreduit 
+            END AS prix 
+        FROM users u
+        JOIN soirees s ON s.id = :reference
+        WHERE u.id = :id_acheteur
+    ");
+
+
+        error_log('Reference: ' . $billet->getReference());
+        error_log('Acheteur ID: ' . $id_acheteur);
+        error_log('Type Tarif: ' . $billet->getTypeTarif());
+
+        $stmt->bindValue(':reference', $billet->getReference());
+        $stmt->bindValue(':id_acheteur', $id_acheteur);
+        $stmt->bindValue(':typetarif', $billet->getTypeTarif());
+
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+        if (!$result) {
+            throw new Exception('Aucune information trouvée pour l\'acheteur ou la soirée. Reference: ' . $billet->getReference() . ', Acheteur ID: ' . $id_acheteur . ', Type Tarif: ' . $billet->getTypeTarif());
+        }
+
+
+        $nomAcheteur = $result['nom_acheteur'];
+        $dateHoraireSoiree = new DateTime($result['datehorairesoiree']);
+        $prix = $result['prix'];
+
+        $insertStmt = $this->pdo->prepare("
         INSERT INTO billets (id, id_acheteur, nom_acheteur, reference, datehorairesoiree, typetarif, prix)
         VALUES (:id, :id_acheteur, :nom_acheteur, :reference, :datehorairesoiree, :typetarif, :prix)
     ");
 
-        $dateHoraireSoiree = $billet->getDateHoraireSoiree()->format('Y-m-d H:i:s');
+
+        $dateHoraireSoireeFormatted = $dateHoraireSoiree->format('Y-m-d H:i:s');
 
 
-        $stmt->bindValue(':id', $uuid);
-        $stmt->bindValue(':id_acheteur', $id_acheteur);
-        $stmt->bindValue(':nom_acheteur', $billet->getNomAcheteur());
-        $stmt->bindValue(':reference', $billet->getReference());
-        $stmt->bindValue(':datehorairesoiree', $dateHoraireSoiree);
-        $stmt->bindValue(':typetarif', $billet->getTypeTarif());
-        $stmt->bindValue(':prix', $billet->getPrix());
+        $insertStmt->bindValue(':id', $uuid);
+        $insertStmt->bindValue(':id_acheteur', $id_acheteur);
+        $insertStmt->bindValue(':nom_acheteur', $nomAcheteur);
+        $insertStmt->bindValue(':reference', $billet->getReference());
+        $insertStmt->bindValue(':datehorairesoiree', $dateHoraireSoireeFormatted);
+        $insertStmt->bindValue(':typetarif', $billet->getTypeTarif());
+        $insertStmt->bindValue(':prix', $prix);
 
-        $stmt->execute();
+        $billet->setID($uuid);
+        $insertStmt->execute();
 
 
         return $uuid;
     }
+
 
     private function generateUuid(): string
     {

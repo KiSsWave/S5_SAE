@@ -2,11 +2,9 @@
 
 namespace nrv\application\action;
 
-use http\Client\Response;
-use nrv\core\services\Soiree\SoireeService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Exception\HttpBadRequestException;
+use nrv\core\services\Soiree\SoireeService;
 
 class CreateBilletAction extends AbstractAction
 {
@@ -21,35 +19,35 @@ class CreateBilletAction extends AbstractAction
     {
 
         $queryParams = $rq->getQueryParams();
-
         $id_acheteur = $queryParams['id_user'] ?? null;
         $reference = $queryParams['reference'] ?? null;
-        $nomAcheteur = $queryParams['nomAcheteur'] ?? null;
-        $dateHoraireSoiree = $queryParams['dateHoraireSoiree'] ?? null;
-        $prix = isset($queryParams['prix']) ? (int)$queryParams['prix'] : null;
         $typeTarif = $queryParams['typeTarif'] ?? null;
 
-        $data = [
-            'id_user' => $id_acheteur,
-            'reference' => $reference,
-            'nomAcheteur' => $nomAcheteur,
-            'dateHoraireSoiree' => $dateHoraireSoiree,
-            'prix' => $prix,
-            'typeTarif' => $typeTarif
-        ];
 
-        if (in_array(null, $data, true)) {
-            throw new HttpBadRequestException($rq, 'Données manquantes.');
+        if (!$id_acheteur || !$reference || !$typeTarif) {
+
+            $rs->getBody()->write('Paramètres manquants ou invalides');
+            return $rs->withStatus(400);
         }
 
-        $this->soireeService->creationBillet($data);
 
-        $rs->getBody()->write(json_encode(['message' => 'Billet créé avec succès.']));
-        return $rs->withHeader('Content-Type', 'application/json')->withStatus(201);
 
+        try {
+
+            $billetDTO = $this->soireeService->creationBillet([
+                'id_acheteur' => $id_acheteur,
+                'reference' => $reference,
+                'typeTarif' => $typeTarif
+            ]);
+
+
+            $rs->getBody()->write(json_encode($billetDTO));
+            return $rs->withHeader('Content-Type', 'application/json')->withStatus(201);
+
+        } catch (\Exception $e) {
+
+            $rs->getBody()->write($e->getMessage());
+            return $rs->withStatus(500);
+        }
     }
 }
-
-
-
-

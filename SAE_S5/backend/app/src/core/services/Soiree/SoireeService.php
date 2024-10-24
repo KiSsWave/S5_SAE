@@ -6,6 +6,7 @@ use DateTime;
 use Exception;
 use nrv\core\domain\entities\Soiree\Billet;
 use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
+use nrv\core\dto\BilletDTO;
 use nrv\core\dto\SoireeDTO;
 use nrv\core\dto\SpectacleSoireeDTO;
 use nrv\core\dto\LieuDTO;
@@ -40,12 +41,15 @@ class SoireeService implements SoireeServiceInterface
         return $spectacles;
     }
 
-    public function creationBillet(array $data): void
+
+    public function creationBillet(array $data): BilletDTO
     {
-        $dateHoraireSoiree = new DateTime($data['dateHoraireSoiree']);
-        $billet = new Billet($data['nomAcheteur'], $data['reference'], $data['typeTarif'], $dateHoraireSoiree, (int)$data['prix']);
-        $this->soireeRepository->creerBillet($billet, $data['id_user']);
+
+        $billet = new Billet('',$data['reference'],$data['typeTarif']);
+        $this->soireeRepository->creerBillet($billet, $data['id_acheteur']);
+        return new BilletDTO($billet, $data['id_acheteur']);
     }
+
 
     public function afficherLieuSoiree(string $id): LieuDTO
     {
