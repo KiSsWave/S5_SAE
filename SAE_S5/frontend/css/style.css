@@ -229,38 +229,51 @@ section #research-container input {
   align-items: center;
   font-size: 20px;
   text-align: center;
-  border: solid 1px black;
-  min-width: 30vw;
+  border: solid 1px lightgray;
   padding: 10px;
+  width: fit-content;
   margin: 20px;
-}
-.connexion form .box {
   box-shadow: 0 5px 5px black;
-}
-.connexion form .group {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 27px;
 }
 .connexion form label {
   font-style: italic;
-  margin-right: 10px;
+  padding: 10px;
+}
+.connexion form .box {
+  border: solid 1px lightgray;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  width: 60%;
+  font-size: 20px;
+  transition: 0.24s;
+}
+.connexion form .box:hover {
+  border: solid 1px #ff4800;
+}
+.connexion form .box:focus {
+  border: solid 1px #ff4800;
 }
 .connexion form .button {
-  border-radius: 30px;
+  background: none;
   padding: 10px 20px;
-  margin-top: 10px;
-  cursor: pointer;
+  margin: 10px;
+  transition: 0.24s;
+  width: 60%;
 }
 .connexion form .button:hover {
   background-color: black;
-  color: white;
+  color: #ff4800;
+  cursor: pointer;
 }
 .connexion a {
   color: #088da5;
   text-decoration: underline;
-  margin-top: 30px;
+  margin: 30px;
+}
+.connexion a:hover {
+  color: #ff4800;
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=style.css.map */
