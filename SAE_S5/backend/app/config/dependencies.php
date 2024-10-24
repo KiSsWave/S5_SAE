@@ -26,6 +26,7 @@ use nrv\application\middleware\AuthzOrganisateurMiddleware;
 use nrv\application\middleware\AuthzUserMiddelware;
 use nrv\core\services\auth\AuthzServiceInterface;
 use nrv\core\services\auth\AuthzService;
+use nrv\application\action\CreerPanierAction;
 return[
 
     SoireeRepositoryInterface::class => function (){
@@ -90,6 +91,10 @@ return[
 
     RegisterAction::class => function (ContainerInterface $c){
         return new RegisterAction($c->get(AuthnProviderInterface::class));
+    },
+
+    CreerPanierAction::class => function(ContainerInterface $c){
+        return new CreerPanierAction($c->get(SoireeServiceInterface::class));
     }
 
 ];

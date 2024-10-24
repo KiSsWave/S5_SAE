@@ -153,6 +153,17 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $result;
     }
 
+    public function creerPanier(string $idSoiree, string $iduser, int $montant, string $categorie, int $nbplaces){
+        $stmt = $this->pdo->prepare("INSERT INTO Paniers (idsoiree, iduser, montant,categorie, nbplaces) VALUES (:idsoiree, :iduser, :montant, :categorie, :nbplaces) ");
+        $stmt->execute([
+           'idsoiree' => $idSoiree,
+            'iduser' => $iduser,
+            'montant' => $montant,
+            'categorie' => $categorie,
+            'nbplaces' => $nbplaces
+        ]);
+    }
+
 
 
 
