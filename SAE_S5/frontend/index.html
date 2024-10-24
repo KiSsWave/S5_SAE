@@ -27,14 +27,16 @@
     </section>
     <script id="inscription-template" type="text/x-handlebars-template">
         <div class="connexion">
-            <form action="submit" methode="" class="">
+            <form id="inscription-form">
                 <h1>Inscription</h1>
-                <div class="group">
-                    <label>Identifiant (email) :</label><input type="email" class="box">
-                    </div>
-                    <div class="group"><label>Mot de passe :</label><input type="password" name="" class="box" required>
-                    </div>
-                    <input type="button" value="S'inscrire" class="button">
+                <input type="email" class="box" placeholder="Adresse Email" required>
+                <input type="password" class="box" placeholder="Votre mot de passe" required>
+                <input type="text" class="box" placeholder="Votre Nom" required>
+                <input type="text" class="box" placeholder="Votre Prénom" required>
+                <input type="text" class="box" placeholder="Votre Numéro de téléphone" required>
+                <input type="date" class="box" placeholder="JJ/MM/AAAA" required>
+                <p title="Valable uniquement pour les personnes étudiantes, en cas de handicap, ou sans-emploi. Un justificatif vous sera demandé à l'entrée.">Je pense être éligible au tarif réduit* <input type="checkbox" required></p>
+                <input type="submit" value="S'inscrire" class="button">
             </form>
         </div>
     </script>
