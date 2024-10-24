@@ -1,17 +1,265 @@
-/* Error: Can't find stylesheet to import.
- *   ,
- * 7 | @use "partials/connexion"
- *   | ^^^^^^^^^^^^^^^^^^^^^^^^^
- *   '
- *   sass\main.sass 7:1  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 7 \2502  @use \"partials/connexion\"\a   \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   sass\\main.sass 7:1  root stylesheet";
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
 }
+
+.hide {
+  display: none;
+}
+
+header {
+  color: white;
+  background-color: #111;
+  box-shadow: 0 2px 5px rgb(0, 0, 0);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header img {
+  height: 100px;
+  margin: 10px;
+}
+header #headerTitle {
+  display: flex;
+  align-items: center;
+}
+header nav {
+  margin-right: 20px;
+}
+header nav ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+header nav ul li {
+  margin: 0 10px;
+}
+header nav ul li a {
+  font-size: larger;
+  color: white;
+  text-decoration: none;
+}
+header nav ul li a:hover {
+  color: #ff4800;
+}
+
+section .date-container {
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+section .date-container h2 {
+  margin: 10px;
+}
+section .date-container h2 i {
+  padding: 5px;
+}
+section .date-container .soiree-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+}
+section .date-container .soiree-container .soiree {
+  margin: 10px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgb(0, 0, 0);
+}
+section .date-container .soiree-container .soiree img {
+  width: 100%;
+}
+section .date-container .soiree-container .soiree p, section .date-container .soiree-container .soiree h3 {
+  text-align: justify;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+}
+section .date-container .soiree-container .soiree button {
+  background: none;
+  color: black;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 15px;
+  transition: 0.24s;
+  font-size: medium;
+  width: 90%;
+}
+section .date-container .soiree-container .soiree button:hover {
+  cursor: pointer;
+  background-color: #222;
+  color: #ff4800;
+}
+section #filter {
+  display: flex;
+}
+section #filter .filter-entry {
+  display: flex;
+}
+section #filter .hide {
+  display: none;
+}
+section #research-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+section #research-container h2 {
+  margin: 10px;
+}
+section #research-container h2 i {
+  padding: 5px;
+}
+section #research-container .search-select {
+  font-size: larger;
+  padding: 10px;
+}
+section #research-container input {
+  font-size: larger;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 15px;
+  border: 1px solid black;
+  transition: 0.24s;
+}
+
+.soiree {
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 5px 5px black;
+}
+.soiree h3 {
+  font-size: x-large;
+  margin: 24px;
+}
+.soiree p {
+  font-size: larger;
+  margin: 24px;
+}
+.soiree .tarifs {
+  display: flex;
+  justify-content: center;
+}
+.soiree .tarifs button {
+  background: none;
+  box-shadow: 0 5px 5px black;
+  min-width: 200px;
+  max-width: fit-content;
+  font-size: larger;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  transition: 0.24s;
+}
+.soiree .tarifs button:hover {
+  background-color: black;
+  color: #ff4800;
+  cursor: pointer;
+}
+.soiree .spectacle-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+.soiree .spectacle-container .spectacle {
+  margin: 10px;
+  box-shadow: 0 5px 5px black;
+}
+.soiree .spectacle-container .spectacle p, .soiree .spectacle-container .spectacle h3 {
+  margin: 10px;
+}
+.soiree .spectacle-container .spectacle img, .soiree .spectacle-container .spectacle iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+.soiree .lieu {
+  box-shadow: 0 5px 5px black;
+  border: 1px solid lightgray;
+  width: fit-content;
+}
+.soiree .lieu img {
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+.soiree .lieu p {
+  min-width: 400px;
+  padding: 12px;
+}
+
+.spectacle-h2 {
+  text-align: center;
+  margin: 20px;
+}
+
+.spectacles-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  padding: 20px;
+}
+.spectacles-container .spectacle {
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+.spectacles-container .spectacle img {
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+.spectacles-container .spectacle p, .spectacles-container .spectacle h3 {
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  font-size: larger;
+}
+.spectacles-container .spectacle:hover {
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+  transition: 0.24s;
+  cursor: pointer;
+}
+
+.connexion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.connexion h1 {
+  font-size: 30px;
+}
+.connexion form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 20px;
+  text-align: center;
+  border: solid 1px black;
+  width: 30vw;
+  padding: 10px;
+}
+.connexion form .box {
+  box-shadow: 0 5px 5px black;
+}
+.connexion form .group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 27px;
+}
+.connexion form label {
+  font-style: italic;
+  margin-right: 10px;
+}
+.connexion form .button {
+  border-radius: 30px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.connexion form .button:hover {
+  background-color: black;
+  color: white;
+}
+.connexion a {
+  color: #088da5;
+  text-decoration: underline;
+  margin-top: 30px;
+}
+
+/*# sourceMappingURL=style.css.map */
