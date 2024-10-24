@@ -27,7 +27,7 @@
     </section>
     <script id="inscription-template" type="text/x-handlebars-template">
         <div class="connexion">
-            <form action="" methode="" class="">
+            <form action="submit" methode="" class="">
                 <h1>Inscription</h1>
                 <div class="group">
                     <label>Identifiant (email) :</label><input type="email" class="box">
@@ -41,14 +41,17 @@
 
     <script id="connexion-template" type="text/x-handlebars-template">
         <div class="connexion">
-            <form action="" methode="" class="">
+            <form action="" methode="" id="connexion-form">
                 <h1>Connexion</h1>
                 <div class="group">
-                    <label>Identifiant :</label><input type="email" class="box">
-                    </div>
-                    <div class="group"><label>Mot de passe :</label><input type="password" name="" class="box" required>
-                    </div>
-                    <input type="button" value="Se connecter" class="button">
+                    <label>Identifiant :</label>
+                    <input type="email" class="box" id="email" required>
+                </div>
+                <div class="group">
+                    <label>Mot de passe :</label>
+                    <input type="password" name="" class="box" id="password" required>
+                </div>
+                    <input type="submit" value="Se connecter" class="button">
                     <a href="" class="lien">Pas encore de compte ? S'inscrire</a>
             </form>
         </div>
