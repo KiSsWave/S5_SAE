@@ -173,11 +173,8 @@ function getInscription(){
 //getInscription();
 
 if(localStorage.getItem("token")!=null){
-    if(localStorage.getItem("role")===2){
-    navbar_ui.displayVisiteurCo();}
-    else{
-        navbar_ui.displayOrganisateurCo();
-    }
+    
+    navbar_ui.displayVisiteurCo();
 
 } else {
     navbar_ui.displayVisiteurNonCo();

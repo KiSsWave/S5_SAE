@@ -36,12 +36,12 @@ header nav ul {
 header nav ul li {
   margin: 0 10px;
 }
-header nav ul li a {
+header nav ul li p {
   font-size: larger;
   color: white;
   text-decoration: none;
 }
-header nav ul li a:hover {
+header nav ul li p:hover {
   color: #ff4800;
 }
 
@@ -177,11 +177,11 @@ section #research-container input {
   width: fit-content;
 }
 .soiree .lieu img {
-  width: 400px;
+  width: 100%;
   aspect-ratio: 16/9;
 }
 .soiree .lieu p {
-  margin: 0;
+  min-width: 400px;
   padding: 12px;
 }
 

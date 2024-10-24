@@ -5739,11 +5739,7 @@
 
   // index.js
   if (localStorage.getItem("token") != null) {
-    if (localStorage.getItem("role") === 2) {
-      navbar_ui_default.displayVisiteurCo();
-    } else {
-      navbar_ui_default.displayOrganisateurCo();
-    }
+    navbar_ui_default.displayVisiteurCo();
   } else {
     navbar_ui_default.displayVisiteurNonCo();
   }
