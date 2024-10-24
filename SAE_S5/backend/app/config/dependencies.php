@@ -20,53 +20,56 @@ use nrv\core\services\auth\AuthnService;
 use nrv\application\providers\AuthnProviderInterface;
 use nrv\application\providers\JWTAuthnProvider;
 use nrv\application\providers\JWTManager;
+use nrv\application\action\RegisterAction;
 
-return [
+return[
 
-    SoireeRepositoryInterface::class => function () {
+    SoireeRepositoryInterface::class => function (){
         return new SoireeRepository();
     },
 
-    SpectacleRepositoryInterface::class => function () {
+    SpectacleRepositoryInterface::class => function (){
         return new SpectacleRepository();
     },
 
-    UserRepositoryInterface::class => function () {
+    UserRepositoryInterface::class => function(){
         return new UserRepository();
     },
 
-    SoireeServiceInterface::class => function (ContainerInterface $c) {
+    SoireeServiceInterface::class => function (ContainerInterface $c){
         return new SoireeService($c->get(SoireeRepositoryInterface::class));
     },
 
-    SpectacleServiceInterface::class => function (ContainerInterface $c) {
+    SpectacleServiceInterface::class => function (ContainerInterface $c){
         return new SpectacleService($c->get(SpectacleRepositoryInterface::class));
     },
 
-    AuthnServiceInterface::class => function (ContainerInterface $c) {
+    AuthnServiceInterface::class => function (ContainerInterface $c){
         return new AuthnService($c->get(UserRepositoryInterface::class));
     },
 
-    AuthnProviderInterface::class => function (ContainerInterface $c) {
+    AuthnProviderInterface::class =>function (ContainerInterface $c){
         return new JWTAuthnProvider($c->get(JWTManager::class), $c->get(AuthnServiceInterface::class));
     },
 
-    GetSoireeByIDAction::class => function (ContainerInterface $c) {
+    GetSoireeByIDAction::class => function (ContainerInterface $c){
         return new GetSoireeByIDAction($c->get(SoireeServiceInterface::class));
     },
 
-    GetSpectaclesAction::class => function (ContainerInterface $c) {
+    GetSpectaclesAction::class => function (ContainerInterface $c){
         return new GetSpectaclesAction($c->get(SpectacleServiceInterface::class));
     },
 
-    CreateBilletAction::class => function (ContainerInterface $c) {
+    CreateBilletAction::class => function (ContainerInterface $c){
         return new CreateBilletAction($c->get(SoireeServiceInterface::class));
     },
 
-    SignInAction::class => function (ContainerInterface $c) {
+    SignInAction::class => function (ContainerInterface $c){
         return new SignInAction($c->get(AuthnProviderInterface::class));
     },
 
-
+    RegisterAction::class => function (ContainerInterface $c){
+        return new RegisterAction($c->get(AuthnProviderInterface::class));
+    }
 
 ];

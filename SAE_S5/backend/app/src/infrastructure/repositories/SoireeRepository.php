@@ -16,6 +16,7 @@ class SoireeRepository implements SoireeRepositoryInterface
 {
     private PDO $pdo;
     private array $soirees = [];
+    private array $billets = [];
 
     public function __construct()
     {
@@ -25,6 +26,12 @@ class SoireeRepository implements SoireeRepositoryInterface
             $date = new DateTime($soiree['datesoiree']);
             $this->soirees[$soiree['id']] = new Soiree($soiree['nom'], $soiree['thematique'], $date, $soiree['lieusoiree'], $soiree['nbplaces'], $soiree['tarif'], $soiree['tarifreduit']);
             $this->soirees[$soiree['id']]->setID($soiree['id']);
+        }
+        $billets = $this->pdo->query("SELECT * FROM billets")->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($billets as $billet) {
+            $date = new DateTime($billet['datehorairesoiree']);
+            $this->billets[$billet['id']] = new Billet($billet['nom_acheteur'], $billet['reference'], $billet['typetarif'], $date, $billet['prix']);
+            $this->billets[$billet['id']]->setID($billet['id']);
         }
     }
 
@@ -57,18 +64,49 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $this->soirees;
     }
 
-    public function creerBillet(Billet $billet, string $id_acheteur): BilletDTO
+    public function creerBillet(Billet $billet, string $id_acheteur): string
     {
 
+        $uuid = $this->generateUuid();
+
         $stmt = $this->pdo->prepare("
-            INSERT INTO billets (id_acheteur, nomAcheteur, reference, dateHoraireSoiree, typeTarif, prix)
-            VALUES (:id_acheteur, :nomAcheteur, :reference, :dateHoraireSoiree, :typeTarif, :prix)
-        ");
+        INSERT INTO billets (id, id_acheteur, nom_acheteur, reference, datehorairesoiree, typetarif, prix)
+        VALUES (:id, :id_acheteur, :nom_acheteur, :reference, :datehorairesoiree, :typetarif, :prix)
+    ");
+
+        $dateHoraireSoiree = $billet->getDateHoraireSoiree()->format('Y-m-d H:i:s');
+
+
+        $stmt->bindValue(':id', $uuid);
+        $stmt->bindValue(':id_acheteur', $id_acheteur);
+        $stmt->bindValue(':nom_acheteur', $billet->getNomAcheteur());
+        $stmt->bindValue(':reference', $billet->getReference());
+        $stmt->bindValue(':datehorairesoiree', $dateHoraireSoiree);
+        $stmt->bindValue(':typetarif', $billet->getTypeTarif());
+        $stmt->bindValue(':prix', $billet->getPrix());
 
         $stmt->execute();
-        $id = $this->pdo->lastInsertId();
-        return new BilletDTO($billet, $id_acheteur);
+
+
+        return $uuid;
     }
+
+
+    private function generateUuid(): string
+    {
+        return sprintf('%s-%s-%s-%s-%s',
+            bin2hex(random_bytes(4)),
+            bin2hex(random_bytes(2)),
+            bin2hex(random_bytes(2)),
+            bin2hex(random_bytes(2)),
+            bin2hex(random_bytes(6))
+        );
+    }
+
+
+
+
+
 
 
 

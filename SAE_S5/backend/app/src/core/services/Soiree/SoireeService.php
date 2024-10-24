@@ -2,6 +2,7 @@
 
 namespace nrv\core\services\Soiree;
 
+use DateTime;
 use Exception;
 use nrv\core\domain\entities\Soiree\Billet;
 use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
@@ -38,21 +39,11 @@ class SoireeService implements SoireeServiceInterface
         return $spectacles;
     }
 
-    public function creationBillet(array $data): array
+    public function creationBillet(array $data): void
     {
-        $billet = new Billet($data['nomAcheteur'], $data['reference'], $data['typeTarif'], $data['dateHoraireSoiree'], (int)$data['prix']);
-
-
-        $billetDTO = $this->soireeRepository->creerBillet($billet, $data['id_user']);
-
-        return [
-            'ID' => $billetDTO->ID,
-            'ID_acheteur' => $billetDTO->ID_acheteur,
-            'reference' => $billetDTO->reference,
-            'dateHoraireSoiree' => $billetDTO->dateHoraireSoiree,
-            'typeTarif' => $billetDTO->typeTarif,
-            'prix' => $billetDTO->prix
-        ];
+        $dateHoraireSoiree = new DateTime($data['dateHoraireSoiree']);
+        $billet = new Billet($data['nomAcheteur'], $data['reference'], $data['typeTarif'], $dateHoraireSoiree, (int)$data['prix']);
+        $this->soireeRepository->creerBillet($billet, $data['id_user']);
     }
 
 }

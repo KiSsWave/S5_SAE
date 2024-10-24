@@ -5,7 +5,6 @@ import allSpectacle_ui from "./js/allSpectacle_ui";
 function getSoiree(url){
     loader.loadSoiree(url).then(data => {
         data.json().then(async data => {
-            console.log(data.Soiree);
             await soiree_ui.displaySoiree(data.Soiree);
         }); 
     });
@@ -14,7 +13,7 @@ function getSoiree(url){
 function getAllSpectacles(url){
     loader.loadAllSpectacles(url).then(data => {
         data.json().then(async data => {
-            console.log(data.Spectacles);
+            data.Spectacles.sort((a, b) => a.Horaire.localeCompare(b.Horaire));
             await allSpectacle_ui.displayAllSpectacles(data.Spectacles);
 
             document.querySelectorAll('.spectacle').forEach(spectacle => {

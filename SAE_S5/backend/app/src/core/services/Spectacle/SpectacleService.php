@@ -63,6 +63,10 @@ class SpectacleService implements SpectacleServiceInterface
         foreach ( $artistesPur as $a){
             $artistes[] = new SpectacleArtisteDTO($a);
         }
+        
+        if(!isset($artistes)){
+            $artistes = [];
+        }
 
         return $artistes;
     }

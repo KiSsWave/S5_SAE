@@ -18,10 +18,15 @@ class User extends Entity
 
     protected int $role;
 
-    public function __construct(string $e, int $r, string $p=""){
+    public function __construct(string $e,string $n, string $pr, string $numerotel,DateTime $b,string $eligible,int $r, string $p=""){
         $this->email = $e;
         $this->role = $r;
         $this->password = "";
+        $this->nom= $n;
+        $this->prenom=$pr;
+        $this->numerotel = $numerotel;
+        $this->eligible = $eligible;
+        $this->birthdate =$b;
     }
 
 
@@ -38,6 +43,46 @@ class User extends Entity
     public function getRole(): int
     {
         return $this->role;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getBirthdate(): DateTime
+    {
+        return $this->birthdate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNom(): string
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrenom(): string
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEligible(): string
+    {
+        return $this->eligible;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNumerotel(): string
+    {
+        return $this->numerotel;
     }
 
     public function setEmail(string $email): void

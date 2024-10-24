@@ -2,6 +2,7 @@
 
 namespace nrv\core\dto;
 
+use DateTime;
 use nrv\core\domain\entities\Soiree\Billet;
 use nrv\core\dto\DTO;
 
@@ -13,7 +14,7 @@ class BilletDTO extends DTO
     protected string $nomAcheteur;
     protected string $reference;
 
-    protected string $dateHoraireSoiree;
+    protected DateTime $dateHoraireSoiree;
     protected string $typeTarif;
 
     protected int $prix;

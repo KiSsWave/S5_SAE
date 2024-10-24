@@ -2,12 +2,13 @@
 
 namespace nrv\application\action;
 
+use http\Client\Response;
 use nrv\core\services\Soiree\SoireeService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Psr7\Response;
+use Slim\Exception\HttpBadRequestException;
 
-class CreateBilletAction
+class CreateBilletAction extends AbstractAction
 {
     private SoireeService $soireeService;
 
@@ -16,27 +17,38 @@ class CreateBilletAction
         $this->soireeService = $soireeService;
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
 
-        $params = $request->getQueryParams();
-        // Assurez-vous que tous les paramètres requis sont présents
-        $requiredParams = ['id_user', 'reference', 'nomAcheteur', 'dateHoraireSoiree', 'typeTarif', 'prix'];
-        foreach ($requiredParams as $param) {
-            if (!isset($params[$param])) {
-                return $response->withStatus(400)->withBody("Données manquantes.");
-            }
+        $queryParams = $rq->getQueryParams();
+
+        $id_acheteur = $queryParams['id_user'] ?? null;
+        $reference = $queryParams['reference'] ?? null;
+        $nomAcheteur = $queryParams['nomAcheteur'] ?? null;
+        $dateHoraireSoiree = $queryParams['dateHoraireSoiree'] ?? null;
+        $prix = isset($queryParams['prix']) ? (int)$queryParams['prix'] : null;
+        $typeTarif = $queryParams['typeTarif'] ?? null;
+
+        $data = [
+            'id_user' => $id_acheteur,
+            'reference' => $reference,
+            'nomAcheteur' => $nomAcheteur,
+            'dateHoraireSoiree' => $dateHoraireSoiree,
+            'prix' => $prix,
+            'typeTarif' => $typeTarif
+        ];
+
+        if (in_array(null, $data, true)) {
+            throw new HttpBadRequestException($rq, 'Données manquantes.');
         }
 
+        $this->soireeService->creationBillet($data);
 
-        $billetData = $this->soireeService->creationBillet($params);
+        $rs->getBody()->write(json_encode(['message' => 'Billet créé avec succès.']));
+        return $rs->withHeader('Content-Type', 'application/json')->withStatus(201);
 
-
-        $response->getBody()->write(json_encode($billetData));
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
     }
 }
-
 
 
 

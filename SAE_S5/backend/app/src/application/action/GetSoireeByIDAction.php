@@ -29,7 +29,8 @@ class GetSoireeByIDAction extends AbstractAction
             $resultat = ["Soiree" => [
                 "NomSoiree" => $soiree->nom,
                 "Thematique" => $soiree->thematique,
-                "DateHoraire" => $soiree->dateSoiree,
+                "Date" => $soiree->dateSoiree->format('Y-m-d'),
+                "Horaire" => $soiree->dateSoiree->format('H:i'),
                 "Lieu" => $soiree->lieuSoiree,
                 "Tarif" => $soiree->tarif,
                 "TarifReduit" => $soiree->tarifReduit,
