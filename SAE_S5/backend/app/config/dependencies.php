@@ -21,7 +21,11 @@ use nrv\application\providers\AuthnProviderInterface;
 use nrv\application\providers\JWTAuthnProvider;
 use nrv\application\providers\JWTManager;
 use nrv\application\action\RegisterAction;
-
+use nrv\application\middleware\AuthnMiddleware;
+use nrv\application\middleware\AuthzOrganisateurMiddleware;
+use nrv\application\middleware\AuthzUserMiddelware;
+use nrv\core\services\auth\AuthzServiceInterface;
+use nrv\core\services\auth\AuthzService;
 return[
 
     SoireeRepositoryInterface::class => function (){
@@ -50,6 +54,22 @@ return[
 
     AuthnProviderInterface::class =>function (ContainerInterface $c){
         return new JWTAuthnProvider($c->get(JWTManager::class), $c->get(AuthnServiceInterface::class));
+    },
+
+    AuthzServiceInterface::class => function (ContainerInterface $c) {
+        return new AuthzService($c->get(JWTManager::class));
+    },
+
+    AuthnMiddleware::class =>function (ContainerInterface $c){
+        return new AuthnMiddleware($c->get(AuthnProviderInterface::class));
+    },
+
+    AuthzUserMiddelware::class =>function (ContainerInterface $c){
+        return new AuthzUserMiddelware($c->get(AuthzServiceInterface::class));
+    },
+
+    AuthzOrganisateurMiddleware::class =>function (ContainerInterface $c){
+        return new AuthzOrganisateurMiddleware($c->get(AuthzServiceInterface::class));
     },
 
     GetSoireeByIDAction::class => function (ContainerInterface $c){

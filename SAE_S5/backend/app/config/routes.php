@@ -5,17 +5,24 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 return function( \Slim\App $app):\Slim\App {
-    $app->get('/soiree/{ID-SOIREE}', nrv\application\action\GetSoireeByIDAction::class);
-    $app->get('/spectacles', \nrv\application\action\GetSpectaclesAction::class);
 
-    $app->get('/spectacle/{ID-SPECTACLE}', \nrv\application\action\GetSpectaclebyIdAction::class);
+
+    $app->add(new \nrv\application\middleware\CorsMiddleware());
 
     $app->post('/signin', \nrv\application\action\SignInAction::class);
     $app->post('/register', \nrv\application\action\RegisterAction::class);
 
+
     $app->post('/billets', nrv\application\action\CreateBilletAction::class);
 
 
+
+    $app->get('/spectacles', \nrv\application\action\GetSpectaclesAction::class);
+    $app->get('/spectacle/{ID-SPECTACLE}', \nrv\application\action\GetSpectaclebyIdAction::class);
+    $app->group('', function () use ($app){
+        $app->get('/soiree/{ID-SOIREE}', nrv\application\action\GetSoireeByIDAction::class);
+
+    })->add(\nrv\application\middleware\AuthnMiddleware::class);
 
     $app->options('/{routes:.+}', function (Request $request, Response $response, array $args): Response {
         return $response
@@ -26,6 +33,6 @@ return function( \Slim\App $app):\Slim\App {
             ->withHeader('Access-Control-Max-Age', '3600');
     });
 
-    $app->add(new \nrv\application\middleware\CorsMiddleware());
+
     return $app;
 };

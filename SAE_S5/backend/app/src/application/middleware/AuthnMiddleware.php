@@ -2,41 +2,37 @@
 
 namespace nrv\application\middleware;
 
-use Dotenv\Dotenv;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+
+use nrv\application\providers\AuthnProviderInterface;
+use Firebase\JWT\ExpiredException;
+use Firebase\JWT\SignatureInvalidException;
+use Firebase\JWT\BeforeValidException;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
+use Slim\Psr7\Response;
+
 
 class AuthnMiddleware
 {
-    private $jwtSecret;
+    private AuthnProviderInterface $authProvider;
 
-
-    public function __construct()
+    public function __construct(AuthnProviderInterface $authProvider)
     {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../config', 'token.env');
-        $dotenv->load();
-
-        $this->jwtSecret = $_ENV['JWT_SECRET'];
+        $this->authProvider = $authProvider;
     }
 
-    public function __invoke(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function __invoke(Request $rq, RequestHandlerInterface $handler) : Response
     {
-        $authHeader = $request->getHeaderLine('Authorization');
-        if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
-            return new \Slim\Psr7\Response(401);
-        }
-
-        $jwt = $matches[1];
-
         try {
-            $decoded = JWT::decode($jwt, new Key($this->jwtSecret, 'HS256'));
-            $request = $request->withAttribute('user_id', $decoded->sub);
-            return $handler->handle($request);
-        } catch (\Exception $e) {
-            return new \Slim\Psr7\Response(401);
+            $token = $rq->getHeader('Authorization')[0];
+            $tokenstring = sscanf($token, 'Bearer %s')[0];
+            $authDTO = $this->authProvider->getSignedInUser($tokenstring);
+        } catch (ExpiredException|\UnexpectedValueException|BeforeValidException|SignatureInvalidException $e) {
+            return (new Response())->withStatus(401);
         }
+
+        $rq = $rq->withAttribute('auth', $authDTO);
+
+        return $handler->handle($rq);
     }
 }

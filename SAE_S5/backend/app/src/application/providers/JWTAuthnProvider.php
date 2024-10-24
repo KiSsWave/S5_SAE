@@ -34,6 +34,11 @@ class JWTAuthnProvider implements AuthnProviderInterface
         $authDTO->setToken($this->jwtManager->createAccessToken([
             'id' => $authDTO->getId(),
             'email' => $authDTO->getEmail(),
+            'nom' => $authDTO->getNom(),
+            'prenom' => $authDTO->getPrenom(),
+            'numerotel' => $authDTO->getNumerotel(),
+            'birthdate' => $authDTO->getBirthdate(),
+            'eligible' => $authDTO->getEligible(),
             'role' => $authDTO->getRole()
         ]));
 
@@ -49,7 +54,12 @@ class JWTAuthnProvider implements AuthnProviderInterface
     {
         $decodedToken = $this->jwtManager->decodeToken($token);
         $email = $decodedToken['email'];
+        $nom = $decodedToken['nom'];
+        $prenom = $decodedToken['prenom'];
+        $numerotel = $decodedToken['numerotel'];
+        $birthdate = $decodedToken['birthdate'];
+        $eligible = $decodedToken['eligible'];
         $role = $decodedToken['role'];
-        return new AuthDTO(new User($email, $role));
+        return new AuthDTO(new User($email,$nom, $prenom, $numerotel, $birthdate, $eligible, $role));
     }
 }
