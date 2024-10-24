@@ -16,7 +16,7 @@
         </div>
         <nav id="headerNav">
             <ul>
-                <li><a href="index.html">Accueil</a></li>
+                <li><a href="index.html" id="accueil">Accueil</a></li>
                 <li><a href="">Connexion</a></li>
                 <li><a href="">S'inscrire</a></li>
             </ul>
@@ -25,8 +25,54 @@
     <section id="main">
 
     </section>
+    <script id="inscription-template" type="text/x-handlebars-template">
+        <div class="connexion">
+            <form action="" methode="" class="">
+                <h1>Inscription</h1>
+                <div class="group">
+                    <label>Identifiant (email) :</label><input type="email" class="box">
+                    </div>
+                    <div class="group"><label>Mot de passe :</label><input type="password" name="" class="box" required>
+                    </div>
+                    <input type="button" value="S'inscrire" class="button">
+            </form>
+        </div>
+    </script>
+
+    <script id="connexion-template" type="text/x-handlebars-template">
+        <div class="connexion">
+            <form action="" methode="" class="">
+                <h1>Connexion</h1>
+                <div class="group">
+                    <label>Identifiant :</label><input type="email" class="box">
+                    </div>
+                    <div class="group"><label>Mot de passe :</label><input type="password" name="" class="box" required>
+                    </div>
+                    <input type="button" value="Se connecter" class="button">
+                    <a href="" class="lien">Pas encore de compte ? S'inscrire</a>
+            </form>
+        </div>
+    </script>
 
     <script id="liste-spectacle-template" type="text/x-handlebars-template">
+        <div id="research-container">
+            <span class="hide"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Rechercher une soirée ..."></span>
+            <div id="filter">
+                <div class="filter-entry">
+                <h2><i class="fa-solid fa-filter"></i> Filtre :</h2>
+                <select name="filter" id="choose-filter" class="search-select">
+                    <option value="none">Aucun</option>
+                    <option value="style">Style</option>
+                    <option value="date">Date</option>
+                    <option value="lieu">Lieu</option>
+                </select>
+                </div>
+                <div class="filter-entry" id="filter-value-container">
+                    <h2>&rightarrow;</h2>
+                    <select name="filterValue" id="filter-value" class="search-select"></select>
+                </div>
+            </div>
+        </div>
         <h2 class="spectacle-h2">Liste des spectacles</h2>
         <div class="spectacles-container">
             {{#each this.Spectacles}}

@@ -44,6 +44,7 @@ class GetSpectaclesAction extends AbstractAction
 
                 $resultat["Spectacles"][] = [
                     "Titre" => $spectacleDto->titre,
+                    "Style" => $spectacleDto->style,
                     "Date" => $spectacleDto->horaire->format('Y-m-d'),
                     "Horaire" => $spectacleDto->horaire->format('H:i'),
                     "Image" => $spectacleDto->images[0],

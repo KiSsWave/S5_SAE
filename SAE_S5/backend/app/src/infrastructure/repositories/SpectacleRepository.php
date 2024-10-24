@@ -68,9 +68,10 @@ class SpectacleRepository implements SpectacleRepositoryInterface
 
     public function getSpectaclesFiltres(?DateTime $date = null, ?string $style = null, ?string $lieu = null): array
     {
-        $query = "SELECT s.*, so.lieusoiree FROM spectacles s
+        $query = "SELECT s.*, l.nom FROM spectacles s
               JOIN SPECTACLESOIREE ss ON s.id = ss.id_spectacle
               JOIN soirees so ON ss.id_soiree = so.id
+              JOIN LIEUX l ON so.lieusoiree = l.id
               WHERE 1=1";
 
         $params = [];
@@ -86,7 +87,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface
         }
 
         if ($lieu) {
-            $query .= " AND so.lieusoiree = :lieu";
+            $query .= " AND l.nom = :lieu";
             $params[':lieu'] = $lieu;
         }
 
