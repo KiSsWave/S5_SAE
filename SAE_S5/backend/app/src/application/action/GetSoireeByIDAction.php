@@ -33,6 +33,7 @@ class GetSoireeByIDAction extends AbstractAction
                 "Date" => $soiree->dateSoiree->format('Y-m-d'),
                 "Horaire" => $soiree->dateSoiree->format('H:i'),
                 "Lieu" => [
+                    "ID" => $lieu->ID,
                     "Nom" => $lieu->nom,
                     "Adresse" => $lieu->adresse,
                     "Images" => $lieu->images

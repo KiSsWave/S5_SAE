@@ -1118,7 +1118,7 @@
     "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
       "use strict";
       exports.__esModule = true;
-      exports["default"] = function(Handlebars3) {
+      exports["default"] = function(Handlebars4) {
         (function() {
           if (typeof globalThis === "object") return;
           Object.prototype.__defineGetter__("__magic__", function() {
@@ -1128,11 +1128,11 @@
           delete Object.prototype.__magic__;
         })();
         var $Handlebars = globalThis.Handlebars;
-        Handlebars3.noConflict = function() {
-          if (globalThis.Handlebars === Handlebars3) {
+        Handlebars4.noConflict = function() {
+          if (globalThis.Handlebars === Handlebars4) {
             globalThis.Handlebars = $Handlebars;
           }
-          return Handlebars3;
+          return Handlebars4;
         };
       };
       module.exports = exports["default"];
@@ -1504,12 +1504,12 @@
               lstack.length = lstack.length - n;
             }
             function lex() {
-              var token;
-              token = self.lexer.lex() || 1;
-              if (typeof token !== "number") {
-                token = self.symbols_[token] || token;
+              var token2;
+              token2 = self.lexer.lex() || 1;
+              if (typeof token2 !== "number") {
+                token2 = self.symbols_[token2] || token2;
               }
-              return token;
+              return token2;
             }
             var symbol, preErrorSymbol, state, action, a, r, yyval = {}, p, len, newState, expected;
             while (true) {
@@ -1676,7 +1676,7 @@
                 return this.EOF;
               }
               if (!this._input) this.done = true;
-              var token, match, tempMatch, index, col, lines;
+              var token2, match, tempMatch, index, col, lines;
               if (!this._more) {
                 this.yytext = "";
                 this.match = "";
@@ -1709,9 +1709,9 @@
                 this._more = false;
                 this._input = this._input.slice(match[0].length);
                 this.matched += match[0];
-                token = this.performAction.call(this, this.yy, this, rules[index], this.conditionStack[this.conditionStack.length - 1]);
+                token2 = this.performAction.call(this, this.yy, this, rules[index], this.conditionStack[this.conditionStack.length - 1]);
                 if (this.done && this._input) this.done = false;
-                if (token) return token;
+                if (token2) return token2;
                 else return;
               }
               if (this._input === "") {
@@ -2244,11 +2244,11 @@
           column: locInfo.last_column
         };
       }
-      function id(token) {
-        if (/^\[.*\]$/.test(token)) {
-          return token.substring(1, token.length - 1);
+      function id(token2) {
+        if (/^\[.*\]$/.test(token2)) {
+          return token2.substring(1, token2.length - 1);
         } else {
-          return token;
+          return token2;
         }
       }
       function stripFlags(open, close) {
@@ -5721,23 +5721,40 @@
   var config_default = { url, imgurl };
 
   // js/loader.js
+  var token = localStorage.getItem("token");
   function loadSpectacle(url2) {
     return __async(this, null, function* () {
-      return fetch(url2).catch((error) => {
+      return fetch(url2, {
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      }).catch((error) => {
         console.error("Erreur lors de la r\xE9cup\xE9ration du spectacle");
       });
     });
   }
   function loadSoiree(url2) {
     return __async(this, null, function* () {
-      return fetch(url2).catch((error) => {
+      return fetch(url2, {
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      }).catch((error) => {
         console.error("Erreur lors de la r\xE9cup\xE9ration de la soir\xE9e");
       });
     });
   }
-  function loadAllSpectacles(url2) {
+  function loadAllSpectacles(url2, filter = "", value = "") {
     return __async(this, null, function* () {
-      return fetch(url2).catch((error) => {
+      if (filter != "none") {
+        url2 += `?${filter}=${value}`;
+      }
+      return fetch(url2, {
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      }).catch((error) => {
         console.error("Erreur lors de la r\xE9cup\xE9ration de la liste des spectacles");
       });
     });
@@ -5776,6 +5793,39 @@
   }
   var allSpectacle_ui_default = { displayAllSpectacles };
 
+  // js/connexion_ui.js
+  var import_handlebars3 = __toESM(require_handlebars());
+  function displayConnexion() {
+    const container = document.getElementById("main");
+    const templateSource = document.getElementById("connexion-template").innerHTML;
+    const template = import_handlebars3.default.compile(templateSource);
+    let html = template();
+    container.innerHTML = html;
+    const form = document.getElementById("connexion-form");
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      fetch(config_default.url + "/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      }).then((response) => {
+        if (response.status === 200) {
+          response.json().then((data) => {
+            localStorage.setItem("token", data.token);
+            window.location.href = "/index.html";
+          });
+        } else {
+          alert("Email ou mot de passe incorrect");
+        }
+      });
+    });
+  }
+  var connexion_ui_default = { displayConnexion };
+
   // index.js
   function getSoiree(url2) {
     loader_default.loadSoiree(url2).then((data) => {
@@ -5784,19 +5834,128 @@
       }));
     });
   }
-  function getAllSpectacles(url2) {
-    loader_default.loadAllSpectacles(url2).then((data) => {
+  function getAllSpectacles(url2, filter = "", value = "") {
+    let styles = [];
+    let dates = [];
+    let lieux = [];
+    styles.push("Aucun");
+    dates.push("Aucun");
+    lieux.push("Aucun");
+    loader_default.loadAllSpectacles(url2, filter, value).then((data) => {
       data.json().then((data2) => __async(this, null, function* () {
         data2.Spectacles.sort((a, b) => a.Horaire.localeCompare(b.Horaire));
         yield allSpectacle_ui_default.displayAllSpectacles(data2.Spectacles);
+        if (filter == "none") {
+          document.querySelector("#filter-value-container").classList.add("hide");
+        }
         document.querySelectorAll(".spectacle").forEach((spectacle) => {
           spectacle.addEventListener("click", () => {
             getSoiree(spectacle.getAttribute("data-url"));
           });
         });
+        document.querySelector("#choose-filter").value = filter;
+        document.querySelector("#choose-filter").addEventListener("input", () => {
+          if (document.querySelector("#choose-filter").value == "none") {
+            document.querySelector("#filter-value-container").classList.add("hide");
+            if (value != "")
+              getAllSpectacles(url2, document.querySelector("#choose-filter").value, "");
+          } else {
+            document.querySelector("#filter-value-container").classList.remove("hide");
+            if (document.querySelector("#choose-filter").value == "style") {
+              document.querySelector("#filter-value").innerHTML = "";
+              styles.forEach((style) => {
+                let option = document.createElement("option");
+                option.value = style;
+                option.innerHTML = style;
+                document.querySelector("#filter-value").appendChild(option);
+              });
+            } else if (document.querySelector("#choose-filter").value == "date") {
+              document.querySelector("#filter-value").innerHTML = "";
+              dates.forEach((date) => {
+                let option = document.createElement("option");
+                option.value = date;
+                option.innerHTML = date;
+                document.querySelector("#filter-value").appendChild(option);
+              });
+            } else if (document.querySelector("#choose-filter").value == "lieu") {
+              document.querySelector("#filter-value").innerHTML = "";
+              lieux.forEach((lieu) => {
+                let option = document.createElement("option");
+                option.value = lieu;
+                option.innerHTML = lieu;
+                document.querySelector("#filter-value").appendChild(option);
+              });
+            }
+          }
+        });
+        document.querySelector("#filter-value").addEventListener("input", () => {
+          if (document.querySelector("#filter-value").value != "Aucun") {
+            getAllSpectacles(url2, document.querySelector("#choose-filter").value, document.querySelector("#filter-value").value);
+          } else {
+            getAllSpectacles(url2, document.querySelector("#choose-filter").value, "");
+          }
+        });
+      }));
+    });
+    loader_default.loadAllSpectacles(url2).then((dataAll) => {
+      dataAll.json().then((dataAll2) => __async(this, null, function* () {
+        dataAll2.Spectacles.forEach((spectacle) => {
+          if (!styles.includes(spectacle.Style)) {
+            styles.push(spectacle.Style);
+          }
+        });
+        dataAll2.Spectacles.forEach((spectacle) => {
+          if (!dates.includes(spectacle.Date)) {
+            dates.push(spectacle.Date);
+          }
+        });
+        dataAll2.Spectacles.forEach((spectacle) => {
+          loader_default.loadSoiree(config_default.url + spectacle.SoireeAssociee.href).then((data) => {
+            data.json().then((data2) => {
+              if (!lieux.includes(data2.Soiree.Lieu.Nom)) {
+                lieux.push(data2.Soiree.Lieu.Nom);
+              }
+            });
+          });
+        });
+        if (filter == "style") {
+          document.querySelector("#filter-value").innerHTML = "";
+          styles.forEach((style) => {
+            let option = document.createElement("option");
+            option.value = style;
+            option.innerHTML = style;
+            document.querySelector("#filter-value").appendChild(option);
+          });
+          document.querySelector("#filter-value").value = value;
+        } else if (filter == "date") {
+          document.querySelector("#filter-value").innerHTML = "";
+          dates.forEach((date) => {
+            let option = document.createElement("option");
+            option.value = date;
+            option.innerHTML = date;
+            document.querySelector("#filter-value").appendChild(option);
+          });
+          document.querySelector("#filter-value").value = value;
+        } else if (filter == "lieu") {
+          document.querySelector("#filter-value").innerHTML = "";
+          lieux.forEach((lieu) => {
+            let option = document.createElement("option");
+            option.value = lieu;
+            option.innerHTML = lieu;
+            document.querySelector("#filter-value").appendChild(option);
+          });
+          document.querySelector("#filter-value").value = value;
+        }
       }));
     });
   }
-  getAllSpectacles("http://localhost:42050/spectacles");
+  function getConnexion() {
+    connexion_ui_default.displayConnexion();
+  }
+  if (localStorage.getItem("token") != null) {
+    getAllSpectacles(config_default.url + "/spectacles", "none", "");
+  } else {
+    getConnexion();
+  }
 })();
 //# sourceMappingURL=index.js.map

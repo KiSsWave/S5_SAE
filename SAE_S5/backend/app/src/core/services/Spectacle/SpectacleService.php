@@ -8,7 +8,7 @@ use nrv\core\dto\SpectacleDTO;
 use nrv\core\dto\SpectacleSoireeDTO;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use nrv\core\dto\SpectacleArtisteDTO;
-
+use DateTime;
 
 
 class SpectacleService implements SpectacleServiceInterface

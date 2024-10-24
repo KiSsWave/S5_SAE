@@ -14,5 +14,5 @@ interface AuthnProviderInterface
     public function register(CredentialDTO $c,string $nom, string $prenom, string $tel, string $birthdate, string $eligible, int $role);
     public function signin(CredentialDTO $c): AuthDTO;
     public function refresh(Token $token): AuthDTO;
-    public function getSignedInUser(Token $token): AuthDTO;
+    public function getSignedInUser(string $token): AuthDTO;
 }
