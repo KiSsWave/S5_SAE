@@ -5711,6 +5711,36 @@
 
   // js/connexion_ui.js
   var import_handlebars3 = __toESM(require_handlebars());
+  function displayConnexion() {
+    const container = document.getElementById("main");
+    const templateSource = document.getElementById("connexion-template").innerHTML;
+    const template = import_handlebars3.default.compile(templateSource);
+    let html = template();
+    container.innerHTML = html;
+    const form = document.getElementById("connexion-form");
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      fetch(config_default.url + "/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      }).then((response) => {
+        if (response.status === 200) {
+          response.json().then((data) => {
+            localStorage.setItem("token", data.token);
+            window.location.href = "/index.html";
+          });
+        } else {
+          alert("Email ou mot de passe incorrect");
+        }
+      });
+    });
+  }
+  var connexion_ui_default = { displayConnexion };
 
   // js/inscription_ui.js
   var import_handlebars4 = __toESM(require_handlebars());
@@ -5725,18 +5755,21 @@
       event.preventDefault();
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
+      const nom = document.getElementById("nom").value;
+      const prenom = document.getElementById("prenom").value;
+      const numerotel = document.getElementById("numerotel").value;
+      const birthdate = document.getElementById("birthdate").value;
+      const eligible = document.getElementById("eligible").value;
+      const role = 1;
       fetch(config_default.url + "/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password, nom, prenom, numerotel, birthdate, eligible, role })
       }).then((response) => {
         if (response.status === 200) {
-          response.json().then((data) => {
-            localStorage.setItem("token", data.token);
-            window.location.href = "/index.html";
-          });
+          connexion_ui_default.displayConnexion();
         } else {
           alert("Email d\xE9j\xE0 utilis\xE9");
         }
