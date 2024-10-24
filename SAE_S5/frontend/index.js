@@ -4,6 +4,7 @@ import allSpectacle_ui from "./js/allSpectacle_ui";
 import conf from "./js/config";
 import connexion_ui from "./js/connexion_ui";
 import inscription_ui from "./js/inscription_ui";
+import navbar_ui from "./js/navbar_ui";
 
 function getSoiree(url){
     loader.loadSoiree(url).then(data => {
@@ -169,4 +170,10 @@ function getInscription(){
 }*/
 
 //getAllSpectacles(conf.url + '/spectacles',"none","");
-getInscription();
+//getInscription();
+
+if(localStorage.getItem("token")!=null){
+    // afficher l'ui du mec connecté
+} else {
+    navbar_ui.displayVisiteurNonCo();
+}
