@@ -11,5 +11,7 @@ interface SoireeRepositoryInterface
 
     public function getSoirees();
 
+    public function creerPanier(string $idSoiree, string $iduser, int $montant, string $categorie, int $nbplaces);
+
 
 }

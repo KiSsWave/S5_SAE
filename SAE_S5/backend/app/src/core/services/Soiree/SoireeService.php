@@ -7,6 +7,7 @@ use Exception;
 use nrv\core\domain\entities\Soiree\Billet;
 use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
 use nrv\core\dto\BilletDTO;
+use nrv\core\dto\PanierDTO;
 use nrv\core\dto\SoireeDTO;
 use nrv\core\dto\SpectacleSoireeDTO;
 use nrv\core\dto\LieuDTO;
@@ -18,15 +19,16 @@ class SoireeService implements SoireeServiceInterface
 
     private SoireeRepositoryInterface $soireeRepository;
 
-    public function __construct(SoireeRepositoryInterface $s){
+    public function __construct(SoireeRepositoryInterface $s)
+    {
         $this->soireeRepository = $s;
     }
 
     public function afficherSoiree(string $ID): SoireeDTO
     {
-            $soiree = $this->soireeRepository->getSoireeByID($ID);
-            $soireedto = new SoireeDTO($soiree);
-            return $soireedto;
+        $soiree = $this->soireeRepository->getSoireeByID($ID);
+        $soireedto = new SoireeDTO($soiree);
+        return $soireedto;
 
     }
 
@@ -35,7 +37,7 @@ class SoireeService implements SoireeServiceInterface
     {
         $spectaclesData = $this->soireeRepository->SpectaclesBySoireeID($id);
         $spectacles = [];
-        foreach ($spectaclesData as $spectacle){
+        foreach ($spectaclesData as $spectacle) {
             $spectacles[] = new SpectacleSoireeDTO($spectacle);
         }
         return $spectacles;
@@ -45,7 +47,7 @@ class SoireeService implements SoireeServiceInterface
     public function creationBillet(array $data): BilletDTO
     {
 
-        $billet = new Billet('',$data['reference'],$data['typeTarif']);
+        $billet = new Billet('', $data['reference'], $data['typeTarif']);
         $this->soireeRepository->creerBillet($billet, $data['id_acheteur']);
         return new BilletDTO($billet, $data['id_acheteur']);
     }
@@ -58,4 +60,9 @@ class SoireeService implements SoireeServiceInterface
         return $lieuDTO;
     }
 
+    public function creationPanier(string $idsoiree, string $iduser,int $montant, string $categorie, int $nbplaces)
+    {
+        $this->soireeRepository->creerPanier($idsoiree, $iduser,$montant,$categorie, $nbplaces);
+        return new PanierDTO($idsoiree, $iduser, $montant, $categorie, $nbplaces);
+    }
 }
