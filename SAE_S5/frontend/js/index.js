@@ -1118,7 +1118,7 @@
     "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
       "use strict";
       exports.__esModule = true;
-      exports["default"] = function(Handlebars3) {
+      exports["default"] = function(Handlebars4) {
         (function() {
           if (typeof globalThis === "object") return;
           Object.prototype.__defineGetter__("__magic__", function() {
@@ -1128,11 +1128,11 @@
           delete Object.prototype.__magic__;
         })();
         var $Handlebars = globalThis.Handlebars;
-        Handlebars3.noConflict = function() {
-          if (globalThis.Handlebars === Handlebars3) {
+        Handlebars4.noConflict = function() {
+          if (globalThis.Handlebars === Handlebars4) {
             globalThis.Handlebars = $Handlebars;
           }
-          return Handlebars3;
+          return Handlebars4;
         };
       };
       module.exports = exports["default"];
@@ -1504,12 +1504,12 @@
               lstack.length = lstack.length - n;
             }
             function lex() {
-              var token;
-              token = self.lexer.lex() || 1;
-              if (typeof token !== "number") {
-                token = self.symbols_[token] || token;
+              var token2;
+              token2 = self.lexer.lex() || 1;
+              if (typeof token2 !== "number") {
+                token2 = self.symbols_[token2] || token2;
               }
-              return token;
+              return token2;
             }
             var symbol, preErrorSymbol, state, action, a, r, yyval = {}, p, len, newState, expected;
             while (true) {
@@ -1676,7 +1676,7 @@
                 return this.EOF;
               }
               if (!this._input) this.done = true;
-              var token, match, tempMatch, index, col, lines;
+              var token2, match, tempMatch, index, col, lines;
               if (!this._more) {
                 this.yytext = "";
                 this.match = "";
@@ -1709,9 +1709,9 @@
                 this._more = false;
                 this._input = this._input.slice(match[0].length);
                 this.matched += match[0];
-                token = this.performAction.call(this, this.yy, this, rules[index], this.conditionStack[this.conditionStack.length - 1]);
+                token2 = this.performAction.call(this, this.yy, this, rules[index], this.conditionStack[this.conditionStack.length - 1]);
                 if (this.done && this._input) this.done = false;
-                if (token) return token;
+                if (token2) return token2;
                 else return;
               }
               if (this._input === "") {
@@ -2244,11 +2244,11 @@
           column: locInfo.last_column
         };
       }
-      function id(token) {
-        if (/^\[.*\]$/.test(token)) {
-          return token.substring(1, token.length - 1);
+      function id(token2) {
+        if (/^\[.*\]$/.test(token2)) {
+          return token2.substring(1, token2.length - 1);
         } else {
-          return token;
+          return token2;
         }
       }
       function stripFlags(open, close) {
@@ -5721,16 +5721,26 @@
   var config_default = { url, imgurl };
 
   // js/loader.js
+  var token = localStorage.getItem("token");
   function loadSpectacle(url2) {
     return __async(this, null, function* () {
-      return fetch(url2).catch((error) => {
+      return fetch(url2, {
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      }).catch((error) => {
         console.error("Erreur lors de la r\xE9cup\xE9ration du spectacle");
       });
     });
   }
   function loadSoiree(url2) {
     return __async(this, null, function* () {
-      return fetch(url2).catch((error) => {
+      return fetch(url2, {
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      }).catch((error) => {
         console.error("Erreur lors de la r\xE9cup\xE9ration de la soir\xE9e");
       });
     });
@@ -5740,7 +5750,11 @@
       if (filter != "none") {
         url2 += `?${filter}=${value}`;
       }
-      return fetch(url2).catch((error) => {
+      return fetch(url2, {
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      }).catch((error) => {
         console.error("Erreur lors de la r\xE9cup\xE9ration de la liste des spectacles");
       });
     });
@@ -5778,6 +5792,39 @@
     });
   }
   var allSpectacle_ui_default = { displayAllSpectacles };
+
+  // js/connexion_ui.js
+  var import_handlebars3 = __toESM(require_handlebars());
+  function displayConnexion() {
+    const container = document.getElementById("main");
+    const templateSource = document.getElementById("connexion-template").innerHTML;
+    const template = import_handlebars3.default.compile(templateSource);
+    let html = template();
+    container.innerHTML = html;
+    const form = document.getElementById("connexion-form");
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      fetch(config_default.url + "/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      }).then((response) => {
+        if (response.status === 200) {
+          response.json().then((data) => {
+            localStorage.setItem("token", data.token);
+            window.location.href = "/index.html";
+          });
+        } else {
+          alert("Email ou mot de passe incorrect");
+        }
+      });
+    });
+  }
+  var connexion_ui_default = { displayConnexion };
 
   // index.js
   function getSoiree(url2) {
@@ -5902,6 +5949,13 @@
       }));
     });
   }
-  getAllSpectacles(config_default.url + "/spectacles", "none", "");
+  function getConnexion() {
+    connexion_ui_default.displayConnexion();
+  }
+  if (localStorage.getItem("token") != null) {
+    getAllSpectacles(config_default.url + "/spectacles", "none", "");
+  } else {
+    getConnexion();
+  }
 })();
 //# sourceMappingURL=index.js.map

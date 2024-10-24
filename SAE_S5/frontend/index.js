@@ -2,6 +2,7 @@ import loader from "./js/loader";
 import soiree_ui from "./js/soiree_ui";
 import allSpectacle_ui from "./js/allSpectacle_ui";
 import conf from "./js/config";
+import connexion_ui from "./js/connexion_ui";
 
 function getSoiree(url){
     loader.loadSoiree(url).then(data => {
@@ -149,5 +150,17 @@ function getAllSpectacles(url, filter = '', value = ''){
     });
 }
 
+function getConnexion(){
+    connexion_ui.displayConnexion();
+}
+
 //getSoiree('http://localhost:42050/soiree/S1');
-getAllSpectacles(conf.url + '/spectacles',"none","");
+//getAllSpectacles(conf.url + '/spectacles',"none","");
+
+if(localStorage.getItem('token') != null){
+    getAllSpectacles(conf.url + '/spectacles',"none","");
+} else {
+    getConnexion();
+}
+
+//getAllSpectacles(conf.url + '/spectacles',"none","");

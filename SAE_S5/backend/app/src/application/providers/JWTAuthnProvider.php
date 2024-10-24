@@ -50,16 +50,19 @@ class JWTAuthnProvider implements AuthnProviderInterface
         // TODO: Implement refresh() method.
     }
 
-    public function getSignedInUser(Token $token): AuthDTO
+    public function getSignedInUser(string $token): AuthDTO
     {
         $decodedToken = $this->jwtManager->decodeToken($token);
         $email = $decodedToken['email'];
         $nom = $decodedToken['nom'];
         $prenom = $decodedToken['prenom'];
         $numerotel = $decodedToken['numerotel'];
-        $birthdate = $decodedToken['birthdate'];
+        $birthdate = new DateTime($decodedToken['birthdate']->date);
         $eligible = $decodedToken['eligible'];
         $role = $decodedToken['role'];
-        return new AuthDTO(new User($email,$nom, $prenom, $numerotel, $birthdate, $eligible, $role));
+        $user = new User($email,$nom, $prenom, $numerotel, $birthdate, $eligible, $role);
+        $user->setID($decodedToken['id']);
+
+        return new AuthDTO($user);
     }
 }
