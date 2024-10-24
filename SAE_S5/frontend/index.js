@@ -160,22 +160,28 @@ function getInscription(){
     inscription_ui.displayInscription();
 }
 
-//getSoiree('http://localhost:42050/soiree/S1');
-//getAllSpectacles(conf.url + '/spectacles',"none","");
+getAllSpectacles(conf.url + '/spectacles',"none","");
 
-/*if(localStorage.getItem('token') != null){
-    getAllSpectacles(conf.url + '/spectacles',"none","");
-} else {
-    getConnexion();
-}*/
-
-//getAllSpectacles(conf.url + '/spectacles',"none","");
-//getInscription();
 
 if(localStorage.getItem("token")!=null){
-    
     navbar_ui.displayVisiteurCo();
-
+    document.getElementById('accueil').addEventListener('click', () => {
+        getAllSpectacles(conf.url + '/spectacles',"none","");
+    });
+    document.getElementById('deconnexion').addEventListener('click', () => {
+        localStorage.removeItem('token');
+        window.location.href = '/index.html';
+    });
 } else {
     navbar_ui.displayVisiteurNonCo();
+    document.getElementById('accueil').addEventListener('click', () => {
+        getAllSpectacles(conf.url + '/spectacles',"none","");
+    });
+    document.getElementById('connexion').addEventListener('click', () => {
+        getConnexion();
+    });
+    document.getElementById('inscription').addEventListener('click', () => {
+        getInscription();
+    });
 }
+
