@@ -1,6 +1,6 @@
 <?php
 
-namespace nrv\application\providers;
+namespace nrv\core\domain\entities\Soiree;
 
 use DateTime;
 use nrv\core\domain\entities\Entity;

@@ -4,9 +4,9 @@ namespace nrv\infrastructure\repositories;
 
 use DateTime;
 use Exception;
-use nrv\application\providers\Soiree;
 use nrv\core\domain\entities\Soiree\Billet;
 use nrv\core\domain\entities\Soiree\Lieu;
+use nrv\core\domain\entities\Soiree\Soiree;
 use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
 use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
