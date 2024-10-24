@@ -171,6 +171,19 @@ section #research-container input {
   width: 100%;
   aspect-ratio: 16/9;
 }
+.soiree .lieu {
+  box-shadow: 0 5px 5px black;
+  border: 1px solid lightgray;
+  width: fit-content;
+}
+.soiree .lieu img {
+  width: 400px;
+  aspect-ratio: 16/9;
+}
+.soiree .lieu p {
+  margin: 0;
+  padding: 12px;
+}
 
 .spectacle-h2 {
   text-align: center;

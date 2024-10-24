@@ -9,6 +9,7 @@ use nrv\infrastructure\DatabaseConnection;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use PDO;
 use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use nrv\core\domain\entities\Soiree\Lieu;
 
 class SoireeRepository implements SoireeRepositoryInterface
 {
@@ -66,7 +67,19 @@ class SoireeRepository implements SoireeRepositoryInterface
         ]);
     }
 
-
+    public function getLieuBySoireeId(string $id): Lieu
+    {
+        $stmt = $this->pdo->prepare("SELECT lieusoiree FROM soirees WHERE id = :id");
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        $stmt2 = $this->pdo->prepare("SELECT * FROM LIEUX WHERE id = :id");
+        $stmt2->bindValue(':id', $stmt->fetch(PDO::FETCH_ASSOC)['lieusoiree']);
+        $stmt2->execute();
+        $lieu = $stmt2->fetch(PDO::FETCH_ASSOC);
+        $result = new Lieu($lieu['nom'], $lieu['adresse'], $lieu['nbplacesassises'], $lieu['nbplacesdebout'],$lieu['images']);
+        $result->setID($lieu['id']);
+        return $result;
+    }
 
 
 

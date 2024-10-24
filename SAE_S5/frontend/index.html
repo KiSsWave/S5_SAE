@@ -45,7 +45,10 @@
             <h3>{{this.Soiree.NomSoiree}} - Thématique : {{this.Soiree.Thematique}}</h3>
             <p><i class="fa-regular fa-calendar"></i> {{this.Soiree.Date}}</p>
             <p><i class="fa-solid fa-clock"></i> {{this.Soiree.Horaire}} H</p>
-            <p><i class="fa-solid fa-location-dot"></i> {{this.Soiree.Lieu}}</p>
+            <div class="lieu">
+                <p><i class="fa-solid fa-location-dot"></i> {{this.Soiree.Lieu.Nom}}, {{this.Soiree.Lieu.Adresse}}</p>
+                <img src="http://localhost:42050/assets/image/{{this.Soiree.Lieu.Images}}" alt="lieu">
+            </div>
             <div class="tarifs">
                 <button>Tarif normal : {{this.Soiree.Tarif}} €</button>
                 <button>Tarif réduit : {{this.Soiree.TarifReduit}} €</button>
