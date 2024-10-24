@@ -1098,7 +1098,7 @@
     "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
       "use strict";
       exports.__esModule = true;
-      exports["default"] = function(Handlebars5) {
+      exports["default"] = function(Handlebars6) {
         (function() {
           if (typeof globalThis === "object") return;
           Object.prototype.__defineGetter__("__magic__", function() {
@@ -1108,11 +1108,11 @@
           delete Object.prototype.__magic__;
         })();
         var $Handlebars = globalThis.Handlebars;
-        Handlebars5.noConflict = function() {
-          if (globalThis.Handlebars === Handlebars5) {
+        Handlebars6.noConflict = function() {
+          if (globalThis.Handlebars === Handlebars6) {
             globalThis.Handlebars = $Handlebars;
           }
-          return Handlebars5;
+          return Handlebars6;
         };
       };
       module.exports = exports["default"];
@@ -2974,34 +2974,34 @@
       }
       exports.urlParse = urlParse;
       function urlGenerate(aParsedUrl) {
-        var url2 = "";
+        var url = "";
         if (aParsedUrl.scheme) {
-          url2 += aParsedUrl.scheme + ":";
+          url += aParsedUrl.scheme + ":";
         }
-        url2 += "//";
+        url += "//";
         if (aParsedUrl.auth) {
-          url2 += aParsedUrl.auth + "@";
+          url += aParsedUrl.auth + "@";
         }
         if (aParsedUrl.host) {
-          url2 += aParsedUrl.host;
+          url += aParsedUrl.host;
         }
         if (aParsedUrl.port) {
-          url2 += ":" + aParsedUrl.port;
+          url += ":" + aParsedUrl.port;
         }
         if (aParsedUrl.path) {
-          url2 += aParsedUrl.path;
+          url += aParsedUrl.path;
         }
-        return url2;
+        return url;
       }
       exports.urlGenerate = urlGenerate;
       function normalize(aPath) {
         var path = aPath;
-        var url2 = urlParse(aPath);
-        if (url2) {
-          if (!url2.path) {
+        var url = urlParse(aPath);
+        if (url) {
+          if (!url.path) {
             return aPath;
           }
-          path = url2.path;
+          path = url.path;
         }
         var isAbsolute = exports.isAbsolute(path);
         var parts = path.split(/\/+/);
@@ -3025,9 +3025,9 @@
         if (path === "") {
           path = isAbsolute ? "/" : ".";
         }
-        if (url2) {
-          url2.path = path;
-          return urlGenerate(url2);
+        if (url) {
+          url.path = path;
+          return urlGenerate(url);
         }
         return path;
       }
@@ -4105,13 +4105,13 @@
         if (this.sourceRoot != null) {
           relativeSource = util.relative(this.sourceRoot, relativeSource);
         }
-        var url2;
-        if (this.sourceRoot != null && (url2 = util.urlParse(this.sourceRoot))) {
+        var url;
+        if (this.sourceRoot != null && (url = util.urlParse(this.sourceRoot))) {
           var fileUriAbsPath = relativeSource.replace(/^file:\/\//, "");
-          if (url2.scheme == "file" && this._sources.has(fileUriAbsPath)) {
+          if (url.scheme == "file" && this._sources.has(fileUriAbsPath)) {
             return this.sourcesContent[this._sources.indexOf(fileUriAbsPath)];
           }
-          if ((!url2.path || url2.path == "/") && this._sources.has("/" + relativeSource)) {
+          if ((!url.path || url.path == "/") && this._sources.has("/" + relativeSource)) {
             return this.sourcesContent[this._sources.indexOf("/" + relativeSource)];
           }
         }
@@ -5695,11 +5695,6 @@
     }
   });
 
-  // js/config.js
-  var url = "http://localhost:42050";
-  var imgurl = "http://localhost:42050/assets/image/";
-  var config_default = { url, imgurl };
-
   // js/loader.js
   var token = localStorage.getItem("token");
 
@@ -5711,77 +5706,46 @@
 
   // js/connexion_ui.js
   var import_handlebars3 = __toESM(require_handlebars());
-  function displayConnexion() {
-    const container = document.getElementById("main");
-    const templateSource = document.getElementById("connexion-template").innerHTML;
-    const template = import_handlebars3.default.compile(templateSource);
-    let html = template();
-    container.innerHTML = html;
-    const form = document.getElementById("connexion-form");
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      fetch(config_default.url + "/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-      }).then((response) => {
-        if (response.status === 200) {
-          response.json().then((data) => {
-            localStorage.setItem("token", data.token);
-            window.location.href = "/index.html";
-          });
-        } else {
-          alert("Email ou mot de passe incorrect");
-        }
-      });
-    });
-  }
-  var connexion_ui_default = { displayConnexion };
 
   // js/inscription_ui.js
   var import_handlebars4 = __toESM(require_handlebars());
-  function displayInscription() {
-    const container = document.getElementById("main");
-    const templateSource = document.getElementById("inscription-template").innerHTML;
-    const template = import_handlebars4.default.compile(templateSource);
+
+  // js/navbar_ui.js
+  var import_handlebars5 = __toESM(require_handlebars());
+  function displayVisiteurNonCo() {
+    const navbar = document.getElementById("headerNav");
+    const templateSource = document.getElementById("visiteur-template").innerHTML;
+    const template = import_handlebars5.default.compile(templateSource);
     let html = template();
-    container.innerHTML = html;
-    const form = document.getElementById("inscription-form");
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      const nom = document.getElementById("nom").value;
-      const prenom = document.getElementById("prenom").value;
-      const numerotel = document.getElementById("numerotel").value;
-      const birthdate = document.getElementById("birthdate").value;
-      const eligible = document.getElementById("eligible").value;
-      const role = 1;
-      fetch(config_default.url + "/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password, nom, prenom, numerotel, birthdate, eligible, role })
-      }).then((response) => {
-        if (response.status === 200) {
-          connexion_ui_default.displayConnexion();
-        } else {
-          alert("Email d\xE9j\xE0 utilis\xE9");
-        }
-      });
-    });
+    navbar.innerHTML = html;
   }
-  var inscription_ui_default = { displayInscription };
+  function displayVisiteurCo() {
+    const navbar = document.getElementById("headerNav");
+    const templateSource = document.getElementById("utilisateur-template").innerHTML;
+    const template = import_handlebars5.default.compile(templateSource);
+    navbar.innerHTML = ` `;
+    let html = template();
+    navbar.innerHTML = html;
+  }
+  function displayOrganisateurCo() {
+    const navbar = document.getElementById("headerNav");
+    const templateSource = document.getElementById("organisateur-template").innerHTML;
+    const template = import_handlebars5.default.compile(templateSource);
+    navbar.innerHTML = ` `;
+    let html = template();
+    navbar.innerHTML = html;
+  }
+  var navbar_ui_default = { displayOrganisateurCo, displayVisiteurCo, displayVisiteurNonCo };
 
   // index.js
-  function getInscription() {
-    inscription_ui_default.displayInscription();
+  if (localStorage.getItem("token") != null) {
+    if (localStorage.getItem("role") === 2) {
+      navbar_ui_default.displayVisiteurCo();
+    } else {
+      navbar_ui_default.displayOrganisateurCo();
+    }
+  } else {
+    navbar_ui_default.displayVisiteurNonCo();
   }
-  getInscription();
 })();
 //# sourceMappingURL=index.js.map

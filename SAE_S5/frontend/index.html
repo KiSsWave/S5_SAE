@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <script src="https://kit.fontawesome.com/58b093214d.js" crossorigin="anonymous"></script>
     <title>Nancy Rock Vibes</title>
 </head>
+
 <body>
     <header>
         <div id="headerTitle">
@@ -15,13 +17,14 @@
             <h1>Nancy Rock Vibrations</h1>
         </div>
         <nav id="headerNav">
-            
+
         </nav>
     </header>
     <section id="main">
 
     </section>
     <script id="visiteur-template" type="text/x-handlebars-template">
+        <ul>
         <li>
             <p type="button" id="accueil"> <i class="fa-solid fa-house"></i> | Accueil</p>
         </li>
@@ -31,8 +34,36 @@
         <li>
             <p type="button" id="inscription"> <i class="fa-solid fa-user-plus"></i> | S'inscrire</p>
         </li>
-        <li> 
+        </ul> 
     </script>
+
+
+    <script id="utilisateur-template" type="text/x-handlebars-template">
+
+        <li>
+            <p href="index.html" type="button" id="accueil"> <i class="fa-solid fa-house"></i> | Accueil</p>
+        </li>
+                        <li>
+            <p href="index.html" type="button" id="panier"> <i class="fa-solid fa-cart-shopping"></i> | Panier</p>
+        </li>
+        <li>
+            <p href="index.html" type="button" id="deconnexion"> <i class="fa-solid fa-right-from-bracket"> </i>|
+                Deconnexion</p>
+        </li>
+
+    </script>
+
+    <script id="organisateur-template" type="text/x-handlebars-template">
+        <li>
+            <p href="index.html" type="button" id="accueil"> <i class="fa-solid fa-house"></i> | Accueil</p>
+        </li>
+        <p href="index.html" type="button" id="deconnexion"> <i class="fa-solid fa-right-from-bracket"> </i>|
+                Deconnexion</p>
+        </li>
+
+
+    </script>
+
     <script id="inscription-template" type="text/x-handlebars-template">
         <div class="connexion">
             <form id="inscription-form">
@@ -48,6 +79,7 @@
             </form>
         </div>
     </script>
+
 
     <script id="connexion-template" type="text/x-handlebars-template">
         <div class="connexion">
@@ -92,7 +124,7 @@
             {{/each}}
         </div>
     </script>
-    
+
     <script id="soiree-template" type="text/x-handlebars-template">
         <div class="soiree">
             <h3>{{this.Soiree.NomSoiree}} - Thématique : {{this.Soiree.Thematique}}</h3>
@@ -127,7 +159,7 @@
             </div>
         </div>
     </script>
-    
+
     <script id="research-template" type="text/x-handlebars-template">
         <div id="research-container">
             <span><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Rechercher une soirée, un spectacle ..."></span>
@@ -186,12 +218,13 @@
             </div>
         </div>
         </script>
-        <div id="popup-bg" class="hide">
-            <div id="popup">
+    <div id="popup-bg" class="hide">
+        <div id="popup">
 
-            </div>
         </div>
-        </section>
-        <script  src='./js/index.js' defer ></script>
+    </div>
+    </section>
+    <script src='./js/index.js' defer></script>
 </body>
+
 </html>

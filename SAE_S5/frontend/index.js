@@ -173,7 +173,12 @@ function getInscription(){
 //getInscription();
 
 if(localStorage.getItem("token")!=null){
-    // afficher l'ui du mec connecté
+    if(localStorage.getItem("role")===2){
+    navbar_ui.displayVisiteurCo();}
+    else{
+        navbar_ui.displayOrganisateurCo();
+    }
+
 } else {
     navbar_ui.displayVisiteurNonCo();
 }

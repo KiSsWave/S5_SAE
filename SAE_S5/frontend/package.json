@@ -6,5 +6,13 @@
     },
     "scripts": {
         "build": "esbuild index.js --bundle  --sourcemap --target=es2015 --outfile=js/index.js"
-    }
+    },
+    "name": "frontend",
+    "version": "1.0.0",
+    "main": "index.js",
+    "devDependencies": {},
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": ""
 }
