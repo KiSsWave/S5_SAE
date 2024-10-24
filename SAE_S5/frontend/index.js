@@ -172,6 +172,12 @@ if(localStorage.getItem("token")!=null){
         localStorage.removeItem('token');
         window.location.href = '/index.html';
     });
+    document.getElementById('panier').addEventListener('click', () => {
+        document.getElementById('cart').classList.remove('hide');
+    });
+    document.getElementById('close-cart').addEventListener('click', () => {
+        document.getElementById('cart').classList.add('hide');
+    });
 } else {
     navbar_ui.displayVisiteurNonCo();
     document.getElementById('accueil').addEventListener('click', () => {

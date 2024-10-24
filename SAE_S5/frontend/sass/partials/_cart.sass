@@ -1,0 +1,59 @@
+#cart
+    height: 100%
+    min-width: 20vw
+    max-width: 30vw
+    background-color: white
+    position: absolute
+    right: 0%
+    top: 50%
+    transform: translateY(-50%)
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), width 0.5s cubic-bezier(0.25, 1, 0.5, 1)
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2)
+    z-index: 10   
+    display: flex
+    flex-direction: column
+
+
+    #cart-head
+        display: flex
+        align-items: center
+        justify-content: space-around
+        background-color: #000000
+        color: white
+        
+        h2
+            text-align: center
+            padding: 10px
+
+        #close-cart
+            padding: 10px
+            cursor: pointer
+            transition: 0.24s
+            color: white
+            background-color: #ff4800
+
+        #close-cart:hover
+            color: black
+    
+    #cart-content
+        text-align: center
+        flex-grow: 1
+
+    #cart-footer
+        text-align: center
+        font-size: larger
+        button
+            margin: 20px
+            padding: 20px
+            width: 60%
+            background: none
+            transition: 0.24s
+
+        button:hover
+            background-color: black
+            color: #ff4800
+            cursor: pointer
+
+#cart.hide
+    transform: translateY(-50%) translateX(100%)
+
