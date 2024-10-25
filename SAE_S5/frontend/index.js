@@ -6,6 +6,7 @@ import connexion_ui from "./js/connexion_ui";
 import inscription_ui from "./js/inscription_ui";
 import navbar_ui from "./js/navbar_ui";
 import createSpectacle_ui from "./js/createSpectacle_ui";
+import paiement_ui from "./js/paiement_ui";
 
 function getSoiree(url){
     let loading = document.createElement('div');
@@ -120,6 +121,7 @@ function updateCart(){
 }
 
 function getPaiement(){
+    document.getElementById('cart').classList.add('hide');
     paiement_ui.displayPaiement();
 }
 
@@ -295,6 +297,22 @@ function getNavbar(){
         });
         document.getElementById('close-cart').addEventListener('click', () => {
             document.getElementById('cart').classList.add('hide');
+        });
+        document.getElementById('cart-validate').addEventListener('click', () => {
+            console.log('validate');
+            let url = conf.url + '/commande';
+            let token = localStorage.getItem('token');
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                }
+            }).then(data => {
+                data.json().then(data => {
+                    getPaiement();
+                });
+            });
         });
     } else {
         navbar_ui.displayVisiteurNonCo();

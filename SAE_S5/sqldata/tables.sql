@@ -1,4 +1,5 @@
 -- Supprimer les tables en commençant par celles qui dépendent d'autres
+DROP TABLE IF EXISTS COMMANDES CASCADE;
 DROP TABLE IF EXISTS PANIERS CASCADE;
 DROP TABLE IF EXISTS SPECTACLESOIREE CASCADE;
 DROP TABLE IF EXISTS ARTISTESPECTACLE CASCADE;
@@ -116,3 +117,11 @@ CREATE TABLE PANIERS
     primary key (idsoiree, iduser, categorie)
 );
 
+CREATE TABLE COMMANDES 
+(
+    "iduser" uuid NOT NULL,
+    "idsoiree" character varying NOT NULL,
+    "date_achat" timestamp NOT NULL,
+    "placesvendues" integer,
+    CONSTRAINT "commandes_pkey" PRIMARY KEY ("iduser", "idsoiree", "date_achat")
+)
