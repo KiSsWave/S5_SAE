@@ -26,16 +26,19 @@ return function( \Slim\App $app):\Slim\App {
         $app->get('/panier', \nrv\application\action\GetPanierAction::class);
         $app->post('/create', \nrv\application\action\CreerPanierAction::class);
         $app->post('/commande', \nrv\application\action\CreerCommandeAction::class);
+
+        $app->get('/billets', \nrv\application\action\GetBilletsAction::class);
+
         $app->get('/commandes', \nrv\application\action\GetCommandeAction::class);
-
-
 
     })->add(\nrv\application\middleware\AuthnMiddleware::class);
 
-    $app->group('', function () use ($app){
+
+    $app->group('', function () use ($app) {
         $app->post('/spectacle', \nrv\application\action\CreateSpectacleAction::class);
     })->add(\nrv\application\middleware\AuthnMiddleware::class)
         ->add(\nrv\application\middleware\AuthzOrganisateurMiddleware::class);
+
 
     $app->options('/{routes:.+}', function (Request $request, Response $response, array $args): Response {
         return $response

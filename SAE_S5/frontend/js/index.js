@@ -1118,7 +1118,7 @@
     "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
       "use strict";
       exports.__esModule = true;
-      exports["default"] = function(Handlebars8) {
+      exports["default"] = function(Handlebars10) {
         (function() {
           if (typeof globalThis === "object") return;
           Object.prototype.__defineGetter__("__magic__", function() {
@@ -1128,11 +1128,11 @@
           delete Object.prototype.__magic__;
         })();
         var $Handlebars = globalThis.Handlebars;
-        Handlebars8.noConflict = function() {
-          if (globalThis.Handlebars === Handlebars8) {
+        Handlebars10.noConflict = function() {
+          if (globalThis.Handlebars === Handlebars10) {
             globalThis.Handlebars = $Handlebars;
           }
-          return Handlebars8;
+          return Handlebars10;
         };
       };
       module.exports = exports["default"];
@@ -5762,6 +5762,9 @@
   }
   var loader_default = { loadSoiree, loadSpectacle, loadAllSpectacles, loadSpectacleBySoiree, loadLieux };
 
+  // index.js
+  var import_handlebars9 = __toESM(require_handlebars());
+
   // js/soiree_ui.js
   var import_handlebars = __toESM(require_handlebars());
   function displaySoiree(Soiree) {
@@ -5892,42 +5895,6 @@
 
   // js/createSpectacle_ui.js
   var import_handlebars6 = __toESM(require_handlebars());
-  function displayCreateSpectacle() {
-    return __async(this, null, function* () {
-      const container = document.getElementById("main");
-      const templateSource = document.getElementById("add-spectacle-template").innerHTML;
-      const template = import_handlebars6.default.compile(templateSource);
-      let html = template();
-      container.innerHTML = html;
-      const form = document.getElementById("create-spectacle-form");
-      form.addEventListener("submit", function(event) {
-        event.preventDefault();
-        const titre = document.getElementById("titre").value;
-        const description = document.getElementById("description").value;
-        const date = document.getElementById("date").value;
-        const heure = document.getElementById("horaire").value;
-        let horaire = date + " " + heure + ":00";
-        const style = document.getElementById("style").value;
-        const urlVideo = document.getElementById("urlvideo").value;
-        const images = "zakkudorett.jpg";
-        fetch(config_default.url + "/spectacle", {
-          method: "POST",
-          headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token"),
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ titre, description, style, urlVideo, images, horaire })
-        }).then((response) => {
-          if (response.status === 200) {
-            window.location.href = "/index.html";
-          } else {
-            alert("Erreur lors de la cr\xE9ation du spectacle");
-          }
-        });
-      });
-    });
-  }
-  var createSpectacle_ui_default = { displayCreateSpectacle };
 
   // js/paiement_ui.js
   var import_handlebars7 = __toESM(require_handlebars());
@@ -5939,6 +5906,17 @@
     paiement.innerHTML = html;
   }
   var paiement_ui_default = { displayPaiement };
+
+  // js/allBillet_ui.js
+  var import_handlebars8 = __toESM(require_handlebars());
+  function displayAllBillet() {
+    let container = document.getElementById("main");
+    let templateSource = document.getElementById("all-billet-template").innerHTML;
+    let template = import_handlebars8.default.compile;
+    let html = template();
+    container.innerHTML = html;
+  }
+  var allBillet_ui_default = { displayAllBillet };
 
   // index.js
   function getSoiree(url2) {
@@ -6040,6 +6018,42 @@
   function getPaiement() {
     document.getElementById("cart").classList.add("hide");
     paiement_ui_default.displayPaiement();
+    let loading = document.createElement("div");
+    loading.innerHTML = "<h2>Chargement ...</h2>";
+    loading.classList.add("loading");
+    document.getElementById("main").appendChild(loading);
+    let url2 = config_default.url + "/commandes";
+    fetch(url2, {
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token"),
+        "Content-Type": "application/json"
+      }
+    }).then((data) => {
+      data.json().then((data2) => {
+        let container = document.getElementById("main");
+        container.innerHTML = "";
+        let templateSource = document.getElementById("paiement-template").innerHTML;
+        let template = import_handlebars9.default.compile(templateSource);
+        container.innerHTML = template({ data: data2 });
+        let button = document.getElementById("valider");
+        button.addEventListener("click", () => {
+          let url3 = config_default.url + "/paiement";
+          fetch(url3, {
+            method: "POST",
+            headers: {
+              "Authorization": "Bearer " + localStorage.getItem("token"),
+              "Content-Type": "application/json"
+            }
+          }).then((data3) => {
+            data3.json().then((data4) => {
+              alert("Paiement effectu\xE9");
+              getAllBillets();
+            });
+          });
+        });
+      });
+    });
   }
   function getAllSpectacles(url2, filter = "", value = "") {
     let loading = document.createElement("div");
@@ -6163,6 +6177,29 @@
       }));
     });
   }
+  function getAllBillets() {
+    let loading = document.createElement("div");
+    loading.innerHTML = "<h2>Chargement ...</h2>";
+    loading.classList.add("loading");
+    document.getElementById("main").appendChild(loading);
+    let token2 = localStorage.getItem("token");
+    let url2 = config_default.url + "/billets";
+    fetch(url2, {
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + token2,
+        "Content-Type": "application/json"
+      }
+    }).then((data) => {
+      data.json().then((data2) => {
+        allBillet_ui_default.displayAllBillet(data2.Billets);
+      });
+    });
+    document.getElementById("print-btn").addEventListener("click", () => {
+      window.print();
+      console.log("print");
+    });
+  }
   function getConnexion() {
     connexion_ui_default.displayConnexion();
     document.getElementById("inscription-btn").addEventListener("click", () => {
@@ -6217,11 +6254,8 @@
       });
     }
   }
-  function getCreateSpectacle() {
-    createSpectacle_ui_default.displayCreateSpectacle();
-  }
-  getCreateSpectacle();
   getNavbar();
+  getAllSpectacles(config_default.url + "/spectacles", "none", "");
   updateCart();
 })();
 //# sourceMappingURL=index.js.map
