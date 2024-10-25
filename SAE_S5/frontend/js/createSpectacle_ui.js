@@ -19,7 +19,6 @@ async function displayCreateSpectacle() {
         const style = document.getElementById('style').value;
         const urlVideo = document.getElementById('urlvideo').value;
         const images = "zakkudorett.jpg";
-        console.log({titre, description, style, urlVideo, images, horaire});
         fetch(conf.url + '/spectacle', {
             method: 'POST',
             headers: {
