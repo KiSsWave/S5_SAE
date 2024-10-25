@@ -192,6 +192,37 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $uuid;
     }
 
+    public function getBilletsByAcheteurId(string $idAcheteur): array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM billets WHERE id_acheteur = :idAcheteur");
+        $stmt->bindValue(':idAcheteur', $idAcheteur);
+        $stmt->execute();
+
+        $billetsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $billets = [];
+
+        if (!$billetsData) {
+            return [];
+        }
+
+
+        foreach ($billetsData as $billetData) {
+            $date = new DateTime($billetData['datehorairesoiree']);
+            $billet = new Billet(
+                $billetData['nom_acheteur'],
+                $billetData['reference'],
+                $billetData['typetarif'],
+                $date,
+                $billetData['prix']
+            );
+            $billet->setID($billetData['id']);
+            $billets[] = $billet;
+        }
+
+        return $billets;
+    }
+
+
 
     private function generateUuid(): string
     {

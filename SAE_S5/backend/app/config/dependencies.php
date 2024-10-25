@@ -31,6 +31,7 @@ use nrv\core\services\auth\AuthzServiceInterface;
 use nrv\core\services\auth\AuthzService;
 use nrv\application\action\CreerPanierAction;
 use nrv\application\action\CreateSpectacleAction;
+use nrv\application\action\GetBilletsAction;
 return[
 
     SoireeRepositoryInterface::class => function (){
@@ -119,8 +120,14 @@ return[
         return new CreerCommandeAction($c->get(SoireeServiceInterface::class));
     },
 
+
+    GetBilletsAction::class => function (ContainerInterface $c){
+        return new GetBilletsAction($c->get(SoireeServiceInterface::class));
+    },
+
     GetCommandeAction::class => function(ContainerInterface $c){
         return new GetCommandeAction($c->get(SoireeServiceInterface::class));
+
     }
 
 ];
