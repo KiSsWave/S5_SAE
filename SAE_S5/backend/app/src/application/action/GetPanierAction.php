@@ -28,18 +28,16 @@ class GetPanierAction extends AbstractAction
             $resultat = [
                 "Panier" => []
             ];
-            foreach ($paniers as $panier) {
-                $soiree = $this->soireeService->afficherSoiree($panier->idsoiree);
-
-
+                
                 foreach ($paniers as $panierDTO) {
+                    $soiree = $this->soireeService->afficherSoiree($panierDTO->idsoiree);
                     $resultat["Panier"][] = [
                         "idSoiree" => $panierDTO->idsoiree,
                         "idUser" => $panierDTO->iduser,
                         "NbPlaces" => $panierDTO->nbplaces,
                         "Categorie" => $panierDTO->categorie,
                         "Montant" => $panierDTO->montant,
-                        "Soiree" => $soiree,
+                        "Soiree" => $soiree->nom,
                         "links" => [
                             "self" => [
                                 "href" => "/panier/" . $panierDTO->idsoiree
@@ -47,7 +45,7 @@ class GetPanierAction extends AbstractAction
                         ]
                     ];
                 }
-            }
+            
             $rs->getBody()->write(json_encode($resultat));
             return $rs
                 ->withHeader('Content-Type', 'application/json')

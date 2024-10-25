@@ -18,7 +18,7 @@ class CreerPanierAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
 
-        $data = $rq->getQueryParams();
+        $data = $rq->getParsedBody();
         $idsoiree = $data['idsoiree'] ?? null;
         $nbplaces = $data['nbplaces'] ?? null;
         $categorie = $data['categorie'] ?? null;
@@ -30,7 +30,8 @@ class CreerPanierAction extends AbstractAction
         try {
 
             if (!$idsoiree || !$nbplaces || !$categorie || !$montant || !$userid) {
-                throw new \InvalidArgumentException("Paramètre manquant dans la requête.");
+                throw new \InvalidArgumentException("Paramètre manquant dans la requête." 
+                . "idsoiree: $idsoiree, nbplaces: $nbplaces, categorie: $categorie, montant: $montant, userid: $userid");
             }
 
 
