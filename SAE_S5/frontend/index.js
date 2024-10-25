@@ -191,3 +191,7 @@ if(localStorage.getItem("token")!=null){
     });
 }
 
+
+function getPaiement(){
+    paiement_ui.displayPaiement();
+}

@@ -19,6 +19,8 @@ class SoireeRepository implements SoireeRepositoryInterface
     private array $soirees = [];
     private array $billets = [];
 
+    private array $paniers = [];
+
     public function __construct()
     {
         $this->pdo = DatabaseConnection::getPDO('nrv');
@@ -58,6 +60,20 @@ class SoireeRepository implements SoireeRepositoryInterface
         }
 
         return $spectacles;
+
+    }
+
+    public function  getPanierByUser(string $iduser): array{
+        $stmt = $this->pdo->prepare("SELECT * FROM Paniers WHERE iduser = :iduser");
+        $stmt->execute([
+            'iduser' => $iduser
+        ]);
+        $paniersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $paniers = [];
+        foreach ($paniersData as $panier){
+            $paniers[] = $panier;
+        }
+        return $paniers;
 
     }
 
@@ -163,6 +179,8 @@ class SoireeRepository implements SoireeRepositoryInterface
             'nbplaces' => $nbplaces
         ]);
     }
+
+
 
 
 
