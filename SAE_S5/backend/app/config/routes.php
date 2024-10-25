@@ -14,8 +14,7 @@ return function( \Slim\App $app):\Slim\App {
 
 
     $app->post('/billets', nrv\application\action\CreateBilletAction::class);
-    $app->get('/panier', \nrv\application\action\GetPanierAction::class);
-    $app->post('/create', \nrv\application\action\CreerPanierAction::class);
+
 
 
 
