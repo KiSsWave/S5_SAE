@@ -18,26 +18,14 @@ class CreateBilletAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
 
-        $queryParams = $rq->getQueryParams();
-        $id_acheteur = $queryParams['id_user'] ?? null;
-        $reference = $queryParams['reference'] ?? null;
-        $typeTarif = $queryParams['typeTarif'] ?? null;
-
-
-        if (!$id_acheteur || !$reference || !$typeTarif) {
-
-            $rs->getBody()->write('Paramètres manquants ou invalides');
-            return $rs->withStatus(400);
-        }
-
+        $user = $rq->getAttribute('auth');
+        $id_acheteur = $user->id;
 
 
         try {
 
             $billetDTO = $this->soireeService->creationBillet([
-                'id_acheteur' => $id_acheteur,
-                'reference' => $reference,
-                'typeTarif' => $typeTarif
+                'id_acheteur' => $id_acheteur
             ]);
 
 

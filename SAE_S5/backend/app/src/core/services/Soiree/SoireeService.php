@@ -47,12 +47,17 @@ class SoireeService implements SoireeServiceInterface
     }
 
 
-    public function creationBillet(array $data): BilletDTO
+    public function creationBillet(array $data): array
     {
 
-        $billet = new Billet('', $data['reference'], $data['typeTarif']);
-        $this->soireeRepository->creerBillet($billet, $data['id_acheteur']);
-        return new BilletDTO($billet, $data['id_acheteur']);
+        $billets = $this->soireeRepository->creerBillet( $data['id_acheteur']);
+        $billetsDTO = [];
+        foreach ($billets as $billet) {
+            $billetsDTO[] = new BilletDTO($billet, $data['id_acheteur']);
+        }
+
+
+        return $billetsDTO;
     }
 
     public function afficherBillets(string $id){
