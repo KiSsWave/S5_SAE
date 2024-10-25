@@ -42,7 +42,7 @@ function getSoiree(url){
                 let idsoiree = soireeId;
                 let nbplaces = nbPlacesReduites;
                 let categorie = 'reduit';
-                let montant = data.Soiree.TarifReduit;
+                let montant = data.Soiree.TarifReduit*nbplaces;
                 console.log({idsoiree, nbplaces, categorie, montant});
                 if(token == null){
                     alert('Vous devez être connecté pour effectuer un achat');
@@ -64,7 +64,7 @@ function getSoiree(url){
                         let url = conf.url + '/create';
                         nbplaces = nbPlacesStandard;
                         categorie = 'standard';
-                        montant = data.Soiree.Tarif;
+                        montant = data.Soiree.Tarif*nbplaces;
                         fetch(url, {
                             method: 'POST',
                             headers: {
@@ -72,17 +72,12 @@ function getSoiree(url){
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({idsoiree, nbplaces, categorie, montant})
-                        }).then(response => {
-                            if(response.status === 200){
-                                alert('Ajout au panier réussi');
-                            } else {
-                                alert('Erreur dans l\'ajout au panier');
-                            }
-                        });
+                        })
                     } 
                     if(nbPlacesReduites == 0 && nbPlacesStandard == 0){
                         alert('Veuillez renseigner le nombre de places souhaitées');
                     }
+                    updateCart();
                 }
 
                 
@@ -111,17 +106,13 @@ function updateCart(){
             let nomSoiree = '';
             
             data.Panier.forEach(achat => {
-                loader.loadSoiree(conf.url + '/soiree/' +achat.idSoiree).then(data => {
-                    data.json().then(data => {
-                        nomSoiree = data.Soiree.NomSoiree;
-                        let div = document.createElement('div');
-                        div.classList.add('achat');
-                        div.innerHTML = `<h3>${nomSoiree}</h3><p>${achat.NbPlaces} place(s), Tarif ${achat.Categorie}</p><p>${achat.Montant} €</p>`;
-                        total += achat.Montant;
-                        cart.appendChild(div);
-                        document.getElementById('cart-total').innerHTML = total;
-                    });
-                }); 
+                nomSoiree = achat.Soiree;
+                let div = document.createElement('div');
+                div.classList.add('achat');
+                div.innerHTML = `<h3>${nomSoiree}</h3><p>${achat.NbPlaces} place(s), Tarif ${achat.Categorie}</p><p>${achat.Montant} €</p>`;
+                total += achat.Montant;
+                cart.appendChild(div);
+                document.getElementById('cart-total').innerHTML = total;
             });
         });
         
