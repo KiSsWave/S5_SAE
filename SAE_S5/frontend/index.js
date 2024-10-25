@@ -217,16 +217,6 @@ function getAllSpectacles(url, filter = '', value = ''){
                 }
             });
 
-            dataAll.Spectacles.forEach(spectacle => {
-                loader.loadSoiree(conf.url + spectacle.SoireeAssociee.href).then(data => {
-                    data.json().then(data => {
-                        if(!lieux.includes(data.Soiree.Lieu.Nom)){
-                            lieux.push(data.Soiree.Lieu.Nom);
-                        }
-                    });
-                });
-            });
-
             if(filter == 'style'){
                 document.querySelector('#filter-value').innerHTML = '';
                 styles.forEach(style => {
@@ -245,16 +235,30 @@ function getAllSpectacles(url, filter = '', value = ''){
                     document.querySelector('#filter-value').appendChild(option);
                 });
                 document.querySelector('#filter-value').value = value;
-            } else if(filter == 'lieu'){
-                document.querySelector('#filter-value').innerHTML = '';
-                lieux.forEach(lieu => {
-                    let option = document.createElement('option');
-                    option.value = lieu;
-                    option.innerHTML = lieu;
-                    document.querySelector('#filter-value').appendChild(option);
-                });
-                document.querySelector('#filter-value').value = value;
             }
+        });
+    });
+
+    loader.loadLieux(conf.url + '/lieux').then(dataLieux => {
+        dataLieux.json().then(async dataLieux => {
+            dataLieux.Lieux.forEach(lieu => {
+                if(!lieux.includes(lieu.Nom)){
+                    lieux.push(lieu.Nom);
+                }
+
+                if(filter == 'lieu'){
+                    document.querySelector('#filter-value').innerHTML = '';
+                    lieux.forEach(lieu => {
+                        let option = document.createElement('option');
+                        option.value = lieu;
+                        option.innerHTML = lieu;
+                        document.querySelector('#filter-value').appendChild(option);
+                    });
+                    document.querySelector('#filter-value').value = value;
+                }
+            }
+            );
+
         });
     });
 }

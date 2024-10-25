@@ -46,6 +46,18 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $this->soirees[$id];
     }
 
+    public function getLieux(){
+        $stmt = $this->pdo->prepare("SELECT * FROM LIEUX");
+        $stmt->execute();
+        $lieuxData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $lieux = [];
+        foreach ($lieuxData as $lieu){
+            $lieureturn = new Lieu($lieu['nom'], $lieu['adresse'], $lieu['nbplacesassises'], $lieu['nbplacesdebout'],$lieu['images']);
+            $lieureturn->setID($lieu['id']);
+            $lieux[] = $lieureturn;
+        }
+        return $lieux;
+    }
 
     public function SpectaclesBySoireeID(string $id){
         $stmt = $this->pdo->prepare("SELECT * FROM SPECTACLESOIREE WHERE id_soiree = :id_soiree");

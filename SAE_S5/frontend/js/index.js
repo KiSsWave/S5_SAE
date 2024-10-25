@@ -5746,7 +5746,21 @@
       });
     });
   }
-  var loader_default = { loadSoiree, loadSpectacle, loadAllSpectacles };
+  function loadSpectacleBySoiree(url2) {
+    return __async(this, null, function* () {
+      return fetch(url2).catch((error) => {
+        console.error("Erreur de la r\xE9cup\xE9ration de la liste des spectacles");
+      });
+    });
+  }
+  function loadLieux(url2) {
+    return __async(this, null, function* () {
+      return fetch(url2).catch((error) => {
+        console.error("Erreur de la r\xE9cup\xE9ration de la liste des lieux");
+      });
+    });
+  }
+  var loader_default = { loadSoiree, loadSpectacle, loadAllSpectacles, loadSpectacleBySoiree, loadLieux };
 
   // js/soiree_ui.js
   var import_handlebars = __toESM(require_handlebars());
@@ -6027,15 +6041,6 @@
             dates.push(spectacle.Date);
           }
         });
-        dataAll2.Spectacles.forEach((spectacle) => {
-          loader_default.loadSoiree(config_default.url + spectacle.SoireeAssociee.href).then((data) => {
-            data.json().then((data2) => {
-              if (!lieux.includes(data2.Soiree.Lieu.Nom)) {
-                lieux.push(data2.Soiree.Lieu.Nom);
-              }
-            });
-          });
-        });
         if (filter == "style") {
           document.querySelector("#filter-value").innerHTML = "";
           styles.forEach((style) => {
@@ -6054,16 +6059,28 @@
             document.querySelector("#filter-value").appendChild(option);
           });
           document.querySelector("#filter-value").value = value;
-        } else if (filter == "lieu") {
-          document.querySelector("#filter-value").innerHTML = "";
-          lieux.forEach((lieu) => {
-            let option = document.createElement("option");
-            option.value = lieu;
-            option.innerHTML = lieu;
-            document.querySelector("#filter-value").appendChild(option);
-          });
-          document.querySelector("#filter-value").value = value;
         }
+      }));
+    });
+    loader_default.loadLieux(config_default.url + "/lieux").then((dataLieux) => {
+      dataLieux.json().then((dataLieux2) => __async(this, null, function* () {
+        dataLieux2.Lieux.forEach(
+          (lieu) => {
+            if (!lieux.includes(lieu.Nom)) {
+              lieux.push(lieu.Nom);
+            }
+            if (filter == "lieu") {
+              document.querySelector("#filter-value").innerHTML = "";
+              lieux.forEach((lieu2) => {
+                let option = document.createElement("option");
+                option.value = lieu2;
+                option.innerHTML = lieu2;
+                document.querySelector("#filter-value").appendChild(option);
+              });
+              document.querySelector("#filter-value").value = value;
+            }
+          }
+        );
       }));
     });
   }

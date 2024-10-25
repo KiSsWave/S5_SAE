@@ -22,6 +22,7 @@ return function( \Slim\App $app):\Slim\App {
     $app->get('/spectacles', \nrv\application\action\GetSpectaclesAction::class);
     $app->get('/spectacle/{ID-SPECTACLE}', \nrv\application\action\GetSpectaclebyIdAction::class);
     $app->get('/soiree/{ID-SOIREE}', nrv\application\action\GetSoireeByIDAction::class);
+    $app->get('/lieux', nrv\application\action\GetLieuxAction::class);
 
     $app->group('', function () use ($app){
         $app->get('/panier', \nrv\application\action\GetPanierAction::class);

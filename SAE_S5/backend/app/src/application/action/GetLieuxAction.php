@@ -31,21 +31,22 @@ class GetLieuxAction extends AbstractAction
 
             foreach ($lieux as $lieu) {
 
-                $images = $lieu->images.split(",");
+                $images = explode(",", $lieu->images);
 
-                $lieuxDTO[] = [
-                    "ID" => $lieu->id,
-                    "nom" => $lieu->nom,
-                    "adresse" => $lieu->adresse,
-                    "image" => $lieu->image
+                $resultat["Lieux"][] = $lieuxDTO[] = [
+                    "Nom" => $lieu->nom,
+                    "Adresse" => $lieu->adresse,
+                    "PlacesAssises" => $lieu->placesA,
+                    "PlacesDebout" => $lieu->placesD,
+                    "Images" => $images
                 ];
             }
 
 
-            $rs->getBody()->write(json_encode($paniersDTO));
+            $rs->getBody()->write(json_encode($resultat));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
         } catch (\Exception $e) {
-            $rs->getBody()->write(json_encode(['error' => 'Erreur lors de la récupération du panier']));
+            $rs->getBody()->write(json_encode(['error' => 'Erreur lors de la récupération des lieux'.$e->getMessage()]));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(500);
         }
     }

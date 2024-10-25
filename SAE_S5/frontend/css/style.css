@@ -92,6 +92,16 @@ section #research-container input {
   border: 1px solid black;
   transition: 0.24s;
 }
+section .loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 5px 5px black;
+  z-index: 100;
+}
 
 .soiree {
   margin: 10px;
@@ -101,7 +111,7 @@ section #research-container input {
 .soiree .overall {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  flex-wrap: wrap;
   margin: 10px;
 }
 .soiree .overall .soiree-info {
@@ -115,11 +125,38 @@ section #research-container input {
   font-size: larger;
   margin: 24px;
 }
+.soiree .add-to-cart {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 5px 5px black;
+  border: 1px solid lightgray;
+}
 .soiree .tarifs {
   display: flex;
   justify-content: center;
 }
-.soiree .tarifs button {
+.soiree .tarifs .tarif {
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 5px 5px black;
+  min-width: 200px;
+  max-width: fit-content;
+  font-size: larger;
+  text-align: center;
+  transition: 0.24s;
+}
+.soiree .tarifs .tarif input {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 15px;
+  border: 1px solid black;
+  transition: 0.24s;
+}
+.soiree button {
   background: none;
   box-shadow: 0 5px 5px black;
   min-width: 200px;
@@ -130,7 +167,7 @@ section #research-container input {
   margin: 10px;
   transition: 0.24s;
 }
-.soiree .tarifs button:hover {
+.soiree button:hover {
   background-color: black;
   color: #ff4800;
   cursor: pointer;
@@ -156,11 +193,11 @@ section #research-container input {
   width: fit-content;
 }
 .soiree .lieu img {
-  width: 472px;
+  width: 572px;
   aspect-ratio: 16/9;
 }
 .soiree .lieu p {
-  min-width: 400px;
+  width: 500px;
   padding: 12px;
 }
 
