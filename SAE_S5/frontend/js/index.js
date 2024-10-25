@@ -5910,12 +5910,11 @@
         const style = document.getElementById("style").value;
         const urlVideo = document.getElementById("urlvideo").value;
         const images = "zakkudorett.jpg";
-        console.log({ titre, description, style, urlVideo, images, horaire });
         fetch(config_default.url + "/spectacle", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("token")
+            "Authorization": "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({ titre, description, style, urlVideo, images, horaire })
         }).then((response) => {
