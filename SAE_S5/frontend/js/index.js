@@ -1118,7 +1118,7 @@
     "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
       "use strict";
       exports.__esModule = true;
-      exports["default"] = function(Handlebars6) {
+      exports["default"] = function(Handlebars7) {
         (function() {
           if (typeof globalThis === "object") return;
           Object.prototype.__defineGetter__("__magic__", function() {
@@ -1128,11 +1128,11 @@
           delete Object.prototype.__magic__;
         })();
         var $Handlebars = globalThis.Handlebars;
-        Handlebars6.noConflict = function() {
-          if (globalThis.Handlebars === Handlebars6) {
+        Handlebars7.noConflict = function() {
+          if (globalThis.Handlebars === Handlebars7) {
             globalThis.Handlebars = $Handlebars;
           }
-          return Handlebars6;
+          return Handlebars7;
         };
       };
       module.exports = exports["default"];
@@ -5890,6 +5890,45 @@
   }
   var navbar_ui_default = { displayOrganisateurCo, displayVisiteurCo, displayVisiteurNonCo };
 
+  // js/createSpectacle_ui.js
+  var import_handlebars6 = __toESM(require_handlebars());
+  function displayCreateSpectacle() {
+    return __async(this, null, function* () {
+      const container = document.getElementById("main");
+      const templateSource = document.getElementById("add-spectacle-template").innerHTML;
+      const template = import_handlebars6.default.compile(templateSource);
+      let html = template();
+      container.innerHTML = html;
+      const form = document.getElementById("create-spectacle-form");
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const titre = document.getElementById("titre").value;
+        const description = document.getElementById("description").value;
+        const date = document.getElementById("date").value;
+        const heure = document.getElementById("horaire").value;
+        let horaire = date + " " + heure;
+        const style = document.getElementById("style").value;
+        const urlVideo = document.getElementById("urlvideo").value;
+        const images = "zakkudorett.jpg";
+        fetch(config_default.url + "/spectacle", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("token")
+          },
+          body: JSON.stringify({ titre, description, style, urlVideo, images, horaire })
+        }).then((response) => {
+          if (response.status === 200) {
+            window.location.href = "/index.html";
+          } else {
+            alert("Erreur lors de la cr\xE9ation du spectacle");
+          }
+        });
+      });
+    });
+  }
+  var createSpectacle_ui_default = { displayCreateSpectacle };
+
   // index.js
   function getSoiree(url2) {
     let loading = document.createElement("div");
@@ -5906,12 +5945,12 @@
         let nbPlacesStandard;
         let soireeId = data2.links.self.href.split("/")[data2.links.self.href.split("/").length - 1];
         button.addEventListener("click", () => {
-          if (inputTarifReduit.value != null) {
+          if (inputTarifReduit.value != null && inputTarifReduit.value >= 0) {
             nbPlacesReduites = inputTarifReduit.value;
           } else {
             nbPlacesReduites = 0;
           }
-          if (inputTarifPlein.value != null) {
+          if (inputTarifPlein.value != null && inputTarifPlein.value >= 0) {
             nbPlacesStandard = inputTarifPlein.value;
           } else {
             nbPlacesStandard = 0;
@@ -6093,33 +6132,39 @@
   function getInscription() {
     inscription_ui_default.displayInscription();
   }
-  getSoiree(config_default.url + "/soiree/S001");
-  if (localStorage.getItem("token") != null) {
-    navbar_ui_default.displayVisiteurCo();
-    document.getElementById("accueil").addEventListener("click", () => {
-      getAllSpectacles(config_default.url + "/spectacles", "none", "");
-    });
-    document.getElementById("deconnexion").addEventListener("click", () => {
-      localStorage.removeItem("token");
-      window.location.href = "/index.html";
-    });
-    document.getElementById("panier").addEventListener("click", () => {
-      document.getElementById("cart").classList.remove("hide");
-    });
-    document.getElementById("close-cart").addEventListener("click", () => {
-      document.getElementById("cart").classList.add("hide");
-    });
-  } else {
-    navbar_ui_default.displayVisiteurNonCo();
-    document.getElementById("accueil").addEventListener("click", () => {
-      getAllSpectacles(config_default.url + "/spectacles", "none", "");
-    });
-    document.getElementById("connexion").addEventListener("click", () => {
-      getConnexion();
-    });
-    document.getElementById("inscription").addEventListener("click", () => {
-      getInscription();
-    });
+  function getNavbar() {
+    if (localStorage.getItem("token") != null) {
+      navbar_ui_default.displayVisiteurCo();
+      document.getElementById("accueil").addEventListener("click", () => {
+        getAllSpectacles(config_default.url + "/spectacles", "none", "");
+      });
+      document.getElementById("deconnexion").addEventListener("click", () => {
+        localStorage.removeItem("token");
+        window.location.href = "/index.html";
+      });
+      document.getElementById("panier").addEventListener("click", () => {
+        document.getElementById("cart").classList.remove("hide");
+      });
+      document.getElementById("close-cart").addEventListener("click", () => {
+        document.getElementById("cart").classList.add("hide");
+      });
+    } else {
+      navbar_ui_default.displayVisiteurNonCo();
+      document.getElementById("accueil").addEventListener("click", () => {
+        getAllSpectacles(config_default.url + "/spectacles", "none", "");
+      });
+      document.getElementById("connexion").addEventListener("click", () => {
+        getConnexion();
+      });
+      document.getElementById("inscription").addEventListener("click", () => {
+        getInscription();
+      });
+    }
   }
+  function getCreateSpectacle() {
+    createSpectacle_ui_default.displayCreateSpectacle();
+  }
+  getCreateSpectacle();
+  getNavbar();
 })();
 //# sourceMappingURL=index.js.map

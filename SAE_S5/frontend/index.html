@@ -99,15 +99,153 @@
         </div>    
     </script>
 
+    <script id="utilisateur-template" type="text/x-handlebars-template">
+        <ul>
+        <li>
+            <p type="button" id="accueil"> <i class="fa-solid fa-house"></i> | Accueil</p>
+        </li>
+                        <li>
+            <p type="button" id="panier"> <i class="fa-solid fa-cart-shopping"></i> | Panier</p>
+        </li>
+        <li>
+            <p type="button" id="deconnexion"> <i class="fa-solid fa-right-from-bracket"> </i>|
+                Deconnexion</p>
+        </li>
+        </ul>
+    </script>
+
+    <script id="organisateur-template" type="text/x-handlebars-template">
+        <ul>
+        <li>
+            <p type="button" id="accueil"> <i class="fa-solid fa-house"></i> | Accueil</p>
+        </li>
+        <p type="button" id="deconnexion"> <i class="fa-solid fa-right-from-bracket"> </i>|
+                Deconnexion</p>
+        </li>
+        </ul>
+
+    </script>
+
+    <script id="inscription-template" type="text/x-handlebars-template">
+        <div class="connexion">
+            <form id="inscription-form">
+                <h1>Inscription</h1>
+                <input type="email" id="email" class="box" placeholder="Adresse Email" required>
+                <input type="password" id="password" class="box" placeholder="Votre mot de passe" required>
+                <input type="text" id="nom" class="box" placeholder="Votre Nom" required>
+                <input type="text" id="prenom" class="box" placeholder="Votre Prénom" required>
+                <input type="text" id="numerotel" class="box" placeholder="Votre Numéro de téléphone" required>
+                <input type="date" id="birthdate" class="box" placeholder="JJ/MM/AAAA" required>
+                <p title="Valable uniquement pour les personnes étudiantes, en cas de handicap, ou sans-emploi. Un justificatif vous sera demandé à l'entrée.">Je pense être éligible au tarif réduit* <input type="checkbox" id="eligible"></p>
+                <input type="submit" value="S'inscrire" class="button">
+            </form>
+        </div>
+    </script>
+
+
+    <script id="connexion-template" type="text/x-handlebars-template">
+        <div class="connexion">
+            <form id="connexion-form">
+                <h1>Connexion</h1>
+                <input type="email" class="box" id="email" placeholder="Email" required>
+                <input type="password" name="" class="box" id="password" placeholder="********" required>
+                <input type="submit" value="Se connecter" class="button">
+                <p id="inscription-btn">Pas encore de compte ? S'inscrire</a>
+            </form>
+        </div>
+    </script>
+
+    <script id="liste-spectacle-template" type="text/x-handlebars-template">
+        <div id="research-container">
+            <span class="hide"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Rechercher une soirée ..."></span>
+            <div id="filter">
+                <div class="filter-entry">
+                <h2><i class="fa-solid fa-filter"></i> Filtre :</h2>
+                <select name="filter" id="choose-filter" class="search-select">
+                    <option value="none">Aucun</option>
+                    <option value="style">Style</option>
+                    <option value="date">Date</option>
+                    <option value="lieu">Lieu</option>
+                </select>
+                </div>
+                <div class="filter-entry" id="filter-value-container">
+                    <h2>&rightarrow;</h2>
+                    <select name="filterValue" id="filter-value" class="search-select"></select>
+                </div>
+            </div>
+        </div>
+        <h2 class="spectacle-h2">Liste des spectacles</h2>
+        <div class="spectacles-container">
+            {{#each this.Spectacles}}
+                <div class="spectacle" data-url="http://localhost:42050{{this.SoireeAssociee.href}}">
+                    <img src="http://localhost:42050/assets/image/{{this.Image}}" alt="{{this.Titre}}" loading="lazy">
+                    <h3>{{this.Titre}}</h3>
+                    <p><i class="fa-regular fa-calendar"></i> {{this.Date}}</p>
+                    <p><i class="fa-solid fa-clock"></i> {{this.Horaire}}</p>
+                </div>
+            {{/each}}
+        </div>
+    </script>
+
+    <script id="soiree-template" type="text/x-handlebars-template">
+        <div class="soiree">
+            <div class="overall">
+                <div class="soiree-info">
+                    <h3>{{this.Soiree.NomSoiree}} - Thématique : {{this.Soiree.Thematique}}</h3>
+                    <p><i class="fa-regular fa-calendar"></i> {{this.Soiree.Date}}</p>
+                    <p><i class="fa-solid fa-clock"></i> {{this.Soiree.Horaire}} H</p>
+                    <div class="lieu">
+                    <p><i class="fa-solid fa-location-dot"></i> {{this.Soiree.Lieu.Nom}}, {{this.Soiree.Lieu.Adresse}}</p>
+                    <img src="http://localhost:42050/assets/image/{{this.Soiree.Lieu.Images}}" alt="lieu" loading="lazy">
+                    </div>
+                </div>
+            
+                <div class="add-to-cart">
+                    <h2>Ajouter au panier</h2>
+                    <div class="tarifs">
+                        <div class="tarif">
+                            <p>Tarif réduit : {{this.Soiree.TarifReduit}} €</p>
+                            <input type="number" placeholder="0" id="tarif-reduit">
+                        </div>
+                        <div class="tarif">
+                            <p>Tarif normal : {{this.Soiree.Tarif}} €</p>
+                            <input type="number" placeholder="0" id="tarif-normal">
+                        </div>
+                    </div>
+                    <button id="add-to-cart">Ajouter au panier</button>
+                </div>
+            </div>
+            <h3>Spectacles proposés :</h3>
+            <div class="spectacle-container">
+                {{#each spectacles}}
+                    <div class="spectacle">
+                        <iframe src="{{Spectacle.Video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <h3>{{Spectacle.Titre}}, {{Spectacle.Style}}</h3>
+                        <p><i class="fa-solid fa-clock"></i> {{Spectacle.Horaire}} H</p>
+                        <p>{{Spectacle.Description}}</p>
+                        {{#if Spectacle.Artistes}}
+                            <p>Artistes :</p>
+                            <ul>
+                                {{#each Spectacle.Artistes}}
+                                    <li>{{Prenom}} {{Nom}}</li>
+                                {{/each}}
+                            </ul>
+                        {{/if}}                        
+                    </div>    
+                {{/each}}
+            </div>
+        </div>
+    </script>
+
     <script id="add-spectacle-template" type="text/x-handlebars-template">
-        <div class="create-soiree">
-            <form id="create-soiree-form" enctype="multipart/form-data">
-                <h1>Créer une soirée</h1>
+        <div class="create-item connexion">
+            <form id="create-spectacle-form" enctype="multipart/form-data">
+                <h1>Créer un Spectacle</h1>
                 <input type="text" id="titre" class="box" placeholder="Titre de la soirée" required>
                 <input type="text" id="description" class="box" placeholder="Description" required>
                 <input type="text" id="style" class="box" placeholder="Style" required>
                 <input type="text" id="urlvideo" class="box" placeholder="Lien de la vidéo" required>
-                <input id="images" type="file" class="box" multiple accept="image/*" required>
+                <input id="images" type="text" class="box" placeholder="Nom des images, Séparés par une virgule" required>
                 <input type="date" id="date" class="box" required>
                 <input type="time" id="horaire" class="box" required>
                 <input type="submit" value="Créer" class="button">

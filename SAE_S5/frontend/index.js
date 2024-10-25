@@ -5,6 +5,7 @@ import conf from "./js/config";
 import connexion_ui from "./js/connexion_ui";
 import inscription_ui from "./js/inscription_ui";
 import navbar_ui from "./js/navbar_ui";
+import createSpectacle_ui from "./js/createSpectacle_ui";
 
 function getSoiree(url){
     let loading = document.createElement('div');
@@ -277,26 +278,6 @@ function getInscription(){
 function getNavbar(){
     if(localStorage.getItem("token")!=null){
         
-        fetch(conf.url + '/user/me', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json'
-            }
-        }).then(response => {
-            if(response.status === 200){
-                response.json().then(data => {
-                    if(data.Role == 1){
-                        navbar_ui.displayVisiteurCo();
-                    } else {
-                        navbar_ui.displayAdminCo();
-                    }
-                });
-            } else {
-                navbar_ui.displayVisiteurNonCo();
-            }
-        });
-
         navbar_ui.displayVisiteurCo();
         document.getElementById('accueil').addEventListener('click', () => {
             getAllSpectacles(conf.url + '/spectacles',"none","");
@@ -325,8 +306,13 @@ function getNavbar(){
     }
 }
 
-getSoiree(conf.url + '/soiree/S001');
+function getCreateSpectacle(){
+    createSpectacle_ui.displayCreateSpectacle();
+}
 
+getCreateSpectacle();
+//getSoiree(conf.url + '/soiree/S001');
+getNavbar();
 //getAllSpectacles(conf.url + '/spectacles',"none","");
 
 
