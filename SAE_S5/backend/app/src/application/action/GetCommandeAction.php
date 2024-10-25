@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use nrv\core\services\Soiree\SoireeServiceInterface;
 
-class CreerCommandeAction extends AbstractAction
+class GetCommandeAction extends AbstractAction
 {
     private SoireeServiceInterface $soireeService;
 
@@ -17,31 +17,22 @@ class CreerCommandeAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-
-       $user = $rq->getAttribute('auth');
-       $iduser = $user->id;
+        $user = $rq->getAttribute('auth');
+        $iduser = $user->id;
 
         try {
 
-            if (!$iduser) {
-                throw new \InvalidArgumentException("Paramètre manquant dans la requête.");
+            $commandes = $this->soireeService->recuperationCommandesByUser($iduser);
+
+            if (empty($commandes)) {
+                return $rs->withHeader('Content-Type', 'application/json')->withStatus(204); // No content
             }
 
-
-            $this->soireeService->creationCommande($iduser);
-
-
-            $rs->getBody()->write(json_encode(['success' => 'Commande créée avec succès']));
-            return $rs->withHeader('Content-Type', 'application/json')->withStatus(201);
-        } catch (\InvalidArgumentException $e) {
-
-            $rs->getBody()->write(json_encode(['error' => $e->getMessage()]));
-            return $rs->withHeader('Content-Type', 'application/json')->withStatus(400);
+            $rs->getBody()->write(json_encode($commandes));
+            return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
         } catch (\Exception $e) {
-
             $rs->getBody()->write(json_encode(['error' => 'Erreur interne du serveur']));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(500);
         }
     }
 }
-

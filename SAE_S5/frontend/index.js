@@ -6,6 +6,8 @@ import connexion_ui from "./js/connexion_ui";
 import inscription_ui from "./js/inscription_ui";
 import navbar_ui from "./js/navbar_ui";
 import createSpectacle_ui from "./js/createSpectacle_ui";
+import paiement_ui from "./js/paiement_ui";
+import allBillet_ui from "./js/allBillet_ui";
 
 function getSoiree(url){
     let loading = document.createElement('div');
@@ -120,7 +122,39 @@ function updateCart(){
 }
 
 function getPaiement(){
+    document.getElementById('cart').classList.add('hide');
     paiement_ui.displayPaiement();
+
+
+    let loading = document.createElement('div');
+    loading.innerHTML = "<h2>Chargement ...</h2>";
+    loading.classList.add('loading');
+    document.getElementById('main').appendChild(loading);
+
+
+    data.forEach(panier => {
+
+        const panierDiv = document.createElement('div');
+        panierDiv.classList.add('group');
+        panierDiv.innerHTML = `
+                        <label>Soirée : <p>{{idsoiree}}</p></label>
+                        <label> categorie : <p>{{nbplaces}}</p></label>
+                        <label>Nombre de billets : <p>{{nbplaces}}</p></label>
+                        <label>Prix unitaire : <p>{{montant}}</p></label>
+                        <label>Total : <p>${(panier.nbplaces * panier.montant)} €</p></label>
+           
+        `;
+    
+        paniersContainer.appendChild(panierDiv);
+    });
+    const totalElement = document.getElementById('total'); 
+    const totalGlobal = data.reduce((total, panier) => total + (panier.nbplaces * panier.montant), 0);
+    totalElement.innerText = `${totalGlobal} €`;
+}
+
+
+
+    
 }
 
 function getAllSpectacles(url, filter = '', value = ''){
@@ -268,6 +302,26 @@ function getAllSpectacles(url, filter = '', value = ''){
     });
 }
 
+function getAllBillets(){
+    let loading = document.createElement('div');
+    loading.innerHTML = "<h2>Chargement ...</h2>";
+    loading.classList.add('loading');
+    document.getElementById('main').appendChild(loading);
+    let token = localStorage.getItem('token');
+    let url = conf.url + '/billets';
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        }
+    }).then(data => {
+        data.json().then(data => {
+            allBillet_ui.displayAllBillet(data.Billets);
+        });
+    });
+}
+
 function getConnexion(){
     connexion_ui.displayConnexion();
     document.getElementById('inscription-btn').addEventListener('click', () => {
@@ -295,6 +349,22 @@ function getNavbar(){
         });
         document.getElementById('close-cart').addEventListener('click', () => {
             document.getElementById('cart').classList.add('hide');
+        });
+        document.getElementById('cart-validate').addEventListener('click', () => {
+            console.log('validate');
+            let url = conf.url + '/commande';
+            let token = localStorage.getItem('token');
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                }
+            }).then(data => {
+                data.json().then(data => {
+                    getPaiement();
+                });
+            });
         });
     } else {
         navbar_ui.displayVisiteurNonCo();

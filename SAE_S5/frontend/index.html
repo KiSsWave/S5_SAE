@@ -55,6 +55,89 @@
         </ul> 
     </script>
 
+<script>
+            <div class="paiement">
+                <div class="recap box">
+                    <h1>Récapitulatif de la commande</h1>
+                    <div>
+                        {{#each paniers}} 
+                            <div class="group">
+                                <label>Soirée : <p>{{idsoiree}}</p></label>
+                                <label> categorie : <p>{{nbplaces}}</p></label>
+                                <label>Nombre de billets : <p>{{nbplaces}}</p></label>
+                                <label>Prix unitaire : <p>{{montant}}</p></label>
+                                <label>Total : <p>{{ nbplaces * montant}} €</p></label>
+                            </div>
+                        {{/each}}
+                
+                        <div class="group">
+                            <p>Total à payer :</p>
+                            <p id="total">{{calculateTotal paniers}} €</p>
+                        </div>
+                    </div>
+                </div>
+                
+                    <form class="box">
+                        <h1>Paiement</h1>
+                        <div class="group">
+                            <label>Votre moyen de paiement : </label>
+                            <div class="logos">
+
+                                <div class="logo-container">
+                                    <input type="radio" id="visaRadio" name="paymentMethod" hidden>
+                                    <label for="visaRadio">
+                                        <i class="fa-brands fa-cc-visa fa-2l" style="color: #74C0FC;" id="visa"></i>
+                                    </label>
+                                </div>
+
+                                <div class="logo-container">
+                                    <input type="radio" id="mastercardRadio" name="paymentMethod" hidden>
+                                    <label for="mastercardRadio">
+                                        <i class="fa-brands fa-cc-mastercard fa-2l" style="color: red;"
+                                            id="mastercard"></i>
+                                    </label>
+                                </div>
+
+                                <div class="logo-container">
+                                    <input type="radio" id="paypalRadio" name="paymentMethod" hidden>
+                                    <label for="paypalRadio">
+                                        <i class="fa-brands fa-cc-paypal fa-2l" style="color: #4000ff;" id="paypal"></i>
+                                    </label>
+                                </div>
+
+                                <div class="logo-container">
+                                    <input type="radio" id="ApplePayRadio" name="paymentMethod" hidden>
+                                    <label for="ApplePayRadio">
+                                        <i class="fa-brands fa-cc-apple-pay fa-2l" style="color: black;"
+                                            id="ApplePay"></i>
+                                    </label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="input-group">
+                            <label>Saisir la date d'expiration :</label>
+                            <input type="text" class="box" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Saisir le numéro de carte :</label>
+                            <input type="text" class="box" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Saisir le code de sécurité :</label>
+                            <input type="password" class="box" required>
+                        </div>
+
+                        <div>
+                            <input type="button" value="Valider" class="button valider" id="valider">
+                        </div>
+                    </form>
+                </div>
+        </script>
+
+
     <script id="paiement-template" type="text/x-handlebars-template">
         <div class="paiement">
             <form>
@@ -104,7 +187,10 @@
         <li>
             <p type="button" id="accueil"> <i class="fa-solid fa-house"></i> | Accueil</p>
         </li>
-                        <li>
+        <li>
+            <p type="button" id="billets"> <i class="fa-solid fa-ticket"></i> | Mes billets</p>
+        </li>
+        <li>
             <p type="button" id="panier"> <i class="fa-solid fa-cart-shopping"></i> | Panier</p>
         </li>
         <li>
@@ -250,6 +336,24 @@
                 <input type="time" id="horaire" class="box" required>
                 <input type="submit" value="Créer" class="button">
             </form>            
+        </div>
+    </script>
+
+    <script id="liste-billet-template" type="text/x-handlebars-template">
+        <div class="billet-container">
+            <h2>Mes billets</h2>
+            <div class="billets">
+                {{#each this.Billets}}
+                    <div class="billet">
+                        <h3>{{this.SoireeAssociee.NomSoiree}}</h3>
+                        <p><i class="fa-regular
+                            fa-calendar"></i> {{this.SoireeAssociee.Date}}</p>
+                        <p><i class="fa-solid fa-clock"></i> {{this.SoireeAssociee.Horaire}} H</p>
+                        <p><i class="fa-solid fa-location-dot"></i> {{this.SoireeAssociee.Lieu.Nom}}, {{this.SoireeAssociee.Lieu.Adresse}}</p>
+                        <p><i class="fa-solid fa-euro-sign"></i> {{this.Prix}} €</p>
+                    </div>
+                {{/each}}
+            </div>
         </div>
     </script>
     

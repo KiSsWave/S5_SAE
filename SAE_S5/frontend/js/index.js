@@ -1118,7 +1118,7 @@
     "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
       "use strict";
       exports.__esModule = true;
-      exports["default"] = function(Handlebars7) {
+      exports["default"] = function(Handlebars8) {
         (function() {
           if (typeof globalThis === "object") return;
           Object.prototype.__defineGetter__("__magic__", function() {
@@ -1128,11 +1128,11 @@
           delete Object.prototype.__magic__;
         })();
         var $Handlebars = globalThis.Handlebars;
-        Handlebars7.noConflict = function() {
-          if (globalThis.Handlebars === Handlebars7) {
+        Handlebars8.noConflict = function() {
+          if (globalThis.Handlebars === Handlebars8) {
             globalThis.Handlebars = $Handlebars;
           }
-          return Handlebars7;
+          return Handlebars8;
         };
       };
       module.exports = exports["default"];
@@ -5929,6 +5929,17 @@
   }
   var createSpectacle_ui_default = { displayCreateSpectacle };
 
+  // js/paiement_ui.js
+  var import_handlebars7 = __toESM(require_handlebars());
+  function displayPaiement() {
+    const paiement = document.getElementById("main");
+    const templateSource = document.getElementById("paiement-template").innerHTML;
+    const template = import_handlebars7.default.compile(templateSource);
+    let html = template();
+    paiement.innerHTML = html;
+  }
+  var paiement_ui_default = { displayPaiement };
+
   // index.js
   function getSoiree(url2) {
     let loading = document.createElement("div");
@@ -6025,6 +6036,10 @@
         });
       });
     });
+  }
+  function getPaiement() {
+    document.getElementById("cart").classList.add("hide");
+    paiement_ui_default.displayPaiement();
   }
   function getAllSpectacles(url2, filter = "", value = "") {
     let loading = document.createElement("div");
@@ -6172,6 +6187,22 @@
       });
       document.getElementById("close-cart").addEventListener("click", () => {
         document.getElementById("cart").classList.add("hide");
+      });
+      document.getElementById("cart-validate").addEventListener("click", () => {
+        console.log("validate");
+        let url2 = config_default.url + "/commande";
+        let token2 = localStorage.getItem("token");
+        fetch(url2, {
+          method: "POST",
+          headers: {
+            "Authorization": "Bearer " + token2,
+            "Content-Type": "application/json"
+          }
+        }).then((data) => {
+          data.json().then((data2) => {
+            getPaiement();
+          });
+        });
       });
     } else {
       navbar_ui_default.displayVisiteurNonCo();

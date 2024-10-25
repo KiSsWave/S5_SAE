@@ -170,9 +170,6 @@ class SpectacleRepository implements SpectacleRepositoryInterface
             echo "Erreur lors de l'insertion du spectacle : " . $e->getMessage();
         }
 
-
-
-
     }
 
 

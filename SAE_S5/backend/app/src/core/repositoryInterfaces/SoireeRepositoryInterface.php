@@ -22,6 +22,8 @@ interface SoireeRepositoryInterface
     public function creerBillet(Billet $billet, string $id_acheteur): string;
 
     public function getLieuBySoireeId(string $id);
+    public function getCommandesByUser(string $iduser) : array;
+
 
 
 

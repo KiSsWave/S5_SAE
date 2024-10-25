@@ -19,12 +19,17 @@ return function( \Slim\App $app):\Slim\App {
     $app->get('/lieux', nrv\application\action\GetLieuxAction::class);
 
 
+
     $app->group('', function () use ($app){
 
         $app->get('/panier', \nrv\application\action\GetPanierAction::class);
         $app->post('/create', \nrv\application\action\CreerPanierAction::class);
         $app->post('/commande', \nrv\application\action\CreerCommandeAction::class);
+
         $app->get('/billets', \nrv\application\action\GetBilletsAction::class);
+
+        $app->get('/commandes', \nrv\application\action\GetCommandeAction::class);
+
 
 
 

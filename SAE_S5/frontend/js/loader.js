@@ -35,4 +35,5 @@ async function loadLieux(url){
     })
 }
 
+
 export default {loadSoiree, loadSpectacle, loadAllSpectacles, loadSpectacleBySoiree, loadLieux};
