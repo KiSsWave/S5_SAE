@@ -26,13 +26,13 @@ function getSoiree(url){
 
             button.addEventListener('click', () => {
                 
-                if(inputTarifReduit.value != null){
+                if(inputTarifReduit.value != null && inputTarifReduit.value >= 0){
                     nbPlacesReduites = inputTarifReduit.value;
                 } else {
                     nbPlacesReduites = 0;
                 } 
 
-                if(inputTarifPlein.value != null){
+                if(inputTarifPlein.value != null && inputTarifPlein.value >= 0){
                     nbPlacesStandard = inputTarifPlein.value;
                 } else {
                     nbPlacesStandard = 0;
@@ -274,37 +274,62 @@ function getInscription(){
     inscription_ui.displayInscription();
 }
 
+function getNavbar(){
+    if(localStorage.getItem("token")!=null){
+        
+        fetch(conf.url + '/user/me', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if(response.status === 200){
+                response.json().then(data => {
+                    if(data.Role == 1){
+                        navbar_ui.displayVisiteurCo();
+                    } else {
+                        navbar_ui.displayAdminCo();
+                    }
+                });
+            } else {
+                navbar_ui.displayVisiteurNonCo();
+            }
+        });
+
+        navbar_ui.displayVisiteurCo();
+        document.getElementById('accueil').addEventListener('click', () => {
+            getAllSpectacles(conf.url + '/spectacles',"none","");
+        });
+        document.getElementById('deconnexion').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            window.location.href = '/index.html';
+        });
+        document.getElementById('panier').addEventListener('click', () => {
+            document.getElementById('cart').classList.remove('hide');
+        });
+        document.getElementById('close-cart').addEventListener('click', () => {
+            document.getElementById('cart').classList.add('hide');
+        });
+    } else {
+        navbar_ui.displayVisiteurNonCo();
+        document.getElementById('accueil').addEventListener('click', () => {
+            getAllSpectacles(conf.url + '/spectacles',"none","");
+        });
+        document.getElementById('connexion').addEventListener('click', () => {
+            getConnexion();
+        });
+        document.getElementById('inscription').addEventListener('click', () => {
+            getInscription();
+        });
+    }
+}
+
 getSoiree(conf.url + '/soiree/S001');
 
 //getAllSpectacles(conf.url + '/spectacles',"none","");
 
 
-if(localStorage.getItem("token")!=null){
-    navbar_ui.displayVisiteurCo();
-    document.getElementById('accueil').addEventListener('click', () => {
-        getAllSpectacles(conf.url + '/spectacles',"none","");
-    });
-    document.getElementById('deconnexion').addEventListener('click', () => {
-        localStorage.removeItem('token');
-        window.location.href = '/index.html';
-    });
-    document.getElementById('panier').addEventListener('click', () => {
-        document.getElementById('cart').classList.remove('hide');
-    });
-    document.getElementById('close-cart').addEventListener('click', () => {
-        document.getElementById('cart').classList.add('hide');
-    });
-} else {
-    navbar_ui.displayVisiteurNonCo();
-    document.getElementById('accueil').addEventListener('click', () => {
-        getAllSpectacles(conf.url + '/spectacles',"none","");
-    });
-    document.getElementById('connexion').addEventListener('click', () => {
-        getConnexion();
-    });
-    document.getElementById('inscription').addEventListener('click', () => {
-        getInscription();
-    });
-}
+
 
 
