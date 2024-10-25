@@ -45,6 +45,10 @@ return[
         return new UserRepository();
     },
 
+    JWTManager::class => function () {
+        return new JWTManager();
+    },
+
     SoireeServiceInterface::class => function (ContainerInterface $c){
         return new SoireeService($c->get(SoireeRepositoryInterface::class));
     },
@@ -62,7 +66,7 @@ return[
     },
 
     AuthzServiceInterface::class => function (ContainerInterface $c) {
-        return new AuthzService($c->get(JWTManager::class));
+        return new AuthzService($c->get(UserRepositoryInterface::class));
     },
 
     AuthnMiddleware::class =>function (ContainerInterface $c){

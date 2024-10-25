@@ -33,7 +33,8 @@ return function( \Slim\App $app):\Slim\App {
 
     $app->group('', function () use ($app){
         $app->post('/spectacle', \nrv\application\action\CreateSpectacleAction::class);
-    })->add(\nrv\application\middleware\AuthzOrganisateurMiddleware::class);
+    })->add(\nrv\application\middleware\AuthnMiddleware::class)
+        ->add(\nrv\application\middleware\AuthzOrganisateurMiddleware::class);
 
     $app->options('/{routes:.+}', function (Request $request, Response $response, array $args): Response {
         return $response

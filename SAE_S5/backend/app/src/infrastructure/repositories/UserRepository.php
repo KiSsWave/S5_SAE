@@ -65,4 +65,14 @@ class UserRepository implements UserRepositoryInterface
         throw new RepositoryEntityNotFoundException('User not found');
     }
 
+    public function getUserByID(string $id): User
+    {
+        foreach ($this->users as $user) {
+            if ($user->getID() === $id) {
+                return $user;
+            }
+        }
+        throw new RepositoryEntityNotFoundException('User not found');
+    }
+
 }
