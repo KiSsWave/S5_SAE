@@ -5,9 +5,11 @@ namespace nrv\core\services\Soiree;
 use DateTime;
 use Exception;
 use nrv\core\domain\entities\Soiree\Billet;
+use nrv\core\domain\entities\Soiree\Commande;
 use nrv\core\domain\entities\Soiree\Panier;
 use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
 use nrv\core\dto\BilletDTO;
+use nrv\core\dto\CommandeDTO;
 use nrv\core\dto\PanierDTO;
 use nrv\core\dto\SoireeDTO;
 use nrv\core\dto\SpectacleSoireeDTO;
@@ -90,6 +92,28 @@ class SoireeService implements SoireeServiceInterface
         }
         return $paniersDTO;
     }
+
+    public function creationCommande(string $iduser): array
+    {
+        $paniers = $this->soireeRepository->getIdSoireesByUser($iduser);
+        $commandes = [];
+        $date_achat = new DateTime();
+
+        foreach ($paniers as $idsoiree) {
+
+            $nbplaces = $this->soireeRepository->getNbPlacesByUserAndSoiree($iduser, $idsoiree);
+
+
+            $this->soireeRepository->creerCommande($iduser, $idsoiree, $date_achat, $nbplaces);
+
+
+            $commande = new Commande($idsoiree,$date_achat, $nbplaces);
+            $commandes[] = new CommandeDTO($commande, $iduser);
+        }
+
+        return $commandes;
+    }
+
 
 
 
