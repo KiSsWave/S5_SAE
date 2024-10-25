@@ -116,3 +116,11 @@ CREATE TABLE PANIERS
     primary key (idsoiree, iduser, categorie)
 );
 
+CREATE TABLE "public"."commandes" (
+                                      "iduser" uuid NOT NULL,
+                                      "idsoiree" character varying NOT NULL,
+                                      "date_achat" timestamp NOT NULL,
+                                      "placesvendues" integer,
+                                      CONSTRAINT "commandes_pkey" PRIMARY KEY ("iduser", "idsoiree", "date_achat")
+) WITH (oids = false);
+
