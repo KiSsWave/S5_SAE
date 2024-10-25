@@ -7,6 +7,7 @@ import inscription_ui from "./js/inscription_ui";
 import navbar_ui from "./js/navbar_ui";
 import createSpectacle_ui from "./js/createSpectacle_ui";
 import paiement_ui from "./js/paiement_ui";
+import allBillet_ui from "./js/allBillet_ui";
 
 function getSoiree(url){
     let loading = document.createElement('div');
@@ -266,6 +267,26 @@ function getAllSpectacles(url, filter = '', value = ''){
             }
             );
 
+        });
+    });
+}
+
+function getAllBillets(){
+    let loading = document.createElement('div');
+    loading.innerHTML = "<h2>Chargement ...</h2>";
+    loading.classList.add('loading');
+    document.getElementById('main').appendChild(loading);
+    let token = localStorage.getItem('token');
+    let url = conf.url + '/billets';
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        }
+    }).then(data => {
+        data.json().then(data => {
+            allBillet_ui.displayAllBillet(data.Billets);
         });
     });
 }
