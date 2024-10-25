@@ -110,7 +110,8 @@ CREATE TABLE PANIERS
     "iduser"    uuid                   NOT NULL,
     "nbplaces"  integer                NOT NULL,
     "categorie" character varying(255) NOT NULL,
-    "montant"   integer                NOT NULL foreign key (idsoiree) references soirees (id),
+    "montant"   integer                NOT NULL foreign key (idsoiree),
+    references soirees (id),
     foreign key (iduser) references users (id),
     primary key (idsoiree, iduser)
 );

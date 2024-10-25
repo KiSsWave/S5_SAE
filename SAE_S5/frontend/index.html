@@ -195,16 +195,23 @@
 
     <script id="soiree-template" type="text/x-handlebars-template">
         <div class="soiree">
-            <h3>{{this.Soiree.NomSoiree}} - Thématique : {{this.Soiree.Thematique}}</h3>
-            <p><i class="fa-regular fa-calendar"></i> {{this.Soiree.Date}}</p>
-            <p><i class="fa-solid fa-clock"></i> {{this.Soiree.Horaire}} H</p>
-            <div class="lieu">
-                <p><i class="fa-solid fa-location-dot"></i> {{this.Soiree.Lieu.Nom}}, {{this.Soiree.Lieu.Adresse}}</p>
-                <img src="http://localhost:42050/assets/image/{{this.Soiree.Lieu.Images}}" alt="lieu" loading="lazy">
-            </div>
-            <div class="tarifs">
-                <button>Tarif réduit : {{this.Soiree.TarifReduit}} €</button>
-                <button>Tarif normal : {{this.Soiree.Tarif}} €</button>
+            <div class="overall">
+                <div class="soiree-info">
+                    <h3>{{this.Soiree.NomSoiree}} - Thématique : {{this.Soiree.Thematique}}</h3>
+                    <p><i class="fa-regular fa-calendar"></i> {{this.Soiree.Date}}</p>
+                    <p><i class="fa-solid fa-clock"></i> {{this.Soiree.Horaire}} H</p>
+                    <div class="lieu">
+                    <p><i class="fa-solid fa-location-dot"></i> {{this.Soiree.Lieu.Nom}}, {{this.Soiree.Lieu.Adresse}}</p>
+                    <img src="http://localhost:42050/assets/image/{{this.Soiree.Lieu.Images}}" alt="lieu" loading="lazy">
+                    </div>
+                </div>
+            
+                <div class="add-to-cart">
+                    <p>Tarif réduit : {{this.Soiree.TarifReduit}} €</p>
+                    <input type="number" placeholder="0">
+                    <p>Tarif normal : {{this.Soiree.Tarif}} €</p>
+                    <button id="add-to-cart">Ajouter au panier</button>
+                </div>
             </div>
             <h3>Spectacles proposés :</h3>
             <div class="spectacle-container">
