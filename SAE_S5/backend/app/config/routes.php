@@ -14,6 +14,8 @@ return function( \Slim\App $app):\Slim\App {
 
 
     $app->post('/billets', nrv\application\action\CreateBilletAction::class);
+    $app->get('/panier', \nrv\application\action\GetPanierAction::class);
+    $app->post('/create', \nrv\application\action\CreerPanierAction::class);
 
 
 
@@ -24,9 +26,10 @@ return function( \Slim\App $app):\Slim\App {
     $app->get('/soiree/{ID-SOIREE}', nrv\application\action\GetSoireeByIDAction::class);
 
     $app->group('', function () use ($app){
-        $app->get('/panier', \nrv\application\action\GetPanierAction::class);
 
+        $app->get('/panier', \nrv\application\action\GetPanierAction::class);
         $app->post('/create', \nrv\application\action\CreerPanierAction::class);
+
     })->add(\nrv\application\middleware\AuthnMiddleware::class);
 
     $app->options('/{routes:.+}', function (Request $request, Response $response, array $args): Response {

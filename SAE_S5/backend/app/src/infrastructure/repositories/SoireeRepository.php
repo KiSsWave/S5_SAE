@@ -6,6 +6,7 @@ use DateTime;
 use Exception;
 use nrv\core\domain\entities\Soiree\Billet;
 use nrv\core\domain\entities\Soiree\Lieu;
+use nrv\core\domain\entities\Soiree\Panier;
 use nrv\core\domain\entities\Soiree\Soiree;
 use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
 use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
@@ -19,7 +20,7 @@ class SoireeRepository implements SoireeRepositoryInterface
     private array $soirees = [];
     private array $billets = [];
 
-    private array $paniers = [];
+
 
     public function __construct()
     {
@@ -63,19 +64,32 @@ class SoireeRepository implements SoireeRepositoryInterface
 
     }
 
-    public function  getPanierByUser(string $iduser): array{
-        $stmt = $this->pdo->prepare("SELECT * FROM Paniers WHERE iduser = :iduser");
-        $stmt->execute([
-            'iduser' => $iduser
-        ]);
-        $paniersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $paniers = [];
-        foreach ($paniersData as $panier){
-            $paniers[] = $panier;
-        }
-        return $paniers;
+    public function getPanierByUser(string $iduser): array
+    {
+        $stmt = $this->pdo->prepare("
+        SELECT nbplaces, categorie, montant, idsoiree
+        FROM Paniers
+        WHERE iduser = :iduser
+    ");
+        $stmt->execute(['iduser' => $iduser]);
 
+        $paniersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $paniers = [];
+        foreach ($paniersData as $panierData) {
+            $paniers[] = new Panier(
+                $panierData['nbplaces'],
+                $panierData['categorie'],
+                $panierData['montant'],
+                $panierData['idsoiree']
+            );
+        }
+
+        return $paniers;
     }
+
+
+
 
     public function getSoirees(): array{
         return $this->soirees;
@@ -169,16 +183,30 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $result;
     }
 
-    public function creerPanier(string $idSoiree, string $iduser, int $montant, string $categorie, int $nbplaces){
-        $stmt = $this->pdo->prepare("INSERT INTO Paniers (idsoiree, iduser, montant,categorie, nbplaces) VALUES (:idsoiree, :iduser, :montant, :categorie, :nbplaces) ");
-        $stmt->execute([
-           'idsoiree' => $idSoiree,
-            'iduser' => $iduser,
-            'montant' => $montant,
-            'categorie' => $categorie,
-            'nbplaces' => $nbplaces
-        ]);
+    public function creerPanier(string $idSoiree, string $iduser, int $montant, string $categorie, int $nbplaces): void
+    {
+        $stmt = $this->pdo->prepare("
+        INSERT INTO Paniers (idsoiree, iduser, montant, categorie, nbplaces) 
+        VALUES (:idsoiree, :iduser, :montant, :categorie, :nbplaces)
+    ");
+        try {
+            $stmt->execute([
+                'idsoiree' => $idSoiree,
+                'iduser' => trim($iduser),
+                'montant' => $montant,
+                'categorie' => $categorie,
+                'nbplaces' => $nbplaces
+            ]);
+        } catch (\PDOException $e) {
+
+            echo 'Erreur d\'exécution : ' . $e->getMessage();
+            throw $e;
+        }
+
+
     }
+
+
 
 
 

@@ -2,10 +2,9 @@
 
 namespace nrv\application\action;
 
-use nrv\application\action\AbstractAction;
-use nrv\core\services\Soiree\SoireeServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use nrv\core\services\Soiree\SoireeServiceInterface;
 
 class CreerPanierAction extends AbstractAction
 {
@@ -19,8 +18,7 @@ class CreerPanierAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
 
-        $data = $rq->getParsedBody();
-
+        $data = $rq->getQueryParams();
         $idsoiree = $data['idsoiree'] ?? null;
         $nbplaces = $data['nbplaces'] ?? null;
         $categorie = $data['categorie'] ?? null;
@@ -28,16 +26,24 @@ class CreerPanierAction extends AbstractAction
         $user = $rq->getAttribute('auth');
         $userid = $user->id;
 
-        try{
-            $panier = $this->soireeService->creationPanier($idsoiree, $userid,$montant, $categorie, $nbplaces);
+
+        try {
+
+            if (!$idsoiree || !$nbplaces || !$categorie || !$montant || !$userid) {
+                throw new \InvalidArgumentException("Paramètre manquant dans la requête.");
+            }
+
+
+            $panier = $this->soireeService->creationPanier($idsoiree, $userid, $montant, $categorie, $nbplaces);
 
             $rs->getBody()->write(json_encode($panier));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(201);
-        }catch(\Exception $e){
+        } catch (\InvalidArgumentException $e) {
+            $rs->getBody()->write(json_encode(['error' => $e->getMessage()]));
+            return $rs->withHeader('Content-Type', 'application/json')->withStatus(400);
+        } catch (\Exception $e) {
             $rs->getBody()->write(json_encode(['error' => 'Erreur interne du serveur']));
-            return $rs
-                ->withHeader('Content-Type', 'application/json')
-                ->withStatus(500);
+            return $rs->withHeader('Content-Type', 'application/json')->withStatus(500);
         }
     }
 }

@@ -5,6 +5,7 @@ namespace nrv\core\services\Soiree;
 use DateTime;
 use Exception;
 use nrv\core\domain\entities\Soiree\Billet;
+use nrv\core\domain\entities\Soiree\Panier;
 use nrv\core\domain\entities\Spectacle\SpectacleSoiree;
 use nrv\core\dto\BilletDTO;
 use nrv\core\dto\PanierDTO;
@@ -60,21 +61,25 @@ class SoireeService implements SoireeServiceInterface
         return $lieuDTO;
     }
 
-    public function creationPanier(string $idsoiree, string $iduser,int $montant, string $categorie, int $nbplaces)
+    public function creationPanier(string $idsoiree, string $iduser, int $montant, string $categorie, int $nbplaces): PanierDTO
     {
-        $this->soireeRepository->creerPanier($idsoiree, $iduser,$montant,$categorie, $nbplaces);
-        return new PanierDTO($idsoiree, $iduser, $montant, $categorie, $nbplaces);
+        $this->soireeRepository->creerPanier($idsoiree, $iduser, $montant, $categorie, $nbplaces);
+        $panier = new Panier($nbplaces,$categorie,$montant, $idsoiree);
+        return new PanierDTO($panier, $iduser);
     }
 
-    public function recuperationPanier(string $iduser)
+
+    public function recuperationPanier(string $iduser): array
     {
         $paniers = $this->soireeRepository->getPanierByUser($iduser);
         $paniersDTO = [];
+
         foreach ($paniers as $panier) {
-            $paniersDTO[] = new PanierDTO($panier['idsoiree'], $panier['iduser'], $panier['montant'], $panier['categorie'], $panier['nbplaces']);
+            $paniersDTO[] = new PanierDTO($panier,$iduser);
         }
         return $paniersDTO;
     }
+
 
 
 }

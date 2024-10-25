@@ -17,20 +17,42 @@ class GetPanierAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-
+        $queryParams = $rq->getQueryParams();
         $user = $rq->getAttribute('auth');
-        $iduser = $user->id;
+        $userid = $user->id;
 
         try {
+            $paniers = $this->soireeService->recuperationPanier($userid);
 
-            $paniersDTO = $this->soireeService->recuperationPanier($iduser);
+            $resultat = [
+                "Panier" => []
+            ];
 
+            foreach ($paniers as $panierDTO) {
+                $resultat["Panier"][] = [
+                    "idSoiree" => $panierDTO->idsoiree,
+                    "idUser" => $panierDTO->iduser,
+                    "NbPlaces" => $panierDTO->nbplaces,
+                    "Categorie" => $panierDTO->categorie,
+                    "Montant" => $panierDTO->montant,
+                    "links" => [
+                        "self" => [
+                            "href" => "/panier/" . $panierDTO->idsoiree
+                        ]
+                    ]
+                ];
+            }
 
-            $rs->getBody()->write(json_encode($paniersDTO));
-            return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
+            $rs->getBody()->write(json_encode($resultat));
+            return $rs
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(200);
+
         } catch (\Exception $e) {
             $rs->getBody()->write(json_encode(['error' => 'Erreur lors de la récupération du panier']));
-            return $rs->withHeader('Content-Type', 'application/json')->withStatus(500);
+            return $rs
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(500);
         }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace nrv\core\dto;
 
+use nrv\core\domain\entities\Soiree\Panier;
 use nrv\core\dto\DTO;
 
 class PanierDTO extends DTO
@@ -10,16 +11,14 @@ class PanierDTO extends DTO
     protected string $iduser;
     protected int $nbplaces;
     protected string $categorie;
-
     protected int $montant;
 
-    public function __construct(string $idsoiree, string $iduser, int $nbplaces, int $montant, string $categorie)
+    public function __construct(Panier $panier,string $iduser)
     {
-        $this->idsoiree = $idsoiree;
+        $this->idsoiree = $panier->getIdSoiree();
         $this->iduser = $iduser;
-        $this->nbplaces = $nbplaces;
-        $this->categorie = $categorie;
-        $this->montant = $montant;
+        $this->nbplaces = $panier->getNbPlaces();
+        $this->categorie = $panier->getCategorie();
+        $this->montant = $panier->getMontant();
     }
-
 }
