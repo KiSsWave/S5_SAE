@@ -116,7 +116,8 @@ class SoireeRepository implements SoireeRepositoryInterface
             $commandes[] = new Commande(
                 $commandeData['idsoiree'],
                 $dateAchat,
-                $commandeData['placesvendues']
+                $commandeData['placesvendues'],
+                $commandeData['typeTarif']
             );
         }
         return $commandes;
@@ -265,20 +266,54 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $stmt->fetchColumn();
     }
 
-
-    public function creerCommande(string $iduser, string $idsoiree, DateTime $date_achat, int $placesvendues): void
+    public function getTypeTarifByUserAndSoiree($iduser, $idsoiree): string
     {
         $stmt = $this->pdo->prepare("
-        INSERT INTO commandes (iduser, idsoiree, date_achat, placesvendues) 
-        VALUES (:iduser, :idsoiree, :date_achat, :placesvendues)
+        SELECT categorie 
+        FROM Paniers 
+        WHERE iduser = :iduser AND idsoiree = :idsoiree
+    ");
+        $stmt->execute([
+            'iduser' => $iduser,
+            'idsoiree' => $idsoiree
+        ]);
+        return $stmt->fetchColumn();
+    }
+
+
+
+    public function creerCommande(string $iduser, string $idsoiree, DateTime $date_achat, int $placesvendues, string $typeTarif): void
+    {
+        $stmt = $this->pdo->prepare("
+        INSERT INTO commandes (iduser, idsoiree, date_achat, placesvendues, typeTarif) 
+        VALUES (:iduser, :idsoiree, :date_achat, :placesvendues, :typeTarif)
     ");
         $stmt->execute([
             'iduser' => $iduser,
             'idsoiree' => $idsoiree,
             'date_achat' => $date_achat->format('Y-m-d H:i:s'),
-            'placesvendues' => $placesvendues
+            'placesvendues' => $placesvendues,
+            'typeTarif' => $typeTarif
         ]);
     }
+
+    public function updateAvailablePlaces(string $idSoiree, int $nbplaces): void
+    {
+        $stmt = $this->pdo->prepare("
+        UPDATE soirees 
+        SET nbplaces = nbplaces - :nbplaces 
+        WHERE id = :idSoiree AND nbplaces >= :nbplaces
+    ");
+        $stmt->execute([
+            'nbplaces' => $nbplaces,
+            'idSoiree' => $idSoiree
+        ]);
+
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Pas assez de places disponibles pour cette soirée.");
+        }
+    }
+
 
 
 

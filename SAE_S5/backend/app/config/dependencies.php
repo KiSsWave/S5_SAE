@@ -5,6 +5,7 @@ use nrv\application\action\GetCommandeAction;
 use nrv\application\action\GetPanierAction;
 use nrv\application\action\GetSoireeByIDAction;
 use nrv\application\action\CreateBilletAction;
+use nrv\application\action\UpdatePlacesAction;
 use Psr\Container\ContainerInterface;
 use nrv\core\services\Soiree\SoireeServiceInterface;
 use nrv\infrastructure\repositories\SoireeRepository;
@@ -121,6 +122,10 @@ return[
 
     GetCommandeAction::class => function(ContainerInterface $c){
         return new GetCommandeAction($c->get(SoireeServiceInterface::class));
+    },
+
+    UpdatePlacesAction::class => function(ContainerInterface $c){
+        return new UpdatePlacesAction($c->get(SoireeServiceInterface::class));
     }
 
 ];

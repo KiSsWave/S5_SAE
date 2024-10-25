@@ -17,6 +17,7 @@ return function( \Slim\App $app):\Slim\App {
     $app->get('/spectacle/{ID-SPECTACLE}', \nrv\application\action\GetSpectaclebyIdAction::class);
     $app->get('/soiree/{ID-SOIREE}', nrv\application\action\GetSoireeByIDAction::class);
     $app->get('/lieux', nrv\application\action\GetLieuxAction::class);
+    $app->patch('/soirees/{id}', nrv\application\action\UpdatePlacesAction::class);
 
 
 

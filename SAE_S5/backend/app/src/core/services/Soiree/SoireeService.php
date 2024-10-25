@@ -102,12 +102,13 @@ class SoireeService implements SoireeServiceInterface
         foreach ($paniers as $idsoiree) {
 
             $nbplaces = $this->soireeRepository->getNbPlacesByUserAndSoiree($iduser, $idsoiree);
+            $typeTarif = $this->soireeRepository->getTypeTarifByUserAndSoiree($iduser, $idsoiree);
 
 
-            $this->soireeRepository->creerCommande($iduser, $idsoiree, $date_achat, $nbplaces);
+            $this->soireeRepository->creerCommande($iduser, $idsoiree, $date_achat, $nbplaces,$typeTarif);
 
 
-            $commande = new Commande($idsoiree,$date_achat, $nbplaces);
+            $commande = new Commande($idsoiree,$date_achat, $nbplaces,$typeTarif);
             $commandes[] = new CommandeDTO($commande, $iduser);
         }
 
@@ -123,6 +124,12 @@ class SoireeService implements SoireeServiceInterface
         }
         return $commandesDTO;
     }
+
+    public function updateAvailablePlaces(string $idSoiree, int $nbplaces): void
+    {
+        $this->soireeRepository->updateAvailablePlaces($idSoiree, $nbplaces);
+    }
+
 
 
 

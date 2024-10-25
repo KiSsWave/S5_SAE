@@ -11,20 +11,18 @@ class Commande extends Entity
 {
 
     private string $idsoiree;
-    private \DateTime $date_achat;
+    private DateTime $date_achat;
     private int $placesvendues;
+    private string $typeTarif;
 
-    public function __construct(string $idsoiree, DateTime $date_achat, int $placesvendues)
+    public function __construct(string $idsoiree, DateTime $date_achat, int $placesvendues, string $typeTarif)
     {
         $this->idsoiree = $idsoiree;
         $this->date_achat = $date_achat;
         $this->placesvendues = $placesvendues;
+        $this->typeTarif = $typeTarif;
     }
 
-    public function getIdUser(): string
-    {
-        return $this->iduser;
-    }
 
     public function getIdSoiree(): string
     {
@@ -39,5 +37,10 @@ class Commande extends Entity
     public function getPlacesVendues(): int
     {
         return $this->placesvendues;
+    }
+
+    public function getTypeTarif(): string
+    {
+        return $this->typeTarif;
     }
 }
