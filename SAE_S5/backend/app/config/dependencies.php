@@ -24,7 +24,7 @@ use nrv\application\providers\JWTManager;
 use nrv\application\action\RegisterAction;
 use nrv\application\middleware\AuthnMiddleware;
 use nrv\application\middleware\AuthzOrganisateurMiddleware;
-use nrv\application\middleware\AuthzUserMiddelware;
+use nrv\application\middleware\AuthzUserMiddleware;
 use nrv\core\services\auth\AuthzServiceInterface;
 use nrv\core\services\auth\AuthzService;
 use nrv\application\action\CreerPanierAction;
@@ -67,8 +67,8 @@ return[
         return new AuthnMiddleware($c->get(AuthnProviderInterface::class));
     },
 
-    AuthzUserMiddelware::class =>function (ContainerInterface $c){
-        return new AuthzUserMiddelware($c->get(AuthzServiceInterface::class));
+    AuthzUserMiddleware::class =>function (ContainerInterface $c){
+        return new AuthzUserMiddleware($c->get(AuthzServiceInterface::class));
     },
 
     AuthzOrganisateurMiddleware::class =>function (ContainerInterface $c){
