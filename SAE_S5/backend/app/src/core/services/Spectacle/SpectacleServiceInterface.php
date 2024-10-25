@@ -15,5 +15,5 @@ interface SpectacleServiceInterface
 
     public function afficherSpectaclesFiltres(\DateTime $date, string $style, string $lieu): array;
 
-    public function ajouterSpectacle(string $titre, string $description, array $images, string $url, string $style, DateTime $horaire);
+    public function ajouterSpectacle(string $titre, string $description, string $images, string $url, string $style, string $horaire);
 }
