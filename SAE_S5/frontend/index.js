@@ -43,12 +43,12 @@ function getSoiree(url){
                 let nbplaces = nbPlacesReduites;
                 let categorie = 'reduit';
                 let montant = data.Soiree.TarifReduit;
-                
+                console.log({idsoiree, nbplaces, categorie, montant});
                 if(token == null){
                     alert('Vous devez être connecté pour effectuer un achat');
                     getConnexion();
                 } else {
-                    if(nbPlacesReduites+nbPlacesStandard != 0){
+                    if(nbPlacesReduites != 0){
                         let url = conf.url + '/create';
                         fetch(url, {
                             method: 'POST',
@@ -58,6 +58,10 @@ function getSoiree(url){
                             },
                             body: JSON.stringify({idsoiree, nbplaces, categorie, montant})
                         });
+
+                    }
+                    if (nbPlacesStandard != 0){
+                        let url = conf.url + '/create';
                         nbplaces = nbPlacesStandard;
                         categorie = 'standard';
                         montant = data.Soiree.Tarif;
@@ -70,13 +74,13 @@ function getSoiree(url){
                             body: JSON.stringify({idsoiree, nbplaces, categorie, montant})
                         }).then(response => {
                             if(response.status === 200){
-                                updateCart();
+                                alert('Ajout au panier réussi');
                             } else {
                                 alert('Erreur dans l\'ajout au panier');
                             }
                         });
-
-                    } else {
+                    } 
+                    if(nbPlacesReduites == 0 && nbPlacesStandard == 0){
                         alert('Veuillez renseigner le nombre de places souhaitées');
                     }
                 }
@@ -89,9 +93,10 @@ function getSoiree(url){
 }
 
 function updateCart(){
-    /*
+    
     let token = localStorage.getItem('token');
     let url = conf.url + '/panier';
+    let cart = document.getElementById('cart-content');
     fetch(url, {
         method: 'GET',
         headers: {
@@ -101,18 +106,26 @@ function updateCart(){
     }).then(data => {
         
         data.json().then(data => {
-            let cart = document.getElementById('cart-content');
             cart.innerHTML = '';
             let total = 0;
-            data.forEach(achat => {
-                let div = document.createElement('div');
-                div.classList.add('achat');
-                let soiree = achat.SoireeAssociee;
-                let montant = achat.Tarif;
+            let nomSoiree = '';
+            
+            data.Panier.forEach(achat => {
+                loader.loadSoiree(conf.url + '/soiree/' +achat.idSoiree).then(data => {
+                    data.json().then(data => {
+                        nomSoiree = data.Soiree.NomSoiree;
+                        let div = document.createElement('div');
+                        div.classList.add('achat');
+                        div.innerHTML = `<h3>${nomSoiree}</h3><p>${achat.NbPlaces} place(s), Tarif ${achat.Categorie}</p><p>${achat.Montant} €</p>`;
+                        total += achat.Montant;
+                        cart.appendChild(div);
+                        document.getElementById('cart-total').innerHTML = total;
+                    });
+                }); 
             });
         });
-        document.getElementById('cart').classList.remove('hide');
-    });*/
+        
+    });
 }
 
 function getPaiement(){
@@ -314,7 +327,7 @@ getCreateSpectacle();
 //getSoiree(conf.url + '/soiree/S001');
 getNavbar();
 //getAllSpectacles(conf.url + '/spectacles',"none","");
-
+updateCart();
 
 
 
