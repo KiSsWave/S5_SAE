@@ -22,7 +22,7 @@ return function( \Slim\App $app):\Slim\App {
     $app->get('/soiree/{ID-SOIREE}', nrv\application\action\GetSoireeByIDAction::class);
 
     $app->group('', function () use ($app){
-
+        $app->post('/create', \nrv\application\action\CreerPanierAction::class);
     })->add(\nrv\application\middleware\AuthnMiddleware::class);
 
     $app->options('/{routes:.+}', function (Request $request, Response $response, array $args): Response {
