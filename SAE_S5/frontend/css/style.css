@@ -6,9 +6,18 @@ body {
 
 body {
   overflow-x: hidden;
+  min-height: 100vh;
 }
 body .hide {
   display: none;
+}
+body .wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body .wrapper #main {
+  flex: 1;
 }
 
 header {
@@ -238,8 +247,6 @@ section #research-container input {
 }
 
 footer {
-  position: fixed;
-  bottom: 0;
   width: 100%;
   background-color: #000000;
   padding: 10px 0;
@@ -308,6 +315,80 @@ footer {
 
 #cart.hide {
   transform: translateY(-50%) translateX(100%);
+}
+
+.paiement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.paiement h1 {
+  font-size: 30px;
+}
+.paiement form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 20px;
+  text-align: center;
+  border: solid 1px black;
+  width: 30vw;
+  padding: 10px;
+}
+.paiement .group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 0px;
+  font-size: 30px;
+}
+.paiement .group label {
+  font-size: 20px;
+  width: 50%;
+  margin-top: 20px;
+}
+.paiement .logos {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-left: 20px;
+}
+.paiement i {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 33px;
+}
+.paiement input:checked + label i {
+  border: solid 1px red;
+  font-size: 45px;
+}
+.paiement .box {
+  box-shadow: 0 1px 1px black;
+}
+.paiement label {
+  font-style: italic;
+  margin-right: 30px;
+  margin-left: -10px;
+  margin-bottom: 30px;
+}
+.paiement .button {
+  margin-left: 15px;
+  border-radius: 30px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: grey;
+  cursor: pointer;
+  color: black;
+}
+.paiement .valider {
+  background-color: lime;
+  color: black;
+}
+.paiement .button:hover {
+  background-color: black;
+  color: white;
 }
 
 /*# sourceMappingURL=style.css.map */

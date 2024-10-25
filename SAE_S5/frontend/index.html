@@ -11,32 +11,34 @@
 </head>
 
 <body>
-    <header>
-        <div id="headerTitle">
-            <img src="img/logo.png" alt="logo">
-            <h1>Nancy Rock Vibrations</h1>
-        </div>
-        <nav id="headerNav"></nav>
-    </header>
-    <section id="main"></section>
-    <aside id="cart" class="hide">
-        <div id="cart-head">
-            <h2> <i class="fa-solid fa-cart-shopping"></i> Panier</h2>
-            <div id="close-cart">Fermer <i class="fa-solid fa-arrow-right"></i></div>
-        </div>
-        <div id="cart-content">
-            <div id="cart-empty">
-                <h3>Votre panier est vide</h3>
+    <div class="wrapper">
+        <header>
+            <div id="headerTitle">
+                <img src="img/logo.png" alt="logo">
+                <h1>Nancy Rock Vibrations</h1>
             </div>
-        </div>
-        <div id="cart-footer">
-            <p>Total : <span id="cart-total">0</span> €</p>
-            <button id="cart-validate">Valider le panier</button>
-        </div>
-    </aside>
-    <footer>
-        <p>© 2024 - Nancy Rock Vibrations</p>
-    </footer>
+            <nav id="headerNav"></nav>
+        </header>
+        <section id="main"></section>
+        <aside id="cart" class="hide">
+            <div id="cart-head">
+                <h2> <i class="fa-solid fa-cart-shopping"></i> Panier</h2>
+                <div id="close-cart">Fermer <i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+            <div id="cart-content">
+                <div id="cart-empty">
+                    <h3>Votre panier est vide</h3>
+                </div>
+            </div>
+            <div id="cart-footer">
+                <p>Total : <span id="cart-total">0</span> €</p>
+                <button id="cart-validate">Valider le panier</button>
+            </div>
+        </aside>
+        <footer>
+            <p>© 2024 - Nancy Rock Vibrations</p>
+        </footer>
+    </div>
     <script id="visiteur-template" type="text/x-handlebars-template">
         <ul>
         <li>
@@ -150,8 +152,8 @@
                 <img src="http://localhost:42050/assets/image/{{this.Soiree.Lieu.Images}}" alt="lieu" loading="lazy">
             </div>
             <div class="tarifs">
-                <button>Tarif normal : {{this.Soiree.Tarif}} €</button>
                 <button>Tarif réduit : {{this.Soiree.TarifReduit}} €</button>
+                <button>Tarif normal : {{this.Soiree.Tarif}} €</button>
             </div>
             <h3>Spectacles proposés :</h3>
             <div class="spectacle-container">
