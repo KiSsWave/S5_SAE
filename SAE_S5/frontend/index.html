@@ -255,6 +255,24 @@
             </form>            
         </div>
     </script>
+
+    <script id="liste-billet-template" type="text/x-handlebars-template">
+        <div class="billet-container">
+            <h2>Mes billets</h2>
+            <div class="billets">
+                {{#each this.Billets}}
+                    <div class="billet">
+                        <h3>{{this.SoireeAssociee.NomSoiree}}</h3>
+                        <p><i class="fa-regular
+                            fa-calendar"></i> {{this.SoireeAssociee.Date}}</p>
+                        <p><i class="fa-solid fa-clock"></i> {{this.SoireeAssociee.Horaire}} H</p>
+                        <p><i class="fa-solid fa-location-dot"></i> {{this.SoireeAssociee.Lieu.Nom}}, {{this.SoireeAssociee.Lieu.Adresse}}</p>
+                        <p><i class="fa-solid fa-euro-sign"></i> {{this.Prix}} €</p>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </script>
     
     <script src='./js/index.js' defer></script>
 </body>
