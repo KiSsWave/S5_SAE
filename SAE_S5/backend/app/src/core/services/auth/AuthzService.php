@@ -3,30 +3,32 @@
 namespace nrv\core\services\auth;
 
 use nrv\application\providers\JWTManager;
+use nrv\core\repositoryInterfaces\UserRepositoryInterface;
 use nrv\core\services\auth\AuthzServiceInterface;
 
 class AuthzService implements AuthzServiceInterface
 {
 
-    private JWTManager $JWTManager;
 
-    public  function __construct(JWTManager $JWTManager)
+    private UserRepositoryInterface $userRepository;
+
+    public  function __construct(UserRepositoryInterface $userRepository)
     {
-        $this->JWTManager = $JWTManager;
+        $this->userRepository = $userRepository;
     }
 
-    public function isOrganisateur(string $token): bool
+    public function isOrganisateur(string $id): bool
     {
-        $payload = $this->JWTManager->decodeToken($token);
-        return isset($payload['role']) && $payload['role'] === '2';
+        $user = $this->userRepository->getUserByID($id);
+        return isset($user['role']) && $user['role'] === '2';
 
 
     }
 
-    public function isUser(string $token): bool
+    public function isUser(string $id): bool
     {
-        $payload = $this->JWTManager->decodeToken($token);
-        return isset($payload['role']) && $payload['role'] === '1';
+        $user = $this->userRepository->getUserByID($id);
+        return isset($user['role']) && $user['role'] === '1';
     }
 
 

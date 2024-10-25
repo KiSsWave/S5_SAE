@@ -17,7 +17,7 @@ class AuthzUserMiddleware
         $this->authzService = $authzService;
     }
 
-    public function invoke(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function __invoke(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
         $authHeader = $request->getHeader('Authorization')[0] ?? '';
         $token = str_replace('Bearer ', '', $authHeader);

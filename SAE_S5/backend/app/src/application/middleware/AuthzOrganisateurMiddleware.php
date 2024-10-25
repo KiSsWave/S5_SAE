@@ -17,12 +17,13 @@ class AuthzOrganisateurMiddleware
         $this->authzService = $authzService;
     }
 
-    public function invoke(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function __invoke(ServerRequestInterface $request, RequestHandlerInterface $handler) : Response
     {
-        $authHeader = $request->getHeader('Authorization')[0] ?? '';
-        $token = str_replace('Bearer ', '', $authHeader);
 
-        if (!$this->authzService->isOrganisateur($token)) {
+        $user = $request->getAttribute('auth');
+        $userid = $user->id;
+
+        if (!$this->authzService->isOrganisateur($userid)) {
             $response = new Response();
             $response->getBody()->write(json_encode(['error' => 'Access forbidden']));
             return $response->withStatus(403)->withHeader('Content-Type', 'application/json');
