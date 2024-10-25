@@ -10,5 +10,5 @@ interface SpectacleRepositoryInterface
     public function SoireBySpectaclesID(string $id);
     public function getSpectacles();
 
-    public function ajoutSpectacle(string $titre, string $description, array $images, string $url, string $style, DateTime $horaire );
+    public function ajoutSpectacle(string $titre, string $description, string $images, string $url, string $style, DateTime $horaire );
 }

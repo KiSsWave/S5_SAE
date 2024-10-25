@@ -11,6 +11,8 @@ use nrv\infrastructure\DatabaseConnection;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use nrv\core\domain\entities\Spectacle\SpectacleArtiste;
 use PDO;
+use PDOException;
+use Ramsey\Uuid\Uuid;
 
 class SpectacleRepository implements SpectacleRepositoryInterface
 {
@@ -150,22 +152,25 @@ class SpectacleRepository implements SpectacleRepositoryInterface
         return $artistes;
     }
 
-    public function ajoutSpectacle(string $titre, string $description, array $images, string $url, string $style, DateTime $horaire)
+    public function ajoutSpectacle(string $titre, string $description, string $images, string $url, string $style, DateTime $horaire)
     {
-        $stmt = $this->pdo->prepare("INSERT INTO Spectacles(titre, description, images, url, style, horaire) VALUES(:titre, :description, :images, :url, :style, :horaire)");
-        $imag = [];
-        foreach ($images as $index => $image) {
-            $imag[] = "images[$index]";
+        try{
+            $stmt = $this->pdo->prepare("INSERT INTO Spectacles(id,titre, description, images, urlvideo, style, horaire) VALUES(:id,:titre, :description, :images, :url, :style, :horaire)");
+            $stmt->execute([
+                'id' => Uuid::uuid4()->toString(),
+                'titre' => $titre,
+                'description' => $description,
+                'images' => $images,
+                'url' => $url,
+                'style' => $style,
+                'horaire' => $horaire->format('Y-m-d\TH:i:sP')
+            ]);
+        }catch (PDOException $e) {
+            // Affiche un message d'erreur plus détaillé
+            echo "Erreur lors de l'insertion du spectacle : " . $e->getMessage();
         }
-        $images_tab = implode(', ', $imag);
-        $stmt->execute([
-           'titre' => $titre,
-           'description' => $description,
-           'images' => $images_tab,
-           'url' => $url,
-           'style' => $style,
-           'horaire' => $horaire
-        ]);
+
+
 
 
     }

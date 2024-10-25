@@ -3,7 +3,7 @@ import Handlebars from "handlebars";
 
 async function displayCreateSpectacle() {
     const container = document.getElementById('main');
-    const templateSource = document.getElementById("create-spectacle-template").innerHTML;
+    const templateSource = document.getElementById("add-spectacle-template").innerHTML;
     const template = Handlebars.compile(templateSource)
     let html = template();
     container.innerHTML = html;
@@ -14,15 +14,18 @@ async function displayCreateSpectacle() {
         const titre = document.getElementById('titre').value;
         const description = document.getElementById('description').value;
         const date = document.getElementById('date').value;
-        const heure = document.getElementById('heure').value;
+        const heure = document.getElementById('horaire').value;
+        let horaire = date + ' ' + heure;
         const style = document.getElementById('style').value;
+        const urlVideo = document.getElementById('urlvideo').value;
+        const images = "zakkudorett.jpg";
         fetch(conf.url + '/spectacle', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
-            body: JSON.stringify({titre, description, style, urlvideo, image, date, heure})
+            body: JSON.stringify({titre, description, style, urlVideo, images, horaire})
         }).then(response => {
             if(response.status === 200){
                 window.location.href = '/index.html';
