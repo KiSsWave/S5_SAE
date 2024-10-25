@@ -1,5 +1,6 @@
 <?php
 
+use nrv\application\action\GetPanierAction;
 use nrv\application\action\GetSoireeByIDAction;
 use nrv\application\action\CreateBilletAction;
 use Psr\Container\ContainerInterface;
@@ -95,6 +96,10 @@ return[
 
     CreerPanierAction::class => function(ContainerInterface $c){
         return new CreerPanierAction($c->get(SoireeServiceInterface::class));
+    },
+
+    GetPanierAction::class => function(ContainerInterface $c){
+        return new GetPanierAction($c->get(SoireeServiceInterface::class));
     }
 
 ];
