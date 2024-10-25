@@ -296,20 +296,17 @@
             <div class="billets">
                 {{#each this.Billets}}
                 <div class="billet">
-                    <p>Numéro de référence : {{ref}}</p>
+                    <p>Numéro de référence : {{this.Reference}}</p>
                     <div class="data">
                         <div class="soiree-ref">
-                            <p>Soirée :{{}}</p>
-                            <p>Date : {{this.date}}</p>
-                            <p>Lieu : {{this.Lieu}}</p>
+                            <p>Date : {{this.Date}}</p>
                         </div>
                         <div class="owner-ref">
-                            <p>Nom, prénom : {{this.nom}} {{this.prenom}}</p>
-                            <p>Numéro de téléphone : {{this.numero}}</p>
+                            <p>Nom : {{this.Acheteur}}</p>
                         </div>
                         <div class="tarif">
-                            <p>Tarif Réduit</p>
-                            <p>15.00 €</p>
+                            <p>Tarif {{this.TypeTarif}}</p>
+                            <p>{{this.prix}} €</p>
                         </div>
                     </div>
                     

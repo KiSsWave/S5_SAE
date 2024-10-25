@@ -58,6 +58,11 @@ header nav ul li p:hover {
   cursor: pointer;
 }
 
+@media print {
+  nav {
+    display: none;
+  }
+}
 section #filter {
   display: flex;
 }
@@ -500,10 +505,14 @@ footer {
 .billets .billet .data {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   font-size: 1.2em;
   font-weight: bold;
+}
+.billets .billet .tarif {
+  text-align: center;
 }
 .billets .print-btn-container {
   width: 100%;

@@ -5909,11 +5909,11 @@
 
   // js/allBillet_ui.js
   var import_handlebars8 = __toESM(require_handlebars());
-  function displayAllBillet() {
+  function displayAllBillet(data) {
     let container = document.getElementById("main");
-    let templateSource = document.getElementById("all-billet-template").innerHTML;
-    let template = import_handlebars8.default.compile;
-    let html = template();
+    let templateSource = document.getElementById("liste-billet-template").innerHTML;
+    let template = import_handlebars8.default.compile(templateSource);
+    let html = template(data);
     container.innerHTML = html;
   }
   var allBillet_ui_default = { displayAllBillet };
@@ -6192,12 +6192,13 @@
       }
     }).then((data) => {
       data.json().then((data2) => {
-        allBillet_ui_default.displayAllBillet(data2.Billets);
+        console.log(data2);
+        allBillet_ui_default.displayAllBillet(data2);
+        document.getElementById("print-btn").addEventListener("click", () => {
+          window.print();
+          console.log("print");
+        });
       });
-    });
-    document.getElementById("print-btn").addEventListener("click", () => {
-      window.print();
-      console.log("print");
     });
   }
   function getConnexion() {
@@ -6218,6 +6219,9 @@
       document.getElementById("deconnexion").addEventListener("click", () => {
         localStorage.removeItem("token");
         window.location.href = "/index.html";
+      });
+      document.getElementById("billets").addEventListener("click", () => {
+        getAllBillets();
       });
       document.getElementById("panier").addEventListener("click", () => {
         document.getElementById("cart").classList.remove("hide");

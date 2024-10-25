@@ -5,25 +5,37 @@ header
     display: flex
     justify-content: space-between
     align-items: center
+
     img
         height: 100px
         margin: 10px
+
     #headerTitle
         display: flex
         align-items: center
+
     nav
         margin-right: 20px
+
         ul
             display: flex
             list-style-type: none
             padding: 0
             margin: 0
+
             li
                 margin: 0 10px
+
                 p
                     font-size: larger
                     color: white
                     text-decoration: none
+
                     &:hover
                         color: #ff4800
                         cursor: pointer
+
+// Styles pour l'impression
+@media print
+    nav
+        display: none // Masque la navigation lors de l'impression

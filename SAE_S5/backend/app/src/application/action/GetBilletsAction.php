@@ -20,18 +20,21 @@ class GetBilletsAction extends AbstractAction
         $user = $rq->getAttribute('auth');
         $userid = $user->id;
 
+        $resultat = [
+            'Billets' => []
+        ];
 
         try {
             $billets = $this->soireeService->afficherBillets($userid);
 
             foreach ($billets as $b){
-                $resultat = ["Billet" => [
+                $resultat['Billets'][] = [
                     "Acheteur" => $b->nomAcheteur,
                     "Reference" => $b->reference,
                     "Date" => $b->dateHoraireSoiree->format('Y-m-d H:i:sP'),
                     "TypeTarif" => $b->typeTarif,
                     "prix" => $b->prix,
-                ]];
+                ];
             }
 
             $rs->getBody()->write(json_encode($resultat));

@@ -118,7 +118,7 @@ class SoireeService implements SoireeServiceInterface
             $typeTarif = $this->soireeRepository->getTypeTarifByUserAndSoiree($iduser, $idsoiree);
 
 
-            $this->soireeRepository->creerCommande($iduser, $idsoiree, $date_achat, $nbplaces,$typeTarif);
+            $this->soireeRepository->creerCommande($iduser, $idsoiree, $date_achat, $nbplaces, $typeTarif);
 
 
             $commande = new Commande($idsoiree,$date_achat, $nbplaces,$typeTarif);

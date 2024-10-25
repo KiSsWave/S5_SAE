@@ -330,14 +330,16 @@ function getAllBillets(){
         }
     }).then(data => {
         data.json().then(data => {
-            allBillet_ui.displayAllBillet(data.Billets);
+            console.log(data);
+            allBillet_ui.displayAllBillet(data);
+            document.getElementById('print-btn').addEventListener('click', () => {
+                window.print();
+                console.log('print');
+            });
         });
     });
 
-    document.getElementById('print-btn').addEventListener('click', () => {
-        window.print();
-        console.log('print');
-    });
+
 }
 
 function getConnexion(){
@@ -362,6 +364,10 @@ function getNavbar(){
             localStorage.removeItem('token');
             window.location.href = '/index.html';
         });
+        document.getElementById('billets').addEventListener('click', () => {
+            getAllBillets();
+        });
+
         document.getElementById('panier').addEventListener('click', () => {
             document.getElementById('cart').classList.remove('hide');
         });
