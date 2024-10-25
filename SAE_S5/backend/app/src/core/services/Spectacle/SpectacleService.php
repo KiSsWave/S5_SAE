@@ -83,4 +83,8 @@ class SpectacleService implements SpectacleServiceInterface
         return $spectaclesDto;
     }
 
+    public function ajouterSpectacle(string $titre, string $description, array $images, string $url, string $style, DateTime $horaire)
+    {
+        $this->spectacleRepository->ajoutSpectacle($titre, $description, $images, $url, $style, $horaire);
+    }
 }
