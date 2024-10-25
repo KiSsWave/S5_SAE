@@ -1,4 +1,5 @@
 import loader from "./js/loader";
+import Handlebars from "handlebars";
 import soiree_ui from "./js/soiree_ui";
 import allSpectacle_ui from "./js/allSpectacle_ui";
 import conf from "./js/config";
@@ -131,30 +132,42 @@ function getPaiement(){
     loading.classList.add('loading');
     document.getElementById('main').appendChild(loading);
 
+    let url = conf.url + '/commandes';
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+        }
+    }).then(data => {
+        data.json().then(data => {
 
-    data.forEach(panier => {
+            let container = document.getElementById('main');
+            container.innerHTML = '';
+            let templateSource = document.getElementById('paiement-template').innerHTML;
+            let template = Handlebars.compile(templateSource);
+            container.innerHTML = template({data});
 
-        const panierDiv = document.createElement('div');
-        panierDiv.classList.add('group');
-        panierDiv.innerHTML = `
-                        <label>Soirée : <p>{{idsoiree}}</p></label>
-                        <label> categorie : <p>{{nbplaces}}</p></label>
-                        <label>Nombre de billets : <p>{{nbplaces}}</p></label>
-                        <label>Prix unitaire : <p>{{montant}}</p></label>
-                        <label>Total : <p>${(panier.nbplaces * panier.montant)} €</p></label>
-           
-        `;
-    
-        paniersContainer.appendChild(panierDiv);
+            let button = document.getElementById('valider');
+            button.addEventListener('click', () => {
+                let url = conf.url + '/paiement';
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                        'Content-Type': 'application/json',
+                    }
+                }).then(data => {
+                    data.json().then(data => {
+                        alert('Paiement effectué');
+                        getAllBillets();
+                    });
+                });
+            });
+        });
+
+
     });
-    const totalElement = document.getElementById('total'); 
-    const totalGlobal = data.reduce((total, panier) => total + (panier.nbplaces * panier.montant), 0);
-    totalElement.innerText = `${totalGlobal} €`;
-}
-
-
-
-    
 }
 
 function getAllSpectacles(url, filter = '', value = ''){
@@ -320,6 +333,11 @@ function getAllBillets(){
             allBillet_ui.displayAllBillet(data.Billets);
         });
     });
+
+    document.getElementById('print-btn').addEventListener('click', () => {
+        window.print();
+        console.log('print');
+    });
 }
 
 function getConnexion(){
@@ -384,10 +402,10 @@ function getCreateSpectacle(){
     createSpectacle_ui.displayCreateSpectacle();
 }
 
-getCreateSpectacle();
+//getCreateSpectacle();
 //getSoiree(conf.url + '/soiree/S001');
 getNavbar();
-//getAllSpectacles(conf.url + '/spectacles',"none","");
+getAllSpectacles(conf.url + '/spectacles',"none","");
 updateCart();
 
 
