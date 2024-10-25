@@ -1,4 +1,3 @@
-
 -- Supprimer les tables en commençant par celles qui dépendent d'autres
 DROP TABLE IF EXISTS PANIERS CASCADE;
 DROP TABLE IF EXISTS SPECTACLESOIREE CASCADE;
@@ -28,7 +27,7 @@ create table SOIREES
     ID          varchar primary key,
     nom         varchar,
     thematique  varchar,
-    dateSoiree timestamptz,
+    dateSoiree  timestamptz,
     lieuSoiree  varchar,
     nbPlaces    int,
     tarif       float,
@@ -45,13 +44,13 @@ create table SPECTACLES
     images      varchar,
     urlVideo    varchar,
     style       varchar,
-    horaire timestamptz
+    horaire     timestamptz
 );
 
 -- 4. Table USERS peut être créée maintenant, elle ne dépend d'aucune autre table.
 create table USERS
 (
-    ID uuid primary key,
+    ID        uuid primary key,
     email     varchar,
     passwd    varchar,
     nom       varchar,
@@ -65,13 +64,13 @@ create table USERS
 -- 5. Table BILLETS fait référence à USERS, donc elle doit être créée après.
 create table BILLETS
 (
-    ID        varchar primary key,
-    ID_acheteur uuid,
-    nom_acheteur varchar,
-    reference varchar,
+    ID                varchar primary key,
+    ID_acheteur       uuid,
+    nom_acheteur      varchar,
+    reference         varchar,
     dateHoraireSoiree timestamptz,
-    typeTarif varchar,
-    prix      int,
+    typeTarif         varchar,
+    prix              int,
     foreign key (ID_acheteur) references USERS (ID),
     foreign key (reference) references SOIREES (ID)
 );
@@ -105,13 +104,14 @@ create table SPECTACLESOIREE
     primary key (ID_soiree, ID_spectacle)
 );
 
--- 9. Table PANIERS doit être créée en dernier car elle dépend de USERS et BILLETS.
-create table PANIERS
+CREATE TABLE PANIERS
 (
-    ID_acheteur uuid,
-    ID_soiree varchar,
-    qte int,
-    foreign key (ID_acheteur) references USERS (ID),
-    foreign key (ID_soiree) references SOIREES (ID),
-    primary key (ID_acheteur, ID_soiree)
+    "idsoiree"  character varying(255) NOT NULL,
+    "iduser"    uuid                   NOT NULL,
+    "nbplaces"  integer                NOT NULL,
+    "categorie" character varying(255) NOT NULL,
+    "montant"   integer                NOT NULL foreign key (idsoiree) references soirees (id),
+    foreign key (iduser) references users (id),
+    primary key (idsoiree, iduser)
 );
+
