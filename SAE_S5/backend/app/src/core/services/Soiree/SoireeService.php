@@ -57,7 +57,7 @@ class SoireeService implements SoireeServiceInterface
             $commandesDTO[] = new CommandeDTO($commande, $data['id_acheteur']);
         }
 
-        $billets = $this->soireeRepository->creerBillet( $data['id_acheteur'], $commandesDTO);
+        $billets = $this->soireeRepository->creerBillet( $data['id_acheteur'], $commandesDTO, $data['nom_acheteur']);
         $billetsDTO = [];
         foreach ($billets as $billet) {
             $billetsDTO[] = new BilletDTO($billet, $data['id_acheteur']);

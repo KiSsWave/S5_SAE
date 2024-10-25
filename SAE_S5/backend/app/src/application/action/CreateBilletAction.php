@@ -20,12 +20,16 @@ class CreateBilletAction extends AbstractAction
 
         $user = $rq->getAttribute('auth');
         $id_acheteur = $user->id;
+        $nom_acheteur = $user->nom;
+        $prenom_acheteur = $user->prenom;
+        $nom = $nom_acheteur . ' ' . $prenom_acheteur;
 
 
         try {
 
             $billetDTO = $this->soireeService->creationBillet([
-                'id_acheteur' => $id_acheteur
+                'id_acheteur' => $id_acheteur,
+                'nom_acheteur' => $nom
             ]);
 
 

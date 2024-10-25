@@ -131,7 +131,7 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $this->soirees;
     }
 
-    public function creerBillet(string $id_acheteur, array $commandesDTO): array
+    public function creerBillet(string $id_acheteur, array $commandesDTO, string $nom): array
     {
         $commandes = $commandesDTO;
 
@@ -155,7 +155,7 @@ class SoireeRepository implements SoireeRepositoryInterface
                 $stmt->execute([
                     'id' => $uuid,
                     'id_acheteur' => $id_acheteur,
-                    'nom_acheteur' => $id_acheteur,
+                    'nom_acheteur' => $nom,
                     'reference' => $commande->idsoiree,
                     'typetarif' => $commande->typetarif,
                     'datehorairesoiree' => $soireeRef->dateS->format('Y-m-d H:i:s'),
