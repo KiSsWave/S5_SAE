@@ -29,4 +29,10 @@ async function loadSpectacleBySoiree(url){
     })
 }
 
-export default {loadSoiree, loadSpectacle, loadAllSpectacles};
+async function loadLieux(url){
+    return fetch(url).catch(error=>{
+        console.error('Erreur de la récupération de la liste des lieux')
+    })
+}
+
+export default {loadSoiree, loadSpectacle, loadAllSpectacles, loadSpectacleBySoiree, loadLieux};

@@ -4,6 +4,13 @@
     padding: 10px
     box-shadow: 0 5px 5px black
 
+    .overall
+        display: flex
+        justify-content: space-around
+        flex-wrap: wrap
+        margin: 10px
+        .soiree-info
+            flex: 1
 
     h3
         font-size: x-large
@@ -13,24 +20,50 @@
         font-size: larger
         margin: 24px
 
+    .add-to-cart
+        display: flex
+        justify-content: space-around
+        align-items: center
+        flex-direction: column
+        padding: 20px
+        text-align: center
+        box-shadow: 0 5px 5px black
+        border: 1px solid lightgray
+
     .tarifs
         display: flex
         justify-content: center
-        button
-            background: none
+        .tarif
+            margin: 10px
+            padding: 10px
             box-shadow: 0 5px 5px black
             min-width: 200px
             max-width: fit-content
             font-size: larger
             text-align: center
-            padding: 10px
-            margin: 10px
             transition: 0.24s
+            input
+                margin: 10px
+                padding: 10px
+                border-radius: 15px
+                border: 1px solid black
+                transition: 0.24s
+    
+    button
+        background: none
+        box-shadow: 0 5px 5px black
+        min-width: 200px
+        max-width: fit-content
+        font-size: larger
+        text-align: center
+        padding: 10px
+        margin: 10px
+        transition: 0.24s
 
-        button:hover
-            background-color: black
-            color: #ff4800
-            cursor: pointer
+    button:hover
+        background-color: black
+        color: #ff4800
+        cursor: pointer
 
     .spectacle-container
         display: grid
@@ -49,9 +82,9 @@
         border: 1px solid lightgray
         width: fit-content
         img
-            width: 472px
+            width: 572px
             aspect-ratio: 16/9
 
         p
-            min-width: 400px
+            width: 500px
             padding: 12px

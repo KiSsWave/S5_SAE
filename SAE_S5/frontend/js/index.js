@@ -5746,7 +5746,21 @@
       });
     });
   }
-  var loader_default = { loadSoiree, loadSpectacle, loadAllSpectacles };
+  function loadSpectacleBySoiree(url2) {
+    return __async(this, null, function* () {
+      return fetch(url2).catch((error) => {
+        console.error("Erreur de la r\xE9cup\xE9ration de la liste des spectacles");
+      });
+    });
+  }
+  function loadLieux(url2) {
+    return __async(this, null, function* () {
+      return fetch(url2).catch((error) => {
+        console.error("Erreur de la r\xE9cup\xE9ration de la liste des lieux");
+      });
+    });
+  }
+  var loader_default = { loadSoiree, loadSpectacle, loadAllSpectacles, loadSpectacleBySoiree, loadLieux };
 
   // js/soiree_ui.js
   var import_handlebars = __toESM(require_handlebars());
@@ -5878,13 +5892,81 @@
 
   // index.js
   function getSoiree(url2) {
+    let loading = document.createElement("div");
+    loading.innerHTML = "<h2>Chargement ...</h2>";
+    loading.classList.add("loading");
+    document.getElementById("main").appendChild(loading);
     loader_default.loadSoiree(url2).then((data) => {
       data.json().then((data2) => __async(this, null, function* () {
         yield soiree_ui_default.displaySoiree(data2.Soiree);
+        let button = document.getElementById("add-to-cart");
+        let inputTarifReduit = document.getElementById("tarif-reduit");
+        let inputTarifPlein = document.getElementById("tarif-normal");
+        let nbPlacesReduites;
+        let nbPlacesStandard;
+        let soireeId = data2.links.self.href.split("/")[data2.links.self.href.split("/").length - 1];
+        button.addEventListener("click", () => {
+          if (inputTarifReduit.value != null) {
+            nbPlacesReduites = inputTarifReduit.value;
+          } else {
+            nbPlacesReduites = 0;
+          }
+          if (inputTarifPlein.value != null) {
+            nbPlacesStandard = inputTarifPlein.value;
+          } else {
+            nbPlacesStandard = 0;
+          }
+          let token2 = localStorage.getItem("token");
+          let idsoiree = soireeId;
+          let nbplaces = nbPlacesReduites;
+          let categorie = "reduit";
+          let montant = data2.Soiree.TarifReduit;
+          if (token2 == null) {
+            alert("Vous devez \xEAtre connect\xE9 pour effectuer un achat");
+            getConnexion();
+          } else {
+            if (nbPlacesReduites + nbPlacesStandard != 0) {
+              let url3 = config_default.url + "/create";
+              fetch(url3, {
+                method: "POST",
+                headers: {
+                  "Authorization": "Bearer " + token2,
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ idsoiree, nbplaces, categorie, montant })
+              });
+              nbplaces = nbPlacesStandard;
+              categorie = "standard";
+              montant = data2.Soiree.Tarif;
+              fetch(url3, {
+                method: "POST",
+                headers: {
+                  "Authorization": "Bearer " + token2,
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ idsoiree, nbplaces, categorie, montant })
+              }).then((response) => {
+                if (response.status === 200) {
+                  updateCart();
+                } else {
+                  alert("Erreur dans l'ajout au panier");
+                }
+              });
+            } else {
+              alert("Veuillez renseigner le nombre de places souhait\xE9es");
+            }
+          }
+        });
       }));
     });
   }
+  function updateCart() {
+  }
   function getAllSpectacles(url2, filter = "", value = "") {
+    let loading = document.createElement("div");
+    loading.innerHTML = "<h2>Chargement ...</h2>";
+    loading.classList.add("loading");
+    document.getElementById("main").appendChild(loading);
     let styles = [];
     let dates = [];
     let lieux = [];
@@ -5959,15 +6041,6 @@
             dates.push(spectacle.Date);
           }
         });
-        dataAll2.Spectacles.forEach((spectacle) => {
-          loader_default.loadSoiree(config_default.url + spectacle.SoireeAssociee.href).then((data) => {
-            data.json().then((data2) => {
-              if (!lieux.includes(data2.Soiree.Lieu.Nom)) {
-                lieux.push(data2.Soiree.Lieu.Nom);
-              }
-            });
-          });
-        });
         if (filter == "style") {
           document.querySelector("#filter-value").innerHTML = "";
           styles.forEach((style) => {
@@ -5986,26 +6059,41 @@
             document.querySelector("#filter-value").appendChild(option);
           });
           document.querySelector("#filter-value").value = value;
-        } else if (filter == "lieu") {
-          document.querySelector("#filter-value").innerHTML = "";
-          lieux.forEach((lieu) => {
-            let option = document.createElement("option");
-            option.value = lieu;
-            option.innerHTML = lieu;
-            document.querySelector("#filter-value").appendChild(option);
-          });
-          document.querySelector("#filter-value").value = value;
         }
+      }));
+    });
+    loader_default.loadLieux(config_default.url + "/lieux").then((dataLieux) => {
+      dataLieux.json().then((dataLieux2) => __async(this, null, function* () {
+        dataLieux2.Lieux.forEach(
+          (lieu) => {
+            if (!lieux.includes(lieu.Nom)) {
+              lieux.push(lieu.Nom);
+            }
+            if (filter == "lieu") {
+              document.querySelector("#filter-value").innerHTML = "";
+              lieux.forEach((lieu2) => {
+                let option = document.createElement("option");
+                option.value = lieu2;
+                option.innerHTML = lieu2;
+                document.querySelector("#filter-value").appendChild(option);
+              });
+              document.querySelector("#filter-value").value = value;
+            }
+          }
+        );
       }));
     });
   }
   function getConnexion() {
     connexion_ui_default.displayConnexion();
+    document.getElementById("inscription-btn").addEventListener("click", () => {
+      getInscription();
+    });
   }
   function getInscription() {
     inscription_ui_default.displayInscription();
   }
-  getAllSpectacles(config_default.url + "/spectacles", "none", "");
+  getSoiree(config_default.url + "/soiree/S001");
   if (localStorage.getItem("token") != null) {
     navbar_ui_default.displayVisiteurCo();
     document.getElementById("accueil").addEventListener("click", () => {

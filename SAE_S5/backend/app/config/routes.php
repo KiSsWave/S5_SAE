@@ -24,6 +24,7 @@ return function( \Slim\App $app):\Slim\App {
     $app->get('/spectacles', \nrv\application\action\GetSpectaclesAction::class);
     $app->get('/spectacle/{ID-SPECTACLE}', \nrv\application\action\GetSpectaclebyIdAction::class);
     $app->get('/soiree/{ID-SOIREE}', nrv\application\action\GetSoireeByIDAction::class);
+    $app->get('/lieux', nrv\application\action\GetLieuxAction::class);
 
     $app->group('', function () use ($app){
 
@@ -31,6 +32,10 @@ return function( \Slim\App $app):\Slim\App {
         $app->post('/create', \nrv\application\action\CreerPanierAction::class);
 
     })->add(\nrv\application\middleware\AuthnMiddleware::class);
+
+    $app->group('', function () use ($app){
+        $app->post('/spectacle', \nrv\application\action\CreateSpectacleAction::class);
+    })->add(\nrv\application\middleware\AuthzOrganisateurMiddleware::class);
 
     $app->options('/{routes:.+}', function (Request $request, Response $response, array $args): Response {
         return $response

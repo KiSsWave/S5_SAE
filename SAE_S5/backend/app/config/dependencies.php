@@ -28,6 +28,7 @@ use nrv\application\middleware\AuthzUserMiddelware;
 use nrv\core\services\auth\AuthzServiceInterface;
 use nrv\core\services\auth\AuthzService;
 use nrv\application\action\CreerPanierAction;
+use nrv\application\action\CreateSpectacleAction;
 return[
 
     SoireeRepositoryInterface::class => function (){
@@ -98,8 +99,14 @@ return[
         return new CreerPanierAction($c->get(SoireeServiceInterface::class));
     },
 
+
+    CreateSpectacleAction::class => function (ContainerInterface $c){
+        return new CreateSpectacleAction($c->get(SpectacleServiceInterface::class));
+    },
+
     GetPanierAction::class => function(ContainerInterface $c){
         return new GetPanierAction($c->get(SoireeServiceInterface::class));
+
     }
 
 ];

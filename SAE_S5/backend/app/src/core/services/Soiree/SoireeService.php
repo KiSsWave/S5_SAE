@@ -61,7 +61,18 @@ class SoireeService implements SoireeServiceInterface
         return $lieuDTO;
     }
 
-    public function creationPanier(string $idsoiree, string $iduser, int $montant, string $categorie, int $nbplaces): PanierDTO
+
+    public function afficherLieux(): array
+    {
+        $lieux = $this->soireeRepository->getLieux();
+        $lieuxDTO = [];
+        foreach ($lieux as $lieu) {
+            $lieuxDTO[] = new LieuDTO($lieu);
+        }
+        return $lieuxDTO;
+    }
+
+    public function creationPanier(string $idsoiree, string $iduser,int $montant, string $categorie, int $nbplaces)
     {
         $this->soireeRepository->creerPanier($idsoiree, $iduser, $montant, $categorie, $nbplaces);
         $panier = new Panier($nbplaces,$categorie,$montant, $idsoiree);

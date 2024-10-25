@@ -150,6 +150,25 @@ class SpectacleRepository implements SpectacleRepositoryInterface
         return $artistes;
     }
 
+    public function ajoutSpectacle(string $titre, string $description, array $images, string $url, string $style, DateTime $horaire)
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO Spectacles(titre, description, images, url, style, horaire) VALUES(:titre, :description, :images, :url, :style, :horaire)");
+        $imag = [];
+        foreach ($images as $index => $image) {
+            $imag[] = "images[$index]";
+        }
+        $images_tab = implode(', ', $imag);
+        $stmt->execute([
+           'titre' => $titre,
+           'description' => $description,
+           'images' => $images_tab,
+           'url' => $url,
+           'style' => $style,
+           'horaire' => $horaire
+        ]);
+
+
+    }
 
 
 }

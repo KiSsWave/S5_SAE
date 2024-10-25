@@ -1,6 +1,7 @@
 <?php
 
 namespace nrv\core\services\Spectacle;
+use DateTime;
 use nrv\core\dto\SpectacleDTO;
 
 interface SpectacleServiceInterface
@@ -14,5 +15,5 @@ interface SpectacleServiceInterface
 
     public function afficherSpectaclesFiltres(\DateTime $date, string $style, string $lieu): array;
 
-
+    public function ajouterSpectacle(string $titre, string $description, array $images, string $url, string $style, DateTime $horaire);
 }
