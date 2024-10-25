@@ -19,7 +19,7 @@ interface SoireeRepositoryInterface
 
     public function getPanierByUser(string $iduser);
 
-    public function creerBillet(string $id_acheteur): array;
+    public function creerBillet(string $id_acheteur, array $commandesDTO): array;
 
     public function getLieuBySoireeId(string $id);
     public function getCommandesByUser(string $iduser) : array;

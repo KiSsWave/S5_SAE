@@ -14,11 +14,14 @@ class CommandeDTO extends DTO
     public DateTime $date_achat;
     public int $placesvendues;
 
+    public string $typetarif;
+
     public function __construct(Commande $commande, string $iduser)
     {
         $this->iduser = $iduser;
         $this->idsoiree = $commande->getIdSoiree();
         $this->date_achat = $commande->getDateAchat();
         $this->placesvendues = $commande->getPlacesVendues();
+        $this->typetarif = $commande->getTypeTarif();
     }
 }

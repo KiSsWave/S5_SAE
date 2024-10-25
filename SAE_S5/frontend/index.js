@@ -150,7 +150,7 @@ function getPaiement(){
 
             let button = document.getElementById('valider');
             button.addEventListener('click', () => {
-                let url = conf.url + '/paiement';
+                let url = conf.url + '/billets';
                 fetch(url, {
                     method: 'POST',
                     headers: {
@@ -159,7 +159,6 @@ function getPaiement(){
                     }
                 }).then(data => {
                     data.json().then(data => {
-                        alert('Paiement effectué');
                         getAllBillets();
                     });
                 });

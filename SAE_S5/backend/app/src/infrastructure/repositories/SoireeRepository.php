@@ -117,7 +117,7 @@ class SoireeRepository implements SoireeRepositoryInterface
                 $commandeData['idsoiree'],
                 $dateAchat,
                 $commandeData['placesvendues'],
-                $commandeData['typeTarif']
+                $commandeData['typetarif']
             );
         }
         return $commandes;
@@ -131,27 +131,37 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $this->soirees;
     }
 
-    public function creerBillet(string $id_acheteur): array
+    public function creerBillet(string $id_acheteur, array $commandesDTO): array
     {
-        
+        $commandes = $commandesDTO;
 
-        $commandes = $this->getCommandesByUser($id_acheteur);
-        
         $billets = [];
         foreach ($commandes as $commande) {
             $soireeRef = $this->getSoireeByID($commande->idsoiree);
             $prix = 0;
-            if($commande->typeTarif == "reduit"){
-                $prix = $soireeRef->tarifreduit;
+            if($commande->typetarif == "reduit"){
+                $prix = $soireeRef->tarifR;
             }else{
                 $prix = $soireeRef->tarif;
             }
             
             for ($i = 0; $i < $commande->placesvendues; $i++) {
                 $uuid = $this->generateUuid();
-                $billet =  new Billet($id_acheteur, $commande->idsoiree, $commande->typeTarif, $soireeRef->dateSoiree, $prix);
+                $billet =  new Billet($id_acheteur, $commande->idsoiree, $commande->typetarif, $soireeRef->dateS, $prix);
                 $billet->setID($uuid);
                 $billets[] = $billet;
+                
+                $stmt = $this->pdo->prepare("INSERT INTO billets (id, id_acheteur, nom_acheteur, reference, typetarif, datehorairesoiree, prix) VALUES (:id, :id_acheteur, :nom_acheteur, :reference, :typetarif, :datehorairesoiree, :prix)");
+                $stmt->execute([
+                    'id' => $uuid,
+                    'id_acheteur' => $id_acheteur,
+                    'nom_acheteur' => $id_acheteur,
+                    'reference' => $commande->idsoiree,
+                    'typetarif' => $commande->typetarif,
+                    'datehorairesoiree' => $soireeRef->dateS->format('Y-m-d H:i:s'),
+                    'prix' => $prix
+                ]);
+                
             }
         }
         return $billets;
@@ -278,18 +288,18 @@ class SoireeRepository implements SoireeRepositoryInterface
 
 
 
-    public function creerCommande(string $iduser, string $idsoiree, DateTime $date_achat, int $placesvendues, string $typeTarif): void
+    public function creerCommande(string $iduser, string $idsoiree, DateTime $date_achat, int $placesvendues, string $typetarif): void
     {
         $stmt = $this->pdo->prepare("
-        INSERT INTO commandes (iduser, idsoiree, date_achat, placesvendues, typeTarif) 
-        VALUES (:iduser, :idsoiree, :date_achat, :placesvendues, :typeTarif)
+        INSERT INTO commandes (iduser, idsoiree, date_achat, placesvendues, typetarif) 
+        VALUES (:iduser, :idsoiree, :date_achat, :placesvendues, :typetarif)
     ");
         $stmt->execute([
             'iduser' => $iduser,
             'idsoiree' => $idsoiree,
             'date_achat' => $date_achat->format('Y-m-d H:i:s'),
             'placesvendues' => $placesvendues,
-            'typeTarif' => $typeTarif
+            'typetarif' => $typetarif
         ]);
     }
 

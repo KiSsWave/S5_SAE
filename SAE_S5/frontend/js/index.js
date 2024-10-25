@@ -6038,7 +6038,7 @@
         container.innerHTML = template({ data: data2 });
         let button = document.getElementById("valider");
         button.addEventListener("click", () => {
-          let url3 = config_default.url + "/paiement";
+          let url3 = config_default.url + "/billets";
           fetch(url3, {
             method: "POST",
             headers: {
@@ -6047,7 +6047,6 @@
             }
           }).then((data3) => {
             data3.json().then((data4) => {
-              alert("Paiement effectu\xE9");
               getAllBillets();
             });
           });

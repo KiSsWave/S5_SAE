@@ -123,5 +123,6 @@ CREATE TABLE COMMANDES
     "idsoiree" character varying NOT NULL,
     "date_achat" timestamp NOT NULL,
     "placesvendues" integer,
+    "typeTarif" character varying,
     CONSTRAINT "commandes_pkey" PRIMARY KEY ("iduser", "idsoiree", "date_achat")
 )

@@ -50,7 +50,14 @@ class SoireeService implements SoireeServiceInterface
     public function creationBillet(array $data): array
     {
 
-        $billets = $this->soireeRepository->creerBillet( $data['id_acheteur']);
+        $commandes = $this->soireeRepository->getCommandesByUser($data['id_acheteur']);
+        
+        $commandesDTO = [];
+        foreach ($commandes as $commande) {
+            $commandesDTO[] = new CommandeDTO($commande, $data['id_acheteur']);
+        }
+
+        $billets = $this->soireeRepository->creerBillet( $data['id_acheteur'], $commandesDTO);
         $billetsDTO = [];
         foreach ($billets as $billet) {
             $billetsDTO[] = new BilletDTO($billet, $data['id_acheteur']);

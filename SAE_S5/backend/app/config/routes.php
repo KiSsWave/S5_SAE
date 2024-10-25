@@ -11,7 +11,8 @@ return function( \Slim\App $app):\Slim\App {
 
     $app->post('/signin', \nrv\application\action\SignInAction::class);
     $app->post('/register', \nrv\application\action\RegisterAction::class);
-    $app->post('/billets', nrv\application\action\CreateBilletAction::class);
+    $app->post('/billets', nrv\application\action\CreateBilletAction::class)->add(\nrv\application\middleware\AuthnMiddleware::class);
+
 
     $app->get('/spectacles', \nrv\application\action\GetSpectaclesAction::class);
     $app->get('/spectacle/{ID-SPECTACLE}', \nrv\application\action\GetSpectaclebyIdAction::class);
