@@ -13,7 +13,7 @@ class PanierDTO extends DTO
     protected string $categorie;
     protected int $montant;
 
-    public function __construct(Panier $panier,string $iduser)
+    public function __construct(Panier $panier, string $iduser)
     {
         $this->idsoiree = $panier->getIdSoiree();
         $this->iduser = $iduser;

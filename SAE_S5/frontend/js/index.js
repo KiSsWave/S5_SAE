@@ -5906,15 +5906,15 @@
         const description = document.getElementById("description").value;
         const date = document.getElementById("date").value;
         const heure = document.getElementById("horaire").value;
-        let horaire = date + " " + heure;
+        let horaire = date + " " + heure + ":00";
         const style = document.getElementById("style").value;
         const urlVideo = document.getElementById("urlvideo").value;
         const images = "zakkudorett.jpg";
         fetch(config_default.url + "/spectacle", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("token")
+            "Authorization": "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({ titre, description, style, urlVideo, images, horaire })
         }).then((response) => {
@@ -5959,12 +5959,13 @@
           let idsoiree = soireeId;
           let nbplaces = nbPlacesReduites;
           let categorie = "reduit";
-          let montant = data2.Soiree.TarifReduit;
+          let montant = data2.Soiree.TarifReduit * nbplaces;
+          console.log({ idsoiree, nbplaces, categorie, montant });
           if (token2 == null) {
             alert("Vous devez \xEAtre connect\xE9 pour effectuer un achat");
             getConnexion();
           } else {
-            if (nbPlacesReduites + nbPlacesStandard != 0) {
+            if (nbPlacesReduites != 0) {
               let url3 = config_default.url + "/create";
               fetch(url3, {
                 method: "POST",
@@ -5974,9 +5975,12 @@
                 },
                 body: JSON.stringify({ idsoiree, nbplaces, categorie, montant })
               });
+            }
+            if (nbPlacesStandard != 0) {
+              let url3 = config_default.url + "/create";
               nbplaces = nbPlacesStandard;
               categorie = "standard";
-              montant = data2.Soiree.Tarif;
+              montant = data2.Soiree.Tarif * nbplaces;
               fetch(url3, {
                 method: "POST",
                 headers: {
@@ -5984,22 +5988,43 @@
                   "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ idsoiree, nbplaces, categorie, montant })
-              }).then((response) => {
-                if (response.status === 200) {
-                  updateCart();
-                } else {
-                  alert("Erreur dans l'ajout au panier");
-                }
               });
-            } else {
+            }
+            if (nbPlacesReduites == 0 && nbPlacesStandard == 0) {
               alert("Veuillez renseigner le nombre de places souhait\xE9es");
             }
+            updateCart();
           }
         });
       }));
     });
   }
   function updateCart() {
+    let token2 = localStorage.getItem("token");
+    let url2 = config_default.url + "/panier";
+    let cart = document.getElementById("cart-content");
+    fetch(url2, {
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + token2,
+        "Content-Type": "application/json"
+      }
+    }).then((data) => {
+      data.json().then((data2) => {
+        cart.innerHTML = "";
+        let total = 0;
+        let nomSoiree = "";
+        data2.Panier.forEach((achat) => {
+          nomSoiree = achat.Soiree;
+          let div = document.createElement("div");
+          div.classList.add("achat");
+          div.innerHTML = `<h3>${nomSoiree}</h3><p>${achat.NbPlaces} place(s), Tarif ${achat.Categorie}</p><p>${achat.Montant} \u20AC</p>`;
+          total += achat.Montant;
+          cart.appendChild(div);
+          document.getElementById("cart-total").innerHTML = total;
+        });
+      });
+    });
   }
   function getAllSpectacles(url2, filter = "", value = "") {
     let loading = document.createElement("div");
@@ -6166,5 +6191,6 @@
   }
   getCreateSpectacle();
   getNavbar();
+  updateCart();
 })();
 //# sourceMappingURL=index.js.map

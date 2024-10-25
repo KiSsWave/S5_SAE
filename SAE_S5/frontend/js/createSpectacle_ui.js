@@ -15,15 +15,15 @@ async function displayCreateSpectacle() {
         const description = document.getElementById('description').value;
         const date = document.getElementById('date').value;
         const heure = document.getElementById('horaire').value;
-        let horaire = date + ' ' + heure;
+        let horaire = date + ' ' + heure+':00';
         const style = document.getElementById('style').value;
         const urlVideo = document.getElementById('urlvideo').value;
         const images = "zakkudorett.jpg";
         fetch(conf.url + '/spectacle', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({titre, description, style, urlVideo, images, horaire})
         }).then(response => {
