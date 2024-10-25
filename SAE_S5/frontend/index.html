@@ -11,18 +11,34 @@
 </head>
 
 <body>
-    <header>
-        <div id="headerTitle">
-            <img src="img/logo.png" alt="logo">
-            <h1>Nancy Rock Vibrations</h1>
-        </div>
-        <nav id="headerNav">
-
-        </nav>
-    </header>
-    <section id="main">
-
-    </section>
+    <div class="wrapper">
+        <header>
+            <div id="headerTitle">
+                <img src="img/logo.png" alt="logo">
+                <h1>Nancy Rock Vibrations</h1>
+            </div>
+            <nav id="headerNav"></nav>
+        </header>
+        <section id="main"></section>
+        <aside id="cart" class="hide">
+            <div id="cart-head">
+                <h2> <i class="fa-solid fa-cart-shopping"></i> Panier</h2>
+                <div id="close-cart">Fermer <i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+            <div id="cart-content">
+                <div id="cart-empty">
+                    <h3>Votre panier est vide</h3>
+                </div>
+            </div>
+            <div id="cart-footer">
+                <p>Total : <span id="cart-total">0</span> €</p>
+                <button id="cart-validate">Valider le panier</button>
+            </div>
+        </aside>
+        <footer>
+            <p>© 2024 - Nancy Rock Vibrations</p>
+        </footer>
+    </div>
     <script id="visiteur-template" type="text/x-handlebars-template">
         <ul>
         <li>
@@ -39,28 +55,29 @@
 
 
     <script id="utilisateur-template" type="text/x-handlebars-template">
-
+        <ul>
         <li>
-            <p href="index.html" type="button" id="accueil"> <i class="fa-solid fa-house"></i> | Accueil</p>
+            <p type="button" id="accueil"> <i class="fa-solid fa-house"></i> | Accueil</p>
         </li>
                         <li>
-            <p href="index.html" type="button" id="panier"> <i class="fa-solid fa-cart-shopping"></i> | Panier</p>
+            <p type="button" id="panier"> <i class="fa-solid fa-cart-shopping"></i> | Panier</p>
         </li>
         <li>
-            <p href="index.html" type="button" id="deconnexion"> <i class="fa-solid fa-right-from-bracket"> </i>|
+            <p type="button" id="deconnexion"> <i class="fa-solid fa-right-from-bracket"> </i>|
                 Deconnexion</p>
         </li>
-
+        </ul>
     </script>
 
     <script id="organisateur-template" type="text/x-handlebars-template">
+        <ul>
         <li>
-            <p href="index.html" type="button" id="accueil"> <i class="fa-solid fa-house"></i> | Accueil</p>
+            <p type="button" id="accueil"> <i class="fa-solid fa-house"></i> | Accueil</p>
         </li>
-        <p href="index.html" type="button" id="deconnexion"> <i class="fa-solid fa-right-from-bracket"> </i>|
+        <p type="button" id="deconnexion"> <i class="fa-solid fa-right-from-bracket"> </i>|
                 Deconnexion</p>
         </li>
-
+        </ul>
 
     </script>
 
@@ -116,7 +133,7 @@
         <div class="spectacles-container">
             {{#each this.Spectacles}}
                 <div class="spectacle" data-url="http://localhost:42050{{this.SoireeAssociee.href}}">
-                    <img src="http://localhost:42050/assets/image/{{this.Image}}" alt="{{this.Titre}}">
+                    <img src="http://localhost:42050/assets/image/{{this.Image}}" alt="{{this.Titre}}" loading="lazy">
                     <h3>{{this.Titre}}</h3>
                     <p><i class="fa-regular fa-calendar"></i> {{this.Date}}</p>
                     <p><i class="fa-solid fa-clock"></i> {{this.Horaire}}</p>
@@ -132,11 +149,11 @@
             <p><i class="fa-solid fa-clock"></i> {{this.Soiree.Horaire}} H</p>
             <div class="lieu">
                 <p><i class="fa-solid fa-location-dot"></i> {{this.Soiree.Lieu.Nom}}, {{this.Soiree.Lieu.Adresse}}</p>
-                <img src="http://localhost:42050/assets/image/{{this.Soiree.Lieu.Images}}" alt="lieu">
+                <img src="http://localhost:42050/assets/image/{{this.Soiree.Lieu.Images}}" alt="lieu" loading="lazy">
             </div>
             <div class="tarifs">
-                <button>Tarif normal : {{this.Soiree.Tarif}} €</button>
                 <button>Tarif réduit : {{this.Soiree.TarifReduit}} €</button>
+                <button>Tarif normal : {{this.Soiree.Tarif}} €</button>
             </div>
             <h3>Spectacles proposés :</h3>
             <div class="spectacle-container">
@@ -159,71 +176,6 @@
             </div>
         </div>
     </script>
-
-    <script id="research-template" type="text/x-handlebars-template">
-        <div id="research-container">
-            <span><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Rechercher une soirée, un spectacle ..."></span>
-            <div id="filter">
-                <div class="filter-entry">
-                <h2><i class="fa-solid fa-filter"></i> Filtre :</h2>
-                <select name="filter" id="choose-filter" class="search-select">
-                    <option value="none">Aucun</option>
-                    <option value="style">Style</option>
-                    <option value="date">Date</option>
-                    <option value="lieu">Lieu</option>
-                </select>
-                </div>
-                <div class="filter-entry hide">
-                    <h2>&rightarrow;</h2>
-                    <select name="filterValue" id="filter-value" class="search-select"></select>
-                </div>
-            </div>
-        </div>
-        <div class="date-container">
-            <h2><i class="fa-regular fa-calendar"></i> 12 Janvier 2025</h2>
-            <div class="soiree-container">
-                <div class="soiree">
-                    <img src="https://th.bing.com/th/id/OIP.Bp0HWZetmf3OJMeASRrwowHaEK?rs=1&pid=ImgDetMain" alt="">
-                    <h3>Soirée 1 - Style</h3>
-                    <p>19h00 | 14 Avenue du Lorem Ipsum</p>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci aut dolores nemo cupiditate vero, repellat, esse debitis corporis pariatur exercitationem voluptates, sapiente ab. Molestias, alias! Possimus dicta voluptatem aliquam quidem?</p>
-                    <button>Voir le détail</button>
-                </div>
-                <div class="soiree">
-                    <img src="https://th.bing.com/th/id/OIP.Bp0HWZetmf3OJMeASRrwowHaEK?rs=1&pid=ImgDetMain" alt="">
-                    <h3>Soirée 2 - Style</h3>
-                    <p>20h00 | 14 Avenue du Lorem Ipsum</p>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci aut dolores nemo cupiditate vero, repellat, esse debitis corporis pariatur exercitationem voluptates, sapiente ab. Molestias, alias! Possimus dicta voluptatem aliquam quidem?</p>
-                    <button>Voir le détail</button>
-                </div>
-                <div class="soiree">
-                    <img src="https://th.bing.com/th/id/OIP.Bp0HWZetmf3OJMeASRrwowHaEK?rs=1&pid=ImgDetMain" alt="">
-                    <h3>Soirée 3 - Style</h3>
-                    <p>21h00 | 14 Avenue du Lorem Ipsum</p>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci aut dolores nemo cupiditate vero, repellat, esse debitis corporis pariatur exercitationem voluptates, sapiente ab. Molestias, alias! Possimus dicta voluptatem aliquam quidem?</p>
-                    <button>Voir le détail</button>
-                </div>
-            </div>
-        </div>
-        <div class="date-container">
-            <h2><i class="fa-regular fa-calendar"></i> 13 Janvier 2025</h2>
-            <div class="soiree-container">
-                <div class="soiree">
-                    <img src="https://th.bing.com/th/id/OIP.Bp0HWZetmf3OJMeASRrwowHaEK?rs=1&pid=ImgDetMain" alt="">
-                    <h3>Soirée 1 - Style</h3>
-                    <p>19h00 | 14 Avenue du Lorem Ipsum</p>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci aut dolores nemo cupiditate vero, repellat, esse debitis corporis pariatur exercitationem voluptates, sapiente ab. Molestias, alias! Possimus dicta voluptatem aliquam quidem?</p>
-                    <button>Voir le détail</button>
-                </div>
-            </div>
-        </div>
-        </script>
-    <div id="popup-bg" class="hide">
-        <div id="popup">
-
-        </div>
-    </div>
-    </section>
     <script src='./js/index.js' defer></script>
 </body>
 

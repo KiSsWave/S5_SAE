@@ -4,8 +4,20 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-.hide {
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+body .hide {
   display: none;
+}
+body .wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body .wrapper #main {
+  flex: 1;
 }
 
 header {
@@ -43,58 +55,16 @@ header nav ul li p {
 }
 header nav ul li p:hover {
   color: #ff4800;
+  cursor: pointer;
 }
 
-section .date-container {
-  padding: 10px;
-  border-bottom: 1px solid black;
-}
-section .date-container h2 {
-  margin: 10px;
-}
-section .date-container h2 i {
-  padding: 5px;
-}
-section .date-container .soiree-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-}
-section .date-container .soiree-container .soiree {
-  margin: 10px;
-  text-align: center;
-  box-shadow: 0 2px 5px rgb(0, 0, 0);
-}
-section .date-container .soiree-container .soiree img {
-  width: 100%;
-}
-section .date-container .soiree-container .soiree p, section .date-container .soiree-container .soiree h3 {
-  text-align: justify;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 10px;
-}
-section .date-container .soiree-container .soiree button {
-  background: none;
-  color: black;
-  padding: 15px;
-  margin: 10px;
-  border-radius: 15px;
-  transition: 0.24s;
-  font-size: medium;
-  width: 90%;
-}
-section .date-container .soiree-container .soiree button:hover {
-  cursor: pointer;
-  background-color: #222;
-  color: #ff4800;
-}
 section #filter {
   display: flex;
 }
-section #filter .filter-entry {
+section .filter-entry {
   display: flex;
 }
-section #filter .hide {
+section .hide {
   display: none;
 }
 section #research-container {
@@ -177,7 +147,7 @@ section #research-container input {
   width: fit-content;
 }
 .soiree .lieu img {
-  width: 100%;
+  width: 472px;
   aspect-ratio: 16/9;
 }
 .soiree .lieu p {
@@ -274,6 +244,151 @@ section #research-container input {
 .connexion a:hover {
   color: #ff4800;
   text-decoration: underline;
+}
+
+footer {
+  width: 100%;
+  background-color: #000000;
+  padding: 10px 0;
+  text-align: center;
+  color: #ffffff;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+#cart {
+  height: 100%;
+  min-width: 20vw;
+  max-width: 30vw;
+  background-color: white;
+  position: absolute;
+  right: 0%;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+#cart #cart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #000000;
+  color: white;
+}
+#cart #cart-head h2 {
+  text-align: center;
+  padding: 10px;
+}
+#cart #cart-head #close-cart {
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.24s;
+  color: white;
+  background-color: #ff4800;
+}
+#cart #cart-head #close-cart:hover {
+  color: black;
+}
+#cart #cart-content {
+  text-align: center;
+  flex-grow: 1;
+}
+#cart #cart-footer {
+  text-align: center;
+  font-size: larger;
+}
+#cart #cart-footer button {
+  margin: 20px;
+  padding: 20px;
+  width: 60%;
+  background: none;
+  transition: 0.24s;
+}
+#cart #cart-footer button:hover {
+  background-color: black;
+  color: #ff4800;
+  cursor: pointer;
+}
+
+#cart.hide {
+  transform: translateY(-50%) translateX(100%);
+}
+
+.paiement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.paiement h1 {
+  font-size: 30px;
+}
+.paiement form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 20px;
+  text-align: center;
+  border: solid 1px black;
+  width: 30vw;
+  padding: 10px;
+}
+.paiement .group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 0px;
+  font-size: 30px;
+}
+.paiement .group label {
+  font-size: 20px;
+  width: 50%;
+  margin-top: 20px;
+}
+.paiement .logos {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-left: 20px;
+}
+.paiement i {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 33px;
+}
+.paiement input:checked + label i {
+  border: solid 1px red;
+  font-size: 45px;
+}
+.paiement .box {
+  box-shadow: 0 1px 1px black;
+}
+.paiement label {
+  font-style: italic;
+  margin-right: 30px;
+  margin-left: -10px;
+  margin-bottom: 30px;
+}
+.paiement .button {
+  margin-left: 15px;
+  border-radius: 30px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: grey;
+  cursor: pointer;
+  color: black;
+}
+.paiement .valider {
+  background-color: lime;
+  color: black;
+}
+.paiement .button:hover {
+  background-color: black;
+  color: white;
 }
 
 /*# sourceMappingURL=style.css.map */

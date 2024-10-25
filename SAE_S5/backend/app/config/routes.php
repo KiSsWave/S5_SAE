@@ -26,6 +26,7 @@ return function( \Slim\App $app):\Slim\App {
     $app->group('', function () use ($app){
         $app->get('/panier', \nrv\application\action\GetPanierAction::class);
 
+        $app->post('/create', \nrv\application\action\CreerPanierAction::class);
     })->add(\nrv\application\middleware\AuthnMiddleware::class);
 
     $app->options('/{routes:.+}', function (Request $request, Response $response, array $args): Response {

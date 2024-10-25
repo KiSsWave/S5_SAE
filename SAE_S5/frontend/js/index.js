@@ -24,6 +24,26 @@
     isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
     mod
   ));
+  var __async = (__this, __arguments, generator) => {
+    return new Promise((resolve, reject) => {
+      var fulfilled = (value) => {
+        try {
+          step(generator.next(value));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var rejected = (value) => {
+        try {
+          step(generator.throw(value));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+      step((generator = generator.apply(__this, __arguments)).next());
+    });
+  };
 
   // node_modules/handlebars/dist/cjs/handlebars/utils.js
   var require_utils = __commonJS({
@@ -2974,34 +2994,34 @@
       }
       exports.urlParse = urlParse;
       function urlGenerate(aParsedUrl) {
-        var url = "";
+        var url2 = "";
         if (aParsedUrl.scheme) {
-          url += aParsedUrl.scheme + ":";
+          url2 += aParsedUrl.scheme + ":";
         }
-        url += "//";
+        url2 += "//";
         if (aParsedUrl.auth) {
-          url += aParsedUrl.auth + "@";
+          url2 += aParsedUrl.auth + "@";
         }
         if (aParsedUrl.host) {
-          url += aParsedUrl.host;
+          url2 += aParsedUrl.host;
         }
         if (aParsedUrl.port) {
-          url += ":" + aParsedUrl.port;
+          url2 += ":" + aParsedUrl.port;
         }
         if (aParsedUrl.path) {
-          url += aParsedUrl.path;
+          url2 += aParsedUrl.path;
         }
-        return url;
+        return url2;
       }
       exports.urlGenerate = urlGenerate;
       function normalize(aPath) {
         var path = aPath;
-        var url = urlParse(aPath);
-        if (url) {
-          if (!url.path) {
+        var url2 = urlParse(aPath);
+        if (url2) {
+          if (!url2.path) {
             return aPath;
           }
-          path = url.path;
+          path = url2.path;
         }
         var isAbsolute = exports.isAbsolute(path);
         var parts = path.split(/\/+/);
@@ -3025,9 +3045,9 @@
         if (path === "") {
           path = isAbsolute ? "/" : ".";
         }
-        if (url) {
-          url.path = path;
-          return urlGenerate(url);
+        if (url2) {
+          url2.path = path;
+          return urlGenerate(url2);
         }
         return path;
       }
@@ -4105,13 +4125,13 @@
         if (this.sourceRoot != null) {
           relativeSource = util.relative(this.sourceRoot, relativeSource);
         }
-        var url;
-        if (this.sourceRoot != null && (url = util.urlParse(this.sourceRoot))) {
+        var url2;
+        if (this.sourceRoot != null && (url2 = util.urlParse(this.sourceRoot))) {
           var fileUriAbsPath = relativeSource.replace(/^file:\/\//, "");
-          if (url.scheme == "file" && this._sources.has(fileUriAbsPath)) {
+          if (url2.scheme == "file" && this._sources.has(fileUriAbsPath)) {
             return this.sourcesContent[this._sources.indexOf(fileUriAbsPath)];
           }
-          if ((!url.path || url.path == "/") && this._sources.has("/" + relativeSource)) {
+          if ((!url2.path || url2.path == "/") && this._sources.has("/" + relativeSource)) {
             return this.sourcesContent[this._sources.indexOf("/" + relativeSource)];
           }
         }
@@ -5695,20 +5715,139 @@
     }
   });
 
+  // js/config.js
+  var url = "http://localhost:42050";
+  var imgurl = "http://localhost:42050/assets/image/";
+  var config_default = { url, imgurl };
+
   // js/loader.js
   var token = localStorage.getItem("token");
+  function loadSpectacle(url2) {
+    return __async(this, null, function* () {
+      return fetch(url2).catch((error) => {
+        console.error("Erreur lors de la r\xE9cup\xE9ration du spectacle");
+      });
+    });
+  }
+  function loadSoiree(url2) {
+    return __async(this, null, function* () {
+      return fetch(url2).catch((error) => {
+        console.error("Erreur lors de la r\xE9cup\xE9ration de la soir\xE9e");
+      });
+    });
+  }
+  function loadAllSpectacles(url2, filter = "", value = "") {
+    return __async(this, null, function* () {
+      if (filter != "none") {
+        url2 += `?${filter}=${value}`;
+      }
+      return fetch(url2).catch((error) => {
+        console.error("Erreur lors de la r\xE9cup\xE9ration de la liste des spectacles");
+      });
+    });
+  }
+  var loader_default = { loadSoiree, loadSpectacle, loadAllSpectacles };
 
   // js/soiree_ui.js
   var import_handlebars = __toESM(require_handlebars());
+  function displaySoiree(Soiree) {
+    return __async(this, null, function* () {
+      let spectacles = [];
+      for (const spectacle of Soiree.Spectacles) {
+        const loadedSpectacle = yield loader_default.loadSpectacle(config_default.url + spectacle).then((data) => data.json());
+        spectacles.push(loadedSpectacle);
+      }
+      spectacles.sort((a, b) => a.Spectacle.Horaire.localeCompare(b.Spectacle.Horaire));
+      const container = document.getElementById("main");
+      const templateSource = document.getElementById("soiree-template").innerHTML;
+      const template = import_handlebars.default.compile(templateSource);
+      let html = template({ Soiree, spectacles });
+      container.innerHTML = html;
+    });
+  }
+  var soiree_ui_default = { displaySoiree };
 
   // js/allSpectacle_ui.js
   var import_handlebars2 = __toESM(require_handlebars());
+  function displayAllSpectacles(Spectacles) {
+    return __async(this, null, function* () {
+      const container = document.getElementById("main");
+      const templateSource = document.getElementById("liste-spectacle-template").innerHTML;
+      const template = import_handlebars2.default.compile(templateSource);
+      let html = template({ Spectacles });
+      container.innerHTML = html;
+    });
+  }
+  var allSpectacle_ui_default = { displayAllSpectacles };
 
   // js/connexion_ui.js
   var import_handlebars3 = __toESM(require_handlebars());
+  function displayConnexion() {
+    const container = document.getElementById("main");
+    const templateSource = document.getElementById("connexion-template").innerHTML;
+    const template = import_handlebars3.default.compile(templateSource);
+    let html = template();
+    container.innerHTML = html;
+    const form = document.getElementById("connexion-form");
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      fetch(config_default.url + "/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      }).then((response) => {
+        if (response.status === 200) {
+          response.json().then((data) => {
+            localStorage.setItem("token", data.token);
+            window.location.href = "/index.html";
+          });
+        } else {
+          alert("Email ou mot de passe incorrect");
+        }
+      });
+    });
+  }
+  var connexion_ui_default = { displayConnexion };
 
   // js/inscription_ui.js
   var import_handlebars4 = __toESM(require_handlebars());
+  function displayInscription() {
+    const container = document.getElementById("main");
+    const templateSource = document.getElementById("inscription-template").innerHTML;
+    const template = import_handlebars4.default.compile(templateSource);
+    let html = template();
+    container.innerHTML = html;
+    const form = document.getElementById("inscription-form");
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const nom = document.getElementById("nom").value;
+      const prenom = document.getElementById("prenom").value;
+      const numerotel = document.getElementById("numerotel").value;
+      const birthdate = document.getElementById("birthdate").value;
+      const eligible = document.getElementById("eligible").value;
+      const role = 1;
+      fetch(config_default.url + "/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password, nom, prenom, numerotel, birthdate, eligible, role })
+      }).then((response) => {
+        if (response.status === 200) {
+          connexion_ui_default.displayConnexion();
+        } else {
+          alert("Email d\xE9j\xE0 utilis\xE9");
+        }
+      });
+    });
+  }
+  var inscription_ui_default = { displayInscription };
 
   // js/navbar_ui.js
   var import_handlebars5 = __toESM(require_handlebars());
@@ -5738,10 +5877,161 @@
   var navbar_ui_default = { displayOrganisateurCo, displayVisiteurCo, displayVisiteurNonCo };
 
   // index.js
+  function getSoiree(url2) {
+    loader_default.loadSoiree(url2).then((data) => {
+      data.json().then((data2) => __async(this, null, function* () {
+        yield soiree_ui_default.displaySoiree(data2.Soiree);
+      }));
+    });
+  }
+  function getAllSpectacles(url2, filter = "", value = "") {
+    let styles = [];
+    let dates = [];
+    let lieux = [];
+    styles.push("Aucun");
+    dates.push("Aucun");
+    lieux.push("Aucun");
+    loader_default.loadAllSpectacles(url2, filter, value).then((data) => {
+      data.json().then((data2) => __async(this, null, function* () {
+        data2.Spectacles.sort((a, b) => a.Horaire.localeCompare(b.Horaire));
+        yield allSpectacle_ui_default.displayAllSpectacles(data2.Spectacles);
+        if (filter == "none") {
+          document.querySelector("#filter-value-container").classList.add("hide");
+        }
+        document.querySelectorAll(".spectacle").forEach((spectacle) => {
+          spectacle.addEventListener("click", () => {
+            getSoiree(spectacle.getAttribute("data-url"));
+          });
+        });
+        document.querySelector("#choose-filter").value = filter;
+        document.querySelector("#choose-filter").addEventListener("input", () => {
+          if (document.querySelector("#choose-filter").value == "none") {
+            document.querySelector("#filter-value-container").classList.add("hide");
+            if (value != "")
+              getAllSpectacles(url2, document.querySelector("#choose-filter").value, "");
+          } else {
+            document.querySelector("#filter-value-container").classList.remove("hide");
+            if (document.querySelector("#choose-filter").value == "style") {
+              document.querySelector("#filter-value").innerHTML = "";
+              styles.forEach((style) => {
+                let option = document.createElement("option");
+                option.value = style;
+                option.innerHTML = style;
+                document.querySelector("#filter-value").appendChild(option);
+              });
+            } else if (document.querySelector("#choose-filter").value == "date") {
+              document.querySelector("#filter-value").innerHTML = "";
+              dates.forEach((date) => {
+                let option = document.createElement("option");
+                option.value = date;
+                option.innerHTML = date;
+                document.querySelector("#filter-value").appendChild(option);
+              });
+            } else if (document.querySelector("#choose-filter").value == "lieu") {
+              document.querySelector("#filter-value").innerHTML = "";
+              lieux.forEach((lieu) => {
+                let option = document.createElement("option");
+                option.value = lieu;
+                option.innerHTML = lieu;
+                document.querySelector("#filter-value").appendChild(option);
+              });
+            }
+          }
+        });
+        document.querySelector("#filter-value").addEventListener("input", () => {
+          if (document.querySelector("#filter-value").value != "Aucun") {
+            getAllSpectacles(url2, document.querySelector("#choose-filter").value, document.querySelector("#filter-value").value);
+          } else {
+            getAllSpectacles(url2, document.querySelector("#choose-filter").value, "");
+          }
+        });
+      }));
+    });
+    loader_default.loadAllSpectacles(url2).then((dataAll) => {
+      dataAll.json().then((dataAll2) => __async(this, null, function* () {
+        dataAll2.Spectacles.forEach((spectacle) => {
+          if (!styles.includes(spectacle.Style)) {
+            styles.push(spectacle.Style);
+          }
+        });
+        dataAll2.Spectacles.forEach((spectacle) => {
+          if (!dates.includes(spectacle.Date)) {
+            dates.push(spectacle.Date);
+          }
+        });
+        dataAll2.Spectacles.forEach((spectacle) => {
+          loader_default.loadSoiree(config_default.url + spectacle.SoireeAssociee.href).then((data) => {
+            data.json().then((data2) => {
+              if (!lieux.includes(data2.Soiree.Lieu.Nom)) {
+                lieux.push(data2.Soiree.Lieu.Nom);
+              }
+            });
+          });
+        });
+        if (filter == "style") {
+          document.querySelector("#filter-value").innerHTML = "";
+          styles.forEach((style) => {
+            let option = document.createElement("option");
+            option.value = style;
+            option.innerHTML = style;
+            document.querySelector("#filter-value").appendChild(option);
+          });
+          document.querySelector("#filter-value").value = value;
+        } else if (filter == "date") {
+          document.querySelector("#filter-value").innerHTML = "";
+          dates.forEach((date) => {
+            let option = document.createElement("option");
+            option.value = date;
+            option.innerHTML = date;
+            document.querySelector("#filter-value").appendChild(option);
+          });
+          document.querySelector("#filter-value").value = value;
+        } else if (filter == "lieu") {
+          document.querySelector("#filter-value").innerHTML = "";
+          lieux.forEach((lieu) => {
+            let option = document.createElement("option");
+            option.value = lieu;
+            option.innerHTML = lieu;
+            document.querySelector("#filter-value").appendChild(option);
+          });
+          document.querySelector("#filter-value").value = value;
+        }
+      }));
+    });
+  }
+  function getConnexion() {
+    connexion_ui_default.displayConnexion();
+  }
+  function getInscription() {
+    inscription_ui_default.displayInscription();
+  }
+  getAllSpectacles(config_default.url + "/spectacles", "none", "");
   if (localStorage.getItem("token") != null) {
     navbar_ui_default.displayVisiteurCo();
+    document.getElementById("accueil").addEventListener("click", () => {
+      getAllSpectacles(config_default.url + "/spectacles", "none", "");
+    });
+    document.getElementById("deconnexion").addEventListener("click", () => {
+      localStorage.removeItem("token");
+      window.location.href = "/index.html";
+    });
+    document.getElementById("panier").addEventListener("click", () => {
+      document.getElementById("cart").classList.remove("hide");
+    });
+    document.getElementById("close-cart").addEventListener("click", () => {
+      document.getElementById("cart").classList.add("hide");
+    });
   } else {
     navbar_ui_default.displayVisiteurNonCo();
+    document.getElementById("accueil").addEventListener("click", () => {
+      getAllSpectacles(config_default.url + "/spectacles", "none", "");
+    });
+    document.getElementById("connexion").addEventListener("click", () => {
+      getConnexion();
+    });
+    document.getElementById("inscription").addEventListener("click", () => {
+      getInscription();
+    });
   }
 })();
 //# sourceMappingURL=index.js.map

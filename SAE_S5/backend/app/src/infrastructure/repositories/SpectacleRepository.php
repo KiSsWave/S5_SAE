@@ -68,7 +68,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface
 
     public function getSpectaclesFiltres(?DateTime $date = null, ?string $style = null, ?string $lieu = null): array
     {
-        $query = "SELECT s.*, l.nom FROM spectacles s
+        $query = "SELECT DISTINCT s.* FROM spectacles s
               JOIN SPECTACLESOIREE ss ON s.id = ss.id_spectacle
               JOIN soirees so ON ss.id_soiree = so.id
               JOIN LIEUX l ON so.lieusoiree = l.id

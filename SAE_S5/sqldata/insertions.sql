@@ -26,7 +26,8 @@ INSERT INTO SPECTACLES (ID, titre, description, images, urlVideo, style, horaire
 ('SP7', 'Jazz dans les Rues', 'Un concert en plein air avec des artistes locaux.', 'jazz_rues.jpg', 'https://www.youtube.com/embed/jft3BVoxqjo?si=ggeMaAGAhDye_EqE', 'Jazz', '2024-12-05 18:00:00+00'),
 ('SP8', 'Opéra : La Traviata', 'Interprétation de l’opéra classique.', 'traviata.jpg', 'https://www.youtube.com/embed/afhAqMeeQJk?si=4s7xs2qaNyTziXWz', 'Opéra', '2024-12-30 20:00:00+00'),
 ('SP9', 'Concert de Variété', 'Un mélange de pop et de rock.', 'variete.jpg', 'https://www.youtube.com/embed/Z8lUW9SKquY?si=rLjn36Bm0iY3Q_rQ', 'Variété', '2024-12-31 22:30:00+00'),
-('SP10', 'Nuit Improvisation', 'Un spectacle improvisation théâtrale.', 'impro.jpg', 'https://www.youtube.com/embed/CUqyqqwKIfg?si=qs7JgpeCyBDlt2kz', 'Théâtre', '2024-12-31 23:00:00+00');
+('SP10', 'Nuit Improvisation', 'Un spectacle improvisation théâtrale.', 'impro.jpg', 'https://www.youtube.com/embed/CUqyqqwKIfg?si=qs7JgpeCyBDlt2kz', 'Théâtre', '2024-12-31 23:00:00+00'),
+('SP11', 'Concert de Zack', 'Un concert de Zack Pedretti.', 'zakkudorett.jpg', 'https://www.youtube.com/embed/wyflqZCY1_s?si=VzLduod6M5uMOKBz', 'Experimental', '2024-12-31 23:30:00+00');
 
 INSERT INTO USERS (ID, email, passwd, nom, prenom, numeroTel, birthdate, eligible, role) VALUES
 ('550e8400-e29b-41d4-a716-446655440000', 'user1@example.com', '$2y$10$eytz.9OZqI3m/YkxUYVJm.nOwVtT5RTOOZWG/NLamFHw6yoUuBo72', 'Dupont', 'Jean', '0612345678', '1990-05-15', TRUE, 1),
@@ -64,7 +65,8 @@ INSERT INTO ARTISTES (ID_artiste, pseudonyme, nom, prenom) VALUES
 ('A7', '', 'Ma', 'Yo-Yo'),
 ('A8', '', 'Gordon', 'Sting'),
 ('A9', '', 'Simone', 'Nina'),
-('A10', '', 'Wolfgang', 'Mozart');
+('A10', '', 'Wolfgang', 'Mozart'),
+('A11', 'Zakku Dorett', 'Pedretti', 'Zack');
 
 INSERT INTO ARTISTESPECTACLE (ID_artiste, ID_spectacle) VALUES
 ('A1', 'SP1'),
@@ -77,17 +79,18 @@ INSERT INTO ARTISTESPECTACLE (ID_artiste, ID_spectacle) VALUES
 ('A7', 'SP3'),
 ('A8', 'SP2'),
 ('A9', 'SP8'),
-('A10', 'SP9');
+('A10', 'SP9'),
+('A11', 'SP11');
 
 INSERT INTO SPECTACLESOIREE (ID_soiree, ID_spectacle) VALUES
 ('S001', 'SP1'),
 ('S001', 'SP2'),
-('S002', 'SP2'),
 ('S003', 'SP3'),
 ('S004', 'SP4'),
 ('S004', 'SP5'),
 ('S005', 'SP6'),
 ('S006', 'SP7'),
 ('S007', 'SP8'),
-('S0010', 'SP9');
-('S009', 'SP10');
+('S0010', 'SP9'),
+('S009', 'SP10'),
+('S0010', 'SP11');
