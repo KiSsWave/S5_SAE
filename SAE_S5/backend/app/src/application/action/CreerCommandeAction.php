@@ -17,8 +17,9 @@ class CreerCommandeAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $user = $rq->getAttribute('auth');
-        $iduser = $user->id;
+
+       $user = $rq->getAttribute('auth');
+       $iduser = $user->id;
 
         try {
 

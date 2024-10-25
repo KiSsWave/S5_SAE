@@ -101,6 +101,28 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $paniers;
     }
 
+    public function getCommandesByUser(string $iduser) : array
+    {
+        $stmt = $this->pdo->prepare("
+        SELECT * 
+        FROM commandes 
+        WHERE iduser = :iduser
+    ");
+        $stmt->execute(['iduser' => $iduser]);
+        $commandesData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $commandes = [];
+        foreach ($commandesData as $commandeData) {
+            $dateAchat = new DateTime($commandeData['date_achat']);
+            $commandes[] = new Commande(
+                $commandeData['idsoiree'],
+                $dateAchat,
+                $commandeData['placesvendues']
+            );
+        }
+        return $commandes;
+
+    }
+
 
 
 
@@ -257,21 +279,6 @@ class SoireeRepository implements SoireeRepositoryInterface
             'placesvendues' => $placesvendues
         ]);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

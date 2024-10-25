@@ -24,5 +24,10 @@ interface SoireeServiceInterface
 
     public function recuperationPanier(string $iduser): array;
 
+    public function recuperationCommandesByUser(string $iduser): array;
+
+    public function creationCommande(string $iduser): array;
+
+
 
 }

@@ -114,6 +114,17 @@ class SoireeService implements SoireeServiceInterface
         return $commandes;
     }
 
+    public function recuperationCommandesByUser(string $iduser): array
+    {
+        $commandes = $this->soireeRepository->getCommandesByUser($iduser);
+        $commandesDTO = [];
+        foreach ($commandes as $commande) {
+            $commandesDTO[] = new CommandeDTO($commande, $iduser);
+        }
+        return $commandesDTO;
+    }
+
+
 
 
 
