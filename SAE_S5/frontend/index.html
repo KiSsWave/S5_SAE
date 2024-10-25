@@ -54,6 +54,57 @@
     </script>
 
 
+    <script id="paiement-template" type="text/x-handlebars-template">
+        <div class="paiement">
+            <form>
+                <h1>Paiement</h1>
+                <div class="group">
+                    <label>Votre moyen de paiement :</label>
+                    <div class="logos">
+                    
+                        <div class="logo-container">
+                            <input type="radio" id="visaRadio" name="paymentMethod" hidden>
+                            <label for="visaRadio">
+                                <i class="fa-brands fa-cc-visa fa-2l" style="color: #74C0FC;" id="visa"></i>
+                            </label>
+                        </div>
+        
+                        <div class="logo-container">
+                            <input type="radio" id="mastercardRadio" name="paymentMethod" hidden>
+                            <label for="mastercardRadio">
+                                <i class="fa-brands fa-cc-mastercard fa-2l" style="color: red;" id="mastercard"></i>
+                            </label>
+                        </div>
+        
+                        <div class="logo-container">
+                            <input type="radio" id="paypalRadio" name="paymentMethod" hidden>
+                            <label for="paypalRadio">
+                                <i class="fa-brands fa-cc-paypal fa-2l" style="color: #4000ff;" id="paypal"></i>
+                            </label>
+                        </div>
+     
+                        <div class="logo-container">
+                            <input type="radio" id="ApplePayRadio" name="paymentMethod" hidden>
+                            <label for="ApplePayRadio">
+                                <i class="fa-brands fa-cc-apple-pay fa-2l" style="color: black;" id="ApplePay"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+        
+                <label>Saisir le titulaire de la carte : <input type="text" class="box" required></label>
+                <label>Saisir le numéro de carte : <input type="text" class="box" required></label>
+                <label>Saisir le code de sécurité : <input type="password" class="box" required></label>
+        
+                <div>
+                    <input type="button" value="Annuler" class="button">
+                    <input type="button" value="Valider" class="button valider">
+                </div>
+            </form>
+        </div>    
+    </script>
+
+
     <script id="utilisateur-template" type="text/x-handlebars-template">
         <ul>
         <li>
