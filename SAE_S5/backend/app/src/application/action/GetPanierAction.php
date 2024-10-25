@@ -24,35 +24,40 @@ class GetPanierAction extends AbstractAction
         try {
             $paniers = $this->soireeService->recuperationPanier($userid);
 
+
             $resultat = [
                 "Panier" => []
             ];
+            foreach ($paniers as $panier) {
+                $soiree = $this->soireeService->afficherSoiree($panier->idsoiree);
 
-            foreach ($paniers as $panierDTO) {
-                $resultat["Panier"][] = [
-                    "idSoiree" => $panierDTO->idsoiree,
-                    "idUser" => $panierDTO->iduser,
-                    "NbPlaces" => $panierDTO->nbplaces,
-                    "Categorie" => $panierDTO->categorie,
-                    "Montant" => $panierDTO->montant,
-                    "links" => [
-                        "self" => [
-                            "href" => "/panier/" . $panierDTO->idsoiree
+
+                foreach ($paniers as $panierDTO) {
+                    $resultat["Panier"][] = [
+                        "idSoiree" => $panierDTO->idsoiree,
+                        "idUser" => $panierDTO->iduser,
+                        "NbPlaces" => $panierDTO->nbplaces,
+                        "Categorie" => $panierDTO->categorie,
+                        "Montant" => $panierDTO->montant,
+                        "Soiree" => $soiree,
+                        "links" => [
+                            "self" => [
+                                "href" => "/panier/" . $panierDTO->idsoiree
+                            ]
                         ]
-                    ]
-                ];
+                    ];
+                }
             }
-
             $rs->getBody()->write(json_encode($resultat));
             return $rs
                 ->withHeader('Content-Type', 'application/json')
                 ->withStatus(200);
-
-        } catch (\Exception $e) {
-            $rs->getBody()->write(json_encode(['error' => 'Erreur lors de la récupération du panier']));
-            return $rs
-                ->withHeader('Content-Type', 'application/json')
-                ->withStatus(500);
-        }
+        }catch(\Exception $e) {
+                $rs->getBody()->write(json_encode(['error' => 'Erreur lors de la récupération du panier']));
+                return $rs
+                    ->withHeader('Content-Type', 'application/json')
+                    ->withStatus(500);
+            }
     }
 }
+
