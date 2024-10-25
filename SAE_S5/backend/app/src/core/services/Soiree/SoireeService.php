@@ -65,4 +65,16 @@ class SoireeService implements SoireeServiceInterface
         $this->soireeRepository->creerPanier($idsoiree, $iduser,$montant,$categorie, $nbplaces);
         return new PanierDTO($idsoiree, $iduser, $montant, $categorie, $nbplaces);
     }
+
+    public function recuperationPanier(string $iduser)
+    {
+        $paniers = $this->soireeRepository->getPanierByUser($iduser);
+        $paniersDTO = [];
+        foreach ($paniers as $panier) {
+            $paniersDTO[] = new PanierDTO($panier['idsoiree'], $panier['iduser'], $panier['montant'], $panier['categorie'], $panier['nbplaces']);
+        }
+        return $paniersDTO;
+    }
+
+
 }
