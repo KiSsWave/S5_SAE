@@ -1,64 +1,109 @@
 .paiement
-    display: flex
-    flex-direction: column
-    align-items: center
+    display: grid
+    grid-template-columns: 1fr 40vw
+    column-gap: 20px 
 
     h1
         font-size: 30px
 
+    .box
+        box-shadow: 0 5px 5px black
+        margin-bottom: 10px
+        padding: 8px
+
+    .recap
+        display: flex
+        flex-direction: column
+        padding: 20px
+
+        label
+            display: flex
+            align-items: center
+            margin-bottom: 10px
+            font-size: 20px 
+
+        .group
+            display: flex
+            align-items: center
+            font-size: 10px
+            width: 100%
+            margin-bottom: 20px
+            gap: 10px
+            flex-wrap: wrap 
+
+            p
+                font-size: 15px 
+                padding: 10px
+            
+
     form
+        grid-column: 2
         display: flex
         flex-direction: column
         align-items: center
         font-size: 20px
         text-align: center
-        border: solid 1px black
-        width: 30vw
-        padding: 10px
+        width: 100% 
+        max-width: 40vw
+        padding: 20px
+        box-sizing: border-box
 
-    .group
-        display: flex
-        align-items: center
-        margin-bottom: 20px
-        margin-top: 0px
-        font-size: 30px
+        h1
+            font-size: 30px
 
-        label
-            font-size: 20px
-            width: 50%
-            margin-top: 20px
+        .group
+            display: flex
+            align-items: center
+            font-size: 30px
+            width: 100%
+            margin-bottom: 20px
+            gap: 10px
+            flex-wrap: wrap    
 
-    .logos
-        display: flex
-        justify-content: center
-        gap: 8px
-        margin-top: 10px
-        margin-right: 5px
-        margin-left: 20px
-    i
-        cursor: pointer
-        transition: all 0.3s ease
-        font-size: 33px
+            label
+                font-size: 20px
+                white-space: nowrap 
+                width: auto 
+                margin-right: 10px 
 
-    input:checked + label i
-        border: solid 1px red
-        font-size: 45px
+            .logos
+                display: flex
+                align-items: center
+                gap: 5px 
+                flex-wrap: wrap 
 
-    .box
-        box-shadow: 0 1px 1px black
+                .logo-container
+                    display: flex
+                    align-items: center
 
+                    i
+                        font-size: 30px 
+                        transition: all 0.3s ease
+                        cursor: pointer
 
-    label
-        font-style: italic
-        margin-right: 30px
-        margin-left: -10px
-        margin-bottom: 30px
+                    input:checked + label i
+                        border: solid 1px red
+                        font-size: 35px 
+
+        .input-group
+            display: flex
+            align-items: center
+            width: 100% 
+
+            label
+                font-style: italic
+                margin-bottom: 20px
+                margin-right: 10px 
+
+            input.box
+                box-shadow: 0 1px 1px black
+                width: 100% 
+                max-width: 300px 
 
     .button
-        margin-left: 15px
+        margin: 5px
         border-radius: 30px
         padding: 10px 20px
-        margin-top: 10px
         background-color: grey
         cursor: pointer
         color: black
@@ -70,4 +115,3 @@
     .button:hover
         background-color: black
         color: white
-
