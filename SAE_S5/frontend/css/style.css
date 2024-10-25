@@ -245,14 +245,15 @@ section #research-container input {
   color: #ff4800;
   cursor: pointer;
 }
-.connexion a {
+.connexion #inscription-btn {
   color: #088da5;
   text-decoration: none;
   margin: 30px;
 }
-.connexion a:hover {
+.connexion #inscription-btn:hover {
   color: #ff4800;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 footer {

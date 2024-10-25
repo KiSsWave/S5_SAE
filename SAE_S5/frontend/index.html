@@ -156,7 +156,7 @@
                 <input type="email" class="box" id="email" placeholder="Email" required>
                 <input type="password" name="" class="box" id="password" placeholder="********" required>
                 <input type="submit" value="Se connecter" class="button">
-                <a href="" class="lien">Pas encore de compte ? S'inscrire</a>
+                <p id="inscription-btn">Pas encore de compte ? S'inscrire</a>
             </form>
         </div>
     </script>
@@ -207,9 +207,17 @@
                 </div>
             
                 <div class="add-to-cart">
-                    <p>Tarif réduit : {{this.Soiree.TarifReduit}} €</p>
-                    <input type="number" placeholder="0">
-                    <p>Tarif normal : {{this.Soiree.Tarif}} €</p>
+                    <h2>Ajouter au panier</h2>
+                    <div class="tarifs">
+                        <div class="tarif">
+                            <p>Tarif réduit : {{this.Soiree.TarifReduit}} €</p>
+                            <input type="number" placeholder="0" id="tarif-reduit">
+                        </div>
+                        <div class="tarif">
+                            <p>Tarif normal : {{this.Soiree.Tarif}} €</p>
+                            <input type="number" placeholder="0" id="tarif-normal">
+                        </div>
+                    </div>
                     <button id="add-to-cart">Ajouter au panier</button>
                 </div>
             </div>
