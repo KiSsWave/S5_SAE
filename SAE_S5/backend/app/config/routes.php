@@ -30,9 +30,6 @@ return function( \Slim\App $app):\Slim\App {
 
         $app->get('/commandes', \nrv\application\action\GetCommandeAction::class);
 
-
-
-
     })->add(\nrv\application\middleware\AuthnMiddleware::class);
 
 

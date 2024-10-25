@@ -27,6 +27,7 @@ class BilletDTO extends DTO
         $this->reference = $billet->getReference();
         $this->dateHoraireSoiree = $billet->getDateHoraireSoiree();
         $this->typeTarif = $billet->getTypeTarif();
+        $this->prix = $billet->getPrix();
     }
 }
 

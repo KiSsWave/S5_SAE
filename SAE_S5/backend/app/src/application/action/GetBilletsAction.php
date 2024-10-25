@@ -20,12 +20,13 @@ class GetBilletsAction extends AbstractAction
         $user = $rq->getAttribute('auth');
         $userid = $user->id;
 
+
         try {
             $billets = $this->soireeService->afficherBillets($userid);
 
             foreach ($billets as $b){
                 $resultat = ["Billet" => [
-                    "Acheteur" => $b->nom_acheteur,
+                    "Acheteur" => $b->nomAcheteur,
                     "Reference" => $b->reference,
                     "Date" => $b->dateHoraireSoiree->format('Y-m-d H:i:sP'),
                     "TypeTarif" => $b->typeTarif,
