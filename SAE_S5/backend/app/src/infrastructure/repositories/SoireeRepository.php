@@ -5,6 +5,7 @@ namespace nrv\infrastructure\repositories;
 use DateTime;
 use Exception;
 use nrv\core\domain\entities\Soiree\Billet;
+use nrv\core\domain\entities\Soiree\Commande;
 use nrv\core\domain\entities\Soiree\Lieu;
 use nrv\core\domain\entities\Soiree\Panier;
 use nrv\core\domain\entities\Soiree\Soiree;
@@ -215,9 +216,50 @@ class SoireeRepository implements SoireeRepositoryInterface
             echo 'Erreur d\'exécution : ' . $e->getMessage();
             throw $e;
         }
-
-
     }
+
+    public function getIdSoireesByUser(string $iduser): array
+    {
+        $stmt = $this->pdo->prepare("
+        SELECT DISTINCT idsoiree 
+        FROM Paniers 
+        WHERE iduser = :iduser
+    ");
+        $stmt->execute(['iduser' => $iduser]);
+        return $stmt->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    public function getNbPlacesByUserAndSoiree(string $iduser, string $idsoiree): int
+    {
+        $stmt = $this->pdo->prepare("
+        SELECT nbplaces 
+        FROM Paniers 
+        WHERE iduser = :iduser AND idsoiree = :idsoiree
+    ");
+        $stmt->execute([
+            'iduser' => $iduser,
+            'idsoiree' => $idsoiree
+        ]);
+        return $stmt->fetchColumn();
+    }
+
+
+    public function creerCommande(string $iduser, string $idsoiree, DateTime $date_achat, int $placesvendues): void
+    {
+        $stmt = $this->pdo->prepare("
+        INSERT INTO commandes (iduser, idsoiree, date_achat, placesvendues) 
+        VALUES (:iduser, :idsoiree, :date_achat, :placesvendues)
+    ");
+        $stmt->execute([
+            'iduser' => $iduser,
+            'idsoiree' => $idsoiree,
+            'date_achat' => $date_achat->format('Y-m-d H:i:s'),
+            'placesvendues' => $placesvendues
+        ]);
+    }
+
+
+
 
 
 

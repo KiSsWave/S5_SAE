@@ -11,24 +11,20 @@ return function( \Slim\App $app):\Slim\App {
 
     $app->post('/signin', \nrv\application\action\SignInAction::class);
     $app->post('/register', \nrv\application\action\RegisterAction::class);
-
-
     $app->post('/billets', nrv\application\action\CreateBilletAction::class);
-
-
-
-
-
 
     $app->get('/spectacles', \nrv\application\action\GetSpectaclesAction::class);
     $app->get('/spectacle/{ID-SPECTACLE}', \nrv\application\action\GetSpectaclebyIdAction::class);
     $app->get('/soiree/{ID-SOIREE}', nrv\application\action\GetSoireeByIDAction::class);
     $app->get('/lieux', nrv\application\action\GetLieuxAction::class);
 
+
     $app->group('', function () use ($app){
 
         $app->get('/panier', \nrv\application\action\GetPanierAction::class);
         $app->post('/create', \nrv\application\action\CreerPanierAction::class);
+        $app->post('/commande', \nrv\application\action\CreerCommandeAction::class);
+
 
     })->add(\nrv\application\middleware\AuthnMiddleware::class);
 
