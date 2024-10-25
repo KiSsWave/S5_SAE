@@ -199,7 +199,8 @@ class SoireeRepository implements SoireeRepositoryInterface
     {
         $stmt = $this->pdo->prepare("
         INSERT INTO Paniers (idsoiree, iduser, montant, categorie, nbplaces) 
-        VALUES (:idsoiree, :iduser, :montant, :categorie, :nbplaces)
+        VALUES (:idsoiree, :iduser, :montant, :categorie, :nbplaces)  
+        ON DUPLICATE KEY UPDATE nbplaces = nbplaces + VALUES(nbplaces), montant = montant +VALUES(montant)
     ");
         try {
             $stmt->execute([
