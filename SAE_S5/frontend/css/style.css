@@ -312,7 +312,7 @@ footer {
   height: 100%;
   width: 300px;
   background-color: white;
-  position: fixed;
+  position: absolute;
   right: 0%;
   top: 50%;
   transform: translateY(-50%);
