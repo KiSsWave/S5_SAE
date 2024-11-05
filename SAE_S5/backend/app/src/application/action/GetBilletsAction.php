@@ -29,9 +29,10 @@ class GetBilletsAction extends AbstractAction
 
             foreach ($billets as $b){
                 $resultat['Billets'][] = [
+                    "Id" => $b->ID,
                     "Acheteur" => $b->nomAcheteur,
                     "Reference" => $b->reference,
-                    "Date" => $b->dateHoraireSoiree->format('Y-m-d H:i:sP'),
+                    "Date" => $b->dateHoraireSoiree->format('Y-m-d H:i'),
                     "TypeTarif" => $b->typeTarif,
                     "prix" => $b->prix,
                 ];
@@ -42,7 +43,7 @@ class GetBilletsAction extends AbstractAction
                 ->withHeader('Content-Type', 'application/json')
                 ->withStatus(200);
         }catch (\Exception $e){
-            $rs->getBody()->write(json_encode(['error' => 'Soirée non trouvée']));
+            $rs->getBody()->write(json_encode(['error' => 'Problème lors de la récupération des billets']));
 
             return $rs
                 ->withHeader('Content-Type', 'application/json')

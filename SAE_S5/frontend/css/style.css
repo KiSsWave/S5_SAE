@@ -536,6 +536,10 @@ footer {
 .billets .print-btn-container button:hover {
   background-color: #e1e1e1;
 }
+.billets .qr img {
+  max-width: 200px;
+  height: auto;
+}
 
 @media print {
   .print-btn-container {

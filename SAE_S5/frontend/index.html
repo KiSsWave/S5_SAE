@@ -296,7 +296,7 @@
             <div class="billets">
                 {{#each this.Billets}}
                 <div class="billet">
-                    <p>Numéro de référence : {{this.Reference}}</p>
+                    <p>Numéro de référence : {{this.Reference}} - {{this.Id}}</p>
                     <div class="data">
                         <div class="soiree-ref">
                             <p>Date : {{this.Date}}</p>
@@ -308,8 +308,11 @@
                             <p>Tarif {{this.TypeTarif}}</p>
                             <p>{{this.prix}} €</p>
                         </div>
+                        
                     </div>
-                    
+                    <div class="qr">
+                        <img src="img/QR.png" alt="QR">
+                    </div>
                 </div>
                 {{/each}}
                 <div class="print-btn-container">

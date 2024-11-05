@@ -228,10 +228,10 @@ class SoireeRepository implements SoireeRepositoryInterface
     public function creerPanier(string $idSoiree, string $iduser, int $montant, string $categorie, int $nbplaces): void
     {
         $stmt = $this->pdo->prepare("
-        INSERT INTO Paniers (idsoiree, iduser, montant, categorie, nbplaces) 
-        VALUES (:idsoiree, :iduser, :montant, :categorie, :nbplaces)  
-        ON DUPLICATE KEY UPDATE nbplaces = nbplaces + VALUES(nbplaces), montant = montant +VALUES(montant)
-    ");
+    INSERT INTO Paniers (idsoiree, iduser, montant, categorie, nbplaces) 
+    VALUES (:idsoiree, :iduser, :montant, :categorie, :nbplaces)  
+");
+
         try {
             $stmt->execute([
                 'idsoiree' => $idSoiree,
@@ -290,6 +290,11 @@ class SoireeRepository implements SoireeRepositoryInterface
 
     public function creerCommande(string $iduser, string $idsoiree, DateTime $date_achat, int $placesvendues, string $typetarif): void
     {
+        $stmt = $this->pdo->prepare('DELETE FROM Paniers WHERE iduser = :id and idsoiree = :idsoiree');
+        $stmt->execute([
+            'id'=> $iduser,
+            'idsoiree'=> $idsoiree,
+        ]);
         $stmt = $this->pdo->prepare("
         INSERT INTO commandes (iduser, idsoiree, date_achat, placesvendues, typetarif) 
         VALUES (:iduser, :idsoiree, :date_achat, :placesvendues, :typetarif)
