@@ -50,7 +50,7 @@ class GetCommandeAction extends AbstractAction
                 return $rs->withHeader('Content-Type', 'application/json')->withStatus(204); // No content
             }
 
-            $rs->getBody()->write(json_encode($commandes));
+            $rs->getBody()->write(json_encode($resultat));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
         } catch (\Exception $e) {
             $rs->getBody()->write(json_encode(['error' => 'Erreur interne du serveur']));
