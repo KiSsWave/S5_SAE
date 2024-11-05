@@ -141,7 +141,7 @@ function getPaiement(){
         }
     }).then(data => {
         data.json().then(data => {
-
+            console.log(data);
             let container = document.getElementById('main');
             container.innerHTML = '';
             let templateSource = document.getElementById('paiement-template').innerHTML;

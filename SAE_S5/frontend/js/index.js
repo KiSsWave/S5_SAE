@@ -6031,6 +6031,7 @@
       }
     }).then((data) => {
       data.json().then((data2) => {
+        console.log(data2);
         let container = document.getElementById("main");
         container.innerHTML = "";
         let templateSource = document.getElementById("paiement-template").innerHTML;
