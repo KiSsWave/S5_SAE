@@ -121,8 +121,8 @@ class SoireeService implements SoireeServiceInterface
 
     public function creationCommande(string $iduser): array
     {
-        $paniers = $this->soireeRepository->getIdSoireesByUser($iduser);
         $this->soireeRepository->effacerCommandeByUserId($iduser);
+        $paniers = $this->soireeRepository->getIdSoireesByUser($iduser);
         $commandes = [];
         $date_achat = new DateTime();
 
