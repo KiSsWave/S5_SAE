@@ -33,7 +33,7 @@ class GetCommandeAction extends AbstractAction
                 if($command->typetarif == "tarif"){
                     $tarif = $this->soireeService->afficherSoiree($command->ID)->tarif*$command->placesvendues;
                 } else {
-                    $tarif = $this->soireeService->afficherSoiree($command->ID)->tarifreduit*$command->placesvendues;
+                    $tarif = $this->soireeService->afficherSoiree($command->ID)->tarifReduit*$command->placesvendues;
                 }
 
                 $resultat['Commandes'][] = [
