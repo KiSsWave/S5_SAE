@@ -5716,7 +5716,7 @@
   });
 
   // js/config.js
-  var url = "http://docketu.iutnc.univ-lorraine.fr/:42050";
+  var url = "http://docketu.iutnc.univ-lorraine.fr:42050";
   var imgurl = "http://docketu.iutnc.univ-lorraine.fr:42050/assets/image/";
   var config_default = { url, imgurl };
 
