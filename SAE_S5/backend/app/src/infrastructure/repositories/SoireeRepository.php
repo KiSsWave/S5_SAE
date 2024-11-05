@@ -63,13 +63,13 @@ class SoireeRepository implements SoireeRepositoryInterface
 
     public function effacerPanierByUserId(string $iduser): void
     {
-        $stmt = $this->pdo->prepare("DELETE FROM Paniers WHERE iduser = :iduser");
+        $stmt = $this->pdo->prepare("DELETE FROM PANIERS WHERE iduser = :iduser");
         $stmt->execute(['iduser' => $iduser]);
     }
 
     public function effacerCommandeByUserId(string $iduser): void
     {
-        $stmt = $this->pdo->prepare("DELETE FROM commandes WHERE iduser = :iduser");
+        $stmt = $this->pdo->prepare("DELETE FROM COMMANDES WHERE iduser = :iduser");
         $stmt->execute(['iduser' => $iduser]);
     }
 
