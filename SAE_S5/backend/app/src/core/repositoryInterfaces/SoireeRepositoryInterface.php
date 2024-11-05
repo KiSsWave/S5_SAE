@@ -18,6 +18,7 @@ interface SoireeRepositoryInterface
     public function creerPanier(string $idSoiree, string $iduser, int $montant, string $categorie, int $nbplaces);
 
     public function getPanierByUser(string $iduser);
+    public function effacerPanierByUserId(string $iduser);
 
     public function creerBillet(string $id_acheteur, array $commandesDTO, string $nom): array;
 

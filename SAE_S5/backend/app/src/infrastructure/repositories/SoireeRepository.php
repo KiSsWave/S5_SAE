@@ -61,6 +61,18 @@ class SoireeRepository implements SoireeRepositoryInterface
         return $lieux;
     }
 
+    public function effacerPanierByUserId(string $iduser): void
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM Paniers WHERE iduser = :iduser");
+        $stmt->execute(['iduser' => $iduser]);
+    }
+
+    public function effacerCommandeByUserId(string $iduser): void
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM commandes WHERE iduser = :iduser");
+        $stmt->execute(['iduser' => $iduser]);
+    }
+
     public function SpectaclesBySoireeID(string $id){
         $stmt = $this->pdo->prepare("SELECT * FROM SPECTACLESOIREE WHERE id_soiree = :id_soiree");
         $stmt->bindValue(':id_soiree', $id);

@@ -51,6 +51,7 @@ class SoireeService implements SoireeServiceInterface
     {
 
         $commandes = $this->soireeRepository->getCommandesByUser($data['id_acheteur']);
+        $this->soireeRepository->effacerPanierByUserId($data['id_acheteur']);
         
         $commandesDTO = [];
         foreach ($commandes as $commande) {
@@ -121,6 +122,7 @@ class SoireeService implements SoireeServiceInterface
     public function creationCommande(string $iduser): array
     {
         $paniers = $this->soireeRepository->getIdSoireesByUser($iduser);
+        $this->soireeRepository->effacerCommandeByUserId($iduser);
         $commandes = [];
         $date_achat = new DateTime();
 
