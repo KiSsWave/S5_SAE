@@ -214,8 +214,8 @@
         <h2 class="spectacle-h2">Liste des spectacles</h2>
         <div class="spectacles-container">
             {{#each this.Spectacles}}
-                <div class="spectacle" data-url="http://localhost:42050{{this.SoireeAssociee.href}}">
-                    <img src="http://localhost:42050/assets/image/{{this.Image}}" alt="{{this.Titre}}" loading="lazy">
+                <div class="spectacle" data-url="http://docketu.iutnc.univ-lorraine.fr:42050{{this.SoireeAssociee.href}}">
+                    <img src="http://docketu.iutnc.univ-lorraine.fr:42050/assets/image/{{this.Image}}" alt="{{this.Titre}}" loading="lazy">
                     <h3>{{this.Titre}}</h3>
                     <p><i class="fa-regular fa-calendar"></i> {{this.Date}}</p>
                     <p><i class="fa-solid fa-clock"></i> {{this.Horaire}}</p>
@@ -233,7 +233,7 @@
                     <p><i class="fa-solid fa-clock"></i> {{this.Soiree.Horaire}} H</p>
                     <div class="lieu">
                     <p><i class="fa-solid fa-location-dot"></i> {{this.Soiree.Lieu.Nom}}, {{this.Soiree.Lieu.Adresse}}</p>
-                    <img src="http://localhost:42050/assets/image/{{this.Soiree.Lieu.Images}}" alt="lieu" loading="lazy">
+                    <img src="http://docketu.iutnc.univ-lorraine.fr:42050/assets/image/{{this.Soiree.Lieu.Images}}" alt="lieu" loading="lazy">
                     </div>
                 </div>
             
