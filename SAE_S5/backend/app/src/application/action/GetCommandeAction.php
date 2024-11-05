@@ -20,9 +20,31 @@ class GetCommandeAction extends AbstractAction
         $user = $rq->getAttribute('auth');
         $iduser = $user->id;
 
+        $resultat = [
+            'Commandes' => []
+        ];
+
         try {
 
             $commandes = $this->soireeService->recuperationCommandesByUser($iduser);
+
+            foreach ($commandes as $command) {
+                $tarif = 0;
+                if($command.typetarif == "tarif"){
+                    $tarif = $this->soireeService->getSoireeByID($command->ID)->tarif*$command->placesvendues;
+                } else {
+                    $tarif = $this->soireeService->getSoireeByID($command->ID)->tarifreduit*$command->placesvendues;
+                }
+
+                $resultat['Commandes'][] = [
+                    "iduser" => $command->iduser,
+                    "Reference" => $command->idsoiree,
+                    "Date" => $command->date_achat->format('Y-m-d H:i'),
+                    "Places" => $command->placesvendues,
+                    "TypeTarif" => $command->typetarif,
+                    "prix" => $tarif,
+                ];
+            }
 
             if (empty($commandes)) {
                 return $rs->withHeader('Content-Type', 'application/json')->withStatus(204); // No content
