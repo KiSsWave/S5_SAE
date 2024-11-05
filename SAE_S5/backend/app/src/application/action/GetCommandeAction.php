@@ -42,7 +42,7 @@ class GetCommandeAction extends AbstractAction
                     "Date" => $command->date_achat->format('Y-m-d H:i'),
                     "Places" => $command->placesvendues,
                     "TypeTarif" => $command->typetarif,
-                    "prix" => $tarif,
+                    "Prix" => $tarif,
                 ];
             }
 
