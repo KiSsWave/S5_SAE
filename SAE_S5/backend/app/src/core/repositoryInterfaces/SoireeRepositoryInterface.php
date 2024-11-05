@@ -19,6 +19,7 @@ interface SoireeRepositoryInterface
 
     public function getPanierByUser(string $iduser);
     public function effacerPanierByUserId(string $iduser);
+    public function effacerCommandeByUserId(string $iduser);
 
     public function creerBillet(string $id_acheteur, array $commandesDTO, string $nom): array;
 

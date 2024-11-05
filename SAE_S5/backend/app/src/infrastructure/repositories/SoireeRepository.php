@@ -302,11 +302,6 @@ class SoireeRepository implements SoireeRepositoryInterface
 
     public function creerCommande(string $iduser, string $idsoiree, DateTime $date_achat, int $placesvendues, string $typetarif): void
     {
-        $stmt = $this->pdo->prepare('DELETE FROM Paniers WHERE iduser = :id and idsoiree = :idsoiree');
-        $stmt->execute([
-            'id'=> $iduser,
-            'idsoiree'=> $idsoiree,
-        ]);
         $stmt = $this->pdo->prepare("
         INSERT INTO commandes (iduser, idsoiree, date_achat, placesvendues, typetarif) 
         VALUES (:iduser, :idsoiree, :date_achat, :placesvendues, :typetarif)
