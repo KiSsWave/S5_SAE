@@ -60,11 +60,12 @@
                 <div class="recap box">
                     <h1>Récapitulatif de la commande</h1>
                     <div>
-                        {{#each data}} 
+                        {{#each data.Commandes}} 
                             <div class="group">
                                 <label>Soirée : {{this.Reference}}</label>
                                 <label>Nombre de billets : {{this.Places}}</label>
-                                <label>Tarif : {{this.TypeTarif}} €</label>
+                                <label>Tarif : {{this.TypeTarif}}</label>
+                                <label>Prix : {{this.Prix}} €</label>
                                 <label>Date : {{this.Date}}</label>
                             </div>
                         {{/each}}
