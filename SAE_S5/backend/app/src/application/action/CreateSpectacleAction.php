@@ -21,12 +21,18 @@ class CreateSpectacleAction extends AbstractAction
     {
         $data = $rq->getParsedBody();
 
-        $titre = $data['titre'] ?? null;
-        $descripton = $data['description'] ?? null;
-        $images = $data['images'] ?? null;
-        $url = $data['urlVideo'] ?? null;
-        $style = $data['style'];
-        $horaire = $data['horaire'];
+        $titre = isset($data['titre']) && is_string($data['titre']) && strlen($data['titre']) <= 255 ? $data['titre'] : null;
+        $descripton = isset($data['description']) && is_string($data['description']) ? $data['description'] : null;
+        $images = isset($data['images']) && is_array($data['images']) ? $data['images'] : null;
+        $url = isset($data['urlVideo']) && filter_var($data['urlVideo'], FILTER_VALIDATE_URL) ? $data['urlVideo'] : null;
+        $style = isset($data['style']) && is_string($data['style']) ? $data['style'] : null;
+        $horaire = isset($data['horaire']);
+
+        if (!$titre || !$descripton || !$style || !$horaire) {
+            $rs->getBody()->write(json_encode(['error' => 'Certains champs obligatoires sont manquants ou invalides']));
+            return $rs->withHeader('Content-Type', 'application/json')->withStatus(400);
+        }
+
 
         try{
             $this->spectacleService->ajouterSpectacle($titre,$descripton, $images, $url, $style, $horaire);
